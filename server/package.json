@@ -1,0 +1,36 @@
+{
+  "name": "flavors",
+  "version": "1.0.0",
+  "description": "Flavors backend",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js",
+    "build": "babel src -d dist",
+    "serve": "node dist/index.js",
+    "clean": "rm -rf node_modules/ yarn.lock yarn-error.log && yarn",
+    "heroku-push": "cd ../ && git subtree push --prefix server heroku main || true"
+  },
+  "author": "arsantiagolopez",
+  "license": "ISC",
+  "dependencies": {
+    "argon2": "^0.28.2",
+    "aws-sdk": "^2.988.0",
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.1",
+    "mongoose": "^5.12.14",
+    "mongoose-int32": "^0.5.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.4",
+    "@babel/core": "^7.15.5",
+    "@babel/node": "^7.15.4",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-react": "^7.14.5",
+    "nodemon": "^2.0.7"
+  }
+}
