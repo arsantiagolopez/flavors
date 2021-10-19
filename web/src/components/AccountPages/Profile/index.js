@@ -7,6 +7,7 @@ import {
   Input,
   Link,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -21,7 +22,7 @@ const Profile = ({ user, mutate }) => {
   const [picture, setPicture] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { name, image } = user || {};
+  const { name, image, username, bio } = user || {};
 
   const {
     handleSubmit,
@@ -97,6 +98,22 @@ const Profile = ({ user, mutate }) => {
     }
   );
 
+  const usernameRegister = register(
+    "username",
+    isDirty && {
+      required: "Your username can't be empty.",
+    }
+  );
+
+  const bioRegister = register("bio");
+
+  const addressRegister = register(
+    "username",
+    isDirty && {
+      required: "Your address can't be empty.",
+    }
+  );
+
   const dropzoneFieldProps = { user, mutate, setPicture };
 
   if (userMounted) {
@@ -120,19 +137,17 @@ const Profile = ({ user, mutate }) => {
 
               <Flex {...styles.avatarHeading}>
                 <Heading {...styles.name}>{name}</Heading>
-
                 <Link onClick={openDropzoneFileDialog} {...styles.link}>
                   <Text color="gray.400">Change your profile picture</Text>
                 </Link>
               </Flex>
             </Flex>
 
-            <Flex {...styles.field}>
+            <Flex {...styles.field} marginTop={{ base: "3em", md: "1em" }}>
               <Text {...styles.label}>Name</Text>
-
               <Flex {...styles.value}>
                 <Input
-                  placeholder="Your name"
+                  placeholder={name ? name : "Your name"}
                   defaultValue={name}
                   {...nameRegister}
                   {...styles.input}
@@ -143,6 +158,38 @@ const Profile = ({ user, mutate }) => {
                   <Text {...styles.helper}>
                     You can only change your name twice a month.
                   </Text>
+                )}
+              </Flex>
+            </Flex>
+
+            <Flex {...styles.field}>
+              <Text {...styles.label}>Username</Text>
+              <Flex {...styles.value}>
+                <Input
+                  placeholder={username ? username : "Your username"}
+                  defaultValue={username}
+                  {...usernameRegister}
+                  {...styles.input}
+                />
+                {errors?.name && (
+                  <Text {...styles.error}>{errors?.username?.message}</Text>
+                )}
+              </Flex>
+            </Flex>
+
+            <Flex {...styles.field}>
+              <Text {...styles.label}>Bio</Text>
+              <Flex {...styles.value}>
+                <Textarea
+                  placeholder={
+                    bio ? bio : "What do you want others to know about you?"
+                  }
+                  defaultValue={bio}
+                  {...bioRegister}
+                  {...styles.input}
+                />
+                {errors?.bio && (
+                  <Text {...styles.error}>{errors?.bio?.message}</Text>
                 )}
               </Flex>
             </Flex>
@@ -174,6 +221,7 @@ const styles = {
     direction: "column",
     minHeight: { base: "90vh", md: "80vh" },
     marginBottom: "1em",
+    marginX: { base: "0.5em", md: "0" },
     width: "100%",
   },
   content: {
@@ -184,8 +232,7 @@ const styles = {
   field: {
     direction: { base: "column", md: "row" },
     align: "center",
-    marginX: { base: "0.5em", md: "0" },
-    marginTop: { base: "3em", md: "1em" },
+    marginTop: { base: "1vh", md: "3vh" },
   },
   label: {
     flexBasis: { base: "100%", md: "15%" },
@@ -248,6 +295,7 @@ const styles = {
     display: { base: "none", md: "block" },
   },
   helper: {
+    display: { base: "none", md: "block" },
     color: "gray.400",
     fontSize: "10pt",
     marginTop: "2",
@@ -257,12 +305,11 @@ const styles = {
     spinnerPlacement: "end",
     variant: "solid",
     type: "submit",
-    position: "absolute",
-    bottom: { base: "10%", md: "20%" },
-    width: { base: "calc(100% - 4em)", md: "15%" },
-    paddingY: { base: "1.5em", md: "1.75em" },
+    width: { base: "100%", md: "15%" },
+    paddingY: { base: "1.6em", md: "1.75em" },
     paddingX: "6em",
     borderRadius: { base: "0.5em", md: "0.6em" },
     boxShadow: "2xl",
+    marginTop: { base: "7vh", md: "5vh" },
   },
 };

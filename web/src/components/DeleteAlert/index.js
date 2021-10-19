@@ -99,6 +99,7 @@ const styles = {
     color: "white",
     marginY: { base: "2em", md: "5vh" },
     width: { base: "100%", md: "7em" },
+    paddingY: { base: "1.6em", md: "1.75em" },
     paddingX: "5em",
     boxShadow: "lg",
     _hover: {

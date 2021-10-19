@@ -122,7 +122,6 @@ const styles = {
   field: {
     direction: "column",
     marginY: "2vh",
-    width: "100%",
   },
   text: {
     spacing: "1rem",
@@ -146,7 +145,7 @@ const styles = {
     position: "absolute",
     bottom: { base: "10%", md: "20%" },
     width: { base: "calc(100% - 1em)", md: "15%" },
-    paddingY: { base: "1.5em", md: "1.75em" },
+    paddingY: { base: "1.6em", md: "1.75em" },
     paddingX: "6em",
     borderRadius: { base: "0.5em", md: "0.6em" },
     boxShadow: "2xl",
