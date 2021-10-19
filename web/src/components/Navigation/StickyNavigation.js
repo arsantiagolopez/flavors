@@ -10,7 +10,9 @@ const StickyNavigation = ({ user, isPortrait }) => {
 
   let body;
 
-  if (!user) {
+  const fetchingUser = typeof user === "undefined";
+
+  if (!user && !fetchingUser) {
     body = (
       <Flex>
         <Link href="/signin">
@@ -24,7 +26,7 @@ const StickyNavigation = ({ user, isPortrait }) => {
   }
   // User logged in
   else {
-    body = <ProfileAvatar user={user} />;
+    body = user && <ProfileAvatar user={user} />;
   }
 
   const searchProps = { isSearchFocused, setSearchFocused };
@@ -93,6 +95,6 @@ const styles = {
     height: "100%",
   },
   logo: {
-    paddingRight: "1em",
+    paddingRight: "3",
   },
 };

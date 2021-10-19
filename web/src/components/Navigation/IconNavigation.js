@@ -78,18 +78,9 @@ const styles = {
     width: "100%",
     justify: "space-around",
     align: "center",
-    paddingX: { base: "0", md: "30vw" },
+    paddingX: { base: "0", md: "35vw" },
     background: "rgba(0,0,10, 0.8)",
     backdropFilter: "blur(10px)",
-  },
-  logo: {
-    marginLeft: "-3em",
-    marginRight: "1em",
-    color: "white",
-    fontSize: "18pt",
-    _hover: {
-      color: "gray.800",
-    },
   },
   icon: {
     colorScheme: "white",

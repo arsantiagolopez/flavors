@@ -4,43 +4,48 @@ import {
   InputLeftElement,
   InputRightElement,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { IoCloseSharp, IoSearchSharp } from "react-icons/io5";
 
 // @todo: Set focus to search on isSearchFocused
 
-const ResponsiveSearchIcon = ({ isSearchFocused, setSearchFocused }) => (
-  <InputGroup {...styles.inputGroup} width={isSearchFocused ? "100%" : "0"}>
-    {/* Left search icon */}
-    <InputLeftElement
-      children={<IoSearchSharp {...styles.icon} />}
-      pointerEvents="none"
-      {...styles.element}
-    />
+const ResponsiveSearchIcon = ({ isSearchFocused, setSearchFocused }) => {
+  const inputRef = useRef(null);
 
-    {/* Input */}
-    <Input
-      {...styles.input}
-      placeholder={isSearchFocused && "Search for anything..."}
-      onFocus={() => setSearchFocused(true)}
-      onBlur={() => setSearchFocused(false)}
-      cursor={isSearchFocused ? "text" : "pointer"}
-      // Padding is clickable area of search Icon
-      // Left & right instead of paddingX to override
-      paddingLeft={isSearchFocused ? "2rem" : "1rem"}
-      paddingRight={isSearchFocused ? "2rem" : "1rem"}
-    />
+  const handleFocus = async () => setSearchFocused(true);
+  const handleBlur = () => setSearchFocused(false);
 
-    {/* Show right close icon on focus */}
-    {isSearchFocused && (
-      <InputRightElement
-        children={<IoCloseSharp {...styles.icon} />}
-        onClick={() => setSearchFocused(false)}
+  // Set focus to input onClick
+  useEffect(() => {
+    if (isSearchFocused) inputRef.current.focus();
+  }, [isSearchFocused]);
+
+  return (
+    <InputGroup {...styles.inputGroup} width={isSearchFocused ? "100%" : "0"}>
+      <InputLeftElement
+        onClick={handleFocus}
+        children={<IoSearchSharp {...styles.icon} />}
+        pointerEvents={isSearchFocused ? "none" : "auto"}
         {...styles.element}
       />
-    )}
-  </InputGroup>
-);
+      <Input
+        ref={inputRef}
+        onBlur={handleBlur}
+        placeholder={isSearchFocused ? "Search for anything..." : null}
+        cursor={isSearchFocused ? "text" : "pointer"}
+        paddingX={isSearchFocused ? "2rem" : "0"}
+        {...styles.input}
+      />
+      {isSearchFocused && (
+        <InputRightElement
+          onClick={handleBlur}
+          children={<IoCloseSharp {...styles.icon} />}
+          {...styles.element}
+        />
+      )}
+    </InputGroup>
+  );
+};
 
 export { ResponsiveSearchIcon };
 
