@@ -21,6 +21,28 @@ const UserProfileSchema = new Schema(
     image: {
       type: String,
     },
+    bio: {
+      type: String,
+    },
+    geolocation: {
+      type: { type: String },
+      coordinates: [Number],
+    },
+    address: {
+      type: String,
+    },
+    // Name can only be changed twice a month
+    dateFirstChangeName: {
+      type: Date,
+    },
+    countChangeName: {
+      type: Number,
+      default: 0,
+    },
+    onboardPercentage: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

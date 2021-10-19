@@ -6,11 +6,7 @@ import { EmailSent } from "./EmailSent";
 import { Form } from "./Form";
 
 const BANNER_IMAGE_URL =
-  // "https://images.unsplash.com/photo-1599422281620-143e425acfd9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3300&q=80";
-  // "https://images.pexels.com/photos/7031674/pexels-photo-7031674.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
-  // "https://images.pexels.com/photos/3753025/pexels-photo-3753025.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
-  // "https://images.pexels.com/photos/3530110/pexels-photo-3530110.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
-  "https://images.pexels.com/photos/1959387/pexels-photo-1959387.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+  "https://images.pexels.com/photos/6208084/pexels-photo-6208084.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
 const Signin = ({ providers }) => {
   const [isEmailSent, setIsEmailSent] = useState(false);
@@ -61,7 +57,8 @@ const Signin = ({ providers }) => {
         }}
       >
         <Heading {...styles.title}>
-          Algorithmic <br /> trading.
+          How about
+          <br /> Venezuelan today?
         </Heading>
       </Flex>
     </Flex>

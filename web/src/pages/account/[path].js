@@ -5,7 +5,6 @@ import useSWR from "swr";
 import {
   Delete,
   Email,
-  Investments,
   Notifications,
   Password,
   Privacy,
@@ -35,9 +34,6 @@ const AccountPages = () => {
       title = "My Profile";
       content = <Profile {...commonProps} />;
       break;
-    case "billing":
-      content = <Billing />;
-      break;
     // Security
     case "email":
       content = <Email />;
@@ -49,20 +45,20 @@ const AccountPages = () => {
     case "socials":
       content = <Socials />;
       break;
-    // Investments
+    // Buying
     case "investments":
-      content = <Investments />;
+      // content = <Investments />;
       break;
-    // Referrals
-    case "referrals":
-      content = <Referrals />;
-      break;
+    // Selling
     // Preferences
     case "notifications":
       content = <Notifications />;
       break;
     case "privacy":
       content = <Privacy />;
+      break;
+    case "referrals":
+      content = <Referrals />;
       break;
     case "delete":
       title = "Delete My Data";

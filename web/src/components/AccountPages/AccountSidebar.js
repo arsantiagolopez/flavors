@@ -22,30 +22,34 @@ const AccountSidebar = () => {
       name: "Personal",
       links: [
         { name: "Profile", path: "profile" },
-        // { name: "Billing & plans", path: "billing" },
+        { name: "Payments", path: "payments" }, //
+        { name: "Addresses", path: "addresses" }, //
+        { name: "Reviews", path: "reviews" }, //
       ],
     },
     {
       name: "Security",
       links: [
-        // { name: "Phone & email", path: "email" },
         { name: "Change your password", path: "password" },
-        // { name: "Social media accounts", path: "socials" },
+        { name: "Phone & email", path: "email" }, //
+        { name: "Change your password", path: "password" }, //
+        { name: "Social media accounts", path: "socials" }, //,
       ],
     },
     {
-      name: "Referrals",
+      name: "Buying",
       links: [
-        // { name: "Referrals", path: "referrals" },
+        { name: "Your orders", path: "orders" }, //
+        { name: "Subscriptions", path: "subscriptions" }, //
+        { name: "Coupons", path: "coupons" }, //
       ],
     },
     {
-      name: "Documents",
+      name: "Selling",
       links: [
-        // { name: "Account Statements", path: "statements" },
-        // { name: "Tax Documents", path: "taxes" },
-        { name: "Privacy Policy", path: "../policy" },
-        { name: "Terms and services", path: "../terms" },
+        { name: "Your listings", path: "listings" }, //
+        { name: "Schedule", path: "schedule" }, //
+        { name: "Balance", path: "balance" }, //
       ],
     },
     {
@@ -53,7 +57,10 @@ const AccountSidebar = () => {
       links: [
         // { name: "Notifications", path: "notifications" },
         // { name: "Privacy", path: "privacy" },
+        { name: "Privacy Policy", path: "../policy" },
+        { name: "Terms and services", path: "../terms" },
         { name: "Delete your account", path: "delete" },
+        // { name: "Referrals", path: "referrals" },
       ],
     },
   ];

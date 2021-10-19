@@ -12,11 +12,11 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import {
-  IoAtOutline,
-  IoDocumentTextOutline,
   IoExitOutline,
   IoLockClosedOutline,
   IoPersonOutline,
+  IoPricetagOutline,
+  IoRestaurantOutline,
   IoSettingsOutline,
 } from "react-icons/io5";
 import { useDelay } from "../../utils/useDelay";
@@ -41,33 +41,38 @@ const AccountContent = ({ user }) => {
       icon: IoPersonOutline,
       links: [
         { name: "Profile", path: "profile" },
-        // { name: "Billing & plans", path: "billing" },
+        { name: "Payments", path: "payments" }, //
+        { name: "Addresses", path: "addresses" }, //
+        { name: "Reviews", path: "reviews" }, //
       ],
     },
     {
       name: "Security",
       icon: IoLockClosedOutline,
       links: [
-        // { name: "Phone & email", path: "email" },
         { name: "Change your password", path: "password" },
-        // { name: "Social media accounts", path: "socials" },
+        { name: "Phone & email", path: "email" }, //
+        { name: "Change your password", path: "password" }, //
+        { name: "Social media accounts", path: "socials" }, //
       ],
     },
     {
-      name: "Referrals",
-      icon: IoAtOutline,
+      name: "Buying",
+      icon: IoRestaurantOutline,
+      links: [
+        { name: "Your orders", path: "orders" }, //
+        { name: "Subscriptions", path: "subscriptions" }, //
+        { name: "Coupons", path: "coupons" }, //
+      ],
+    },
+    {
+      name: "Selling",
+      icon: IoPricetagOutline,
       links: [
         // { name: "Referrals", path: "referrals" },
-      ],
-    },
-    {
-      name: "Documents",
-      icon: IoDocumentTextOutline,
-      links: [
-        // { name: "Account Statements", path: "statements" },
-        // { name: "Tax Documents", path: "taxes" },
-        { name: "Privacy Policy", path: "../policy" },
-        { name: "Terms and services", path: "../terms" },
+        { name: "Your listings", path: "listings" }, //
+        { name: "Schedule", path: "schedule" }, //
+        { name: "Balance", path: "balance" }, //
       ],
     },
     {
@@ -76,7 +81,10 @@ const AccountContent = ({ user }) => {
       links: [
         // { name: "Notifications", path: "notifications" },
         // { name: "Privacy", path: "privacy" },
+        { name: "Privacy Policy", path: "../policy" },
+        { name: "Terms and services", path: "../terms" },
         { name: "Delete your account", path: "delete" },
+        // { name: "Referrals", path: "referrals" },
       ],
     },
   ];

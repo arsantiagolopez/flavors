@@ -7,7 +7,6 @@ import { Navigation } from "../Navigation";
 const Layout = ({
   children,
   user,
-  isLanding,
   isAccount,
   isDashboard,
   SidebarComponent,
@@ -15,11 +14,11 @@ const Layout = ({
   const { height, width } = useDimensions();
   const isPortrait = height > width;
 
-  const navigationProps = { user, isLanding, isPortrait };
+  const navigationProps = { user, isPortrait };
   return (
     <Flex {...styles.wrapper}>
       <Navigation {...navigationProps} />
-      {isLanding || isAccount ? (
+      {isAccount ? (
         children
       ) : (
         <Flex {...styles.userContent}>
@@ -52,9 +51,9 @@ const styles = {
     marginX: { base: "1em", md: "20vw" },
   },
   sidebar: {
+    display: { base: "none", md: "flex" },
     position: "sticky",
     top: "10vh",
-    display: { base: "none", md: "flex" },
     height: "90vh",
     overflowY: "auto",
   },

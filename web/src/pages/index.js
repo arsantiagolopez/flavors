@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import useSWR from "swr";
-import { Landing } from "../components/Landing";
+import { DashboardContent } from "../components/Dashboard";
 import { Layout } from "../components/Layout";
 
 const Index = () => {
@@ -9,21 +9,23 @@ const Index = () => {
   const { data } = useSWR(`${CLIENT_URL}/api/auth/session`);
   const { user } = data || {};
 
-  const isLanding = true;
+  const isDashboard = true;
 
-  const layoutProps = { user, isLanding };
+  const layoutProps = { user, isDashboard };
 
   return (
     <>
       <Head>
-        <title>Flavors - Emotionless Trading</title>
+        <title>Flavors - Food Marketplace</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout {...layoutProps}>
-        <Landing />
+        <DashboardContent />
       </Layout>
     </>
   );
 };
+
+Index.isProtected = true;
 
 export default Index;
