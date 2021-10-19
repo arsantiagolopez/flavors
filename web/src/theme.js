@@ -12,6 +12,7 @@ const colors = {
   heading: "rgb(255,255,255)",
   text: "rgba(93,114,144,255)",
   link: "rgba(247, 74, 74, 1)",
+  brand: "#EE1E38",
 };
 
 const fonts = {

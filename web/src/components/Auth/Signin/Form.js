@@ -146,7 +146,7 @@ const styles = {
     paddingY: "3",
   },
   switch: {
-    colorScheme: "green",
+    colorScheme: "red",
     defaultChecked: "true",
     size: "lg",
   },

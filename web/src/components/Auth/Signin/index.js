@@ -1,12 +1,10 @@
-import { Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useDimensions } from "../../../utils/useDimensions";
 import { Logo } from "../../Logo";
 import { EmailSent } from "./EmailSent";
 import { Form } from "./Form";
-
-const BANNER_IMAGE_URL =
-  "https://images.pexels.com/photos/6208084/pexels-photo-6208084.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
 const Signin = ({ providers }) => {
   const [isEmailSent, setIsEmailSent] = useState(false);
@@ -47,19 +45,17 @@ const Signin = ({ providers }) => {
       </Flex>
 
       {/* Desktop banner */}
-      <Flex
-        {...styles.banner}
-        backgroundImage={`url(${BANNER_IMAGE_URL})`}
-        display={{
-          base: "none",
-          // Hide banner on mobile landscape
-          md: screenHeight < 500 ? "none" : "flex",
-        }}
-      >
-        <Heading {...styles.title}>
-          How about
-          <br /> Venezuelan today?
-        </Heading>
+      <Flex {...styles.banner} display={{ base: "none", md: "flex" }}>
+        <Box {...styles.imageWrapper}>
+          <Image
+            src="/images/logo.png"
+            alt="Flavors"
+            layout="fill"
+            objectFit="contain"
+            quality={100}
+            priority="true"
+          />
+        </Box>
       </Flex>
     </Flex>
   );
@@ -95,10 +91,8 @@ const styles = {
     width: "100%",
   },
   logo: {
-    color: "gray.200",
-    fontSize: "18pt",
     paddingY: "3",
-    letterSpacing: "tighter",
+    filter: "brightness(0) opacity(0.2)",
   },
   disclaimer: {
     fontSize: "10pt",
@@ -108,14 +102,11 @@ const styles = {
     flex: 2,
     justify: "center",
     align: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
+    background: "brand",
   },
-  title: {
-    color: "white",
-    letterSpacing: "tight",
-    fontSize: "5vw",
-    textAlign: "center",
+  imageWrapper: {
+    position: "relative",
+    width: "50%",
+    height: "50%",
   },
 };

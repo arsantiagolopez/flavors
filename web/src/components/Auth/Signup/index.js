@@ -1,23 +1,10 @@
-import { Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useDimensions } from "../../../utils/useDimensions";
 import { Logo } from "../../Logo";
 import { Form } from "./Form";
 import { SuccessfulSignupScreen } from "./SuccessfulSignupScreen";
-
-const BANNER_IMAGE_URL =
-  "https://images.unsplash.com/photo-1599422281620-143e425acfd9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3300&q=80";
-// "https://images.pexels.com/photos/7031674/pexels-photo-7031674.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
-// "https://images.pexels.com/photos/3753025/pexels-photo-3753025.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
-// "https://images.pexels.com/photos/3530110/pexels-photo-3530110.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
-// "https://images.pexels.com/photos/1959387/pexels-photo-1959387.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
-
-/**
- *  Sign up index.js points to Form.js, Form.js
- *  then points to GetEmail.js to check if email
- *  is unique and thus available. If it is, Form.js
- *  points to CompleteSignup.js to complete signup
- */
 
 const Signup = ({ providers }) => {
   const [screenHeight, setScreenHeight] = useState(null);
@@ -35,7 +22,6 @@ const Signup = ({ providers }) => {
 
   return (
     <Flex {...styles.wrapper} height={screenHeight}>
-      {/* Content */}
       <Flex {...styles.content}>
         {!isSignupSuccesful ? (
           <Form {...formProps} />
@@ -51,20 +37,17 @@ const Signup = ({ providers }) => {
       </Flex>
 
       {/* Desktop banner */}
-      <Flex
-        {...styles.banner}
-        backgroundImage={`url(${BANNER_IMAGE_URL})`}
-        display={{
-          base: "none",
-          // Hide banner on mobile
-          md: isPortrait ? "none" : "flex",
-        }}
-        height="100%"
-      >
-        <Heading {...styles.title}>
-          Less risk,
-          <br /> Higher returns.
-        </Heading>
+      <Flex {...styles.banner} display={{ base: "none", md: "flex" }}>
+        <Box {...styles.imageWrapper}>
+          <Image
+            src="/images/logo.png"
+            alt="Flavors"
+            layout="fill"
+            objectFit="contain"
+            quality={100}
+            priority="true"
+          />
+        </Box>
       </Flex>
     </Flex>
   );
@@ -100,10 +83,8 @@ const styles = {
     width: "100%",
   },
   logo: {
-    color: "gray.200",
-    fontSize: "18pt",
     paddingY: "3",
-    letterSpacing: "tighter",
+    filter: "brightness(0) opacity(0.2)",
   },
   disclaimer: {
     fontSize: "10pt",
@@ -113,14 +94,11 @@ const styles = {
     flex: 2,
     justify: "center",
     align: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
+    background: "brand",
   },
-  title: {
-    color: "white",
-    letterSpacing: "tight",
-    fontSize: "5vw",
-    textAlign: "center",
+  imageWrapper: {
+    position: "relative",
+    width: "50%",
+    height: "50%",
   },
 };
