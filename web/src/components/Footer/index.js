@@ -4,7 +4,7 @@ import { Logo } from "../Logo";
 
 const Footer = () => (
   <Flex {...styles.wrapper}>
-    <Logo {...styles.logo} />
+    <Logo isWhite={true} />
     <Text {...styles.disclaimer}>All rights reserved 2021</Text>
   </Flex>
 );
@@ -23,11 +23,6 @@ const styles = {
     width: "100%",
     paddingY: "7vh",
     background: "rgba(0,0,10, 0.8)",
-  },
-  logo: {
-    color: "white",
-    fontSize: "18pt",
-    letterSpacing: "tighter",
   },
   disclaimer: {
     fontSize: "10pt",

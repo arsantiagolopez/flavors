@@ -52,7 +52,6 @@ const AccountContent = ({ user }) => {
       links: [
         { name: "Change your password", path: "password" },
         { name: "Phone & email", path: "email" }, //
-        { name: "Change your password", path: "password" }, //
         { name: "Social media accounts", path: "socials" }, //
       ],
     },

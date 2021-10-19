@@ -3,11 +3,12 @@ import Link from "next/link";
 import React from "react";
 import {
   IoFileTrayOutline,
+  IoHeartOutline,
+  IoHomeOutline,
   IoPersonOutline,
+  IoPricetagsOutline,
   IoSearchOutline,
-  IoTrendingUpSharp,
 } from "react-icons/io5";
-import { Logo } from "../Logo";
 
 /**
  * @todo: Show more icons for nav in desktop version
@@ -17,38 +18,52 @@ import { Logo } from "../Logo";
 
 const IconNavigation = ({ user, isPortrait }) => (
   <Flex {...styles.wrapper}>
-    <Flex {...styles.bar}>
-      {!isPortrait && <Logo {...styles.logo} />}
-
-      <Link href="/dashboard">
+    {!isPortrait && (
+      <Link href="/">
         <IconButton
-          aria-label="Dashboard"
-          icon={<IoTrendingUpSharp />}
+          aria-label="Home"
+          icon={<IoHomeOutline />}
           {...styles.icon}
         />
       </Link>
-      <Link href="/explore">
-        <IconButton
-          aria-label="Explore"
-          icon={<IoSearchOutline />}
-          {...styles.icon}
-        />
-      </Link>
-      <Link href="/messages">
-        <IconButton
-          aria-label="Messages"
-          icon={<IoFileTrayOutline />}
-          {...styles.icon}
-        />
-      </Link>
+    )}
+    <Link href="/explore">
+      <IconButton
+        aria-label="Explore"
+        icon={<IoSearchOutline />}
+        {...styles.icon}
+      />
+    </Link>
+    <Link href="/loves">
+      <IconButton
+        aria-label="Loves"
+        icon={<IoHeartOutline />}
+        {...styles.icon}
+      />
+    </Link>
+    <Link href="/messages">
+      <IconButton
+        aria-label="Messages"
+        icon={<IoFileTrayOutline />}
+        {...styles.icon}
+      />
+    </Link>
+    <Link href="/sell">
+      <IconButton
+        aria-label="Sell"
+        icon={<IoPricetagsOutline />}
+        {...styles.icon}
+      />
+    </Link>
+    {!isPortrait && (
       <Link href="/account">
         <IconButton
-          aria-label="My Account"
+          aria-label="Account"
           icon={<IoPersonOutline />}
           {...styles.icon}
         />
       </Link>
-    </Flex>
+    )}
   </Flex>
 );
 
@@ -59,23 +74,13 @@ export { IconNavigation };
 const styles = {
   wrapper: {
     zIndex: "500",
-    position: "sticky",
-    top: "0",
     height: "3em",
-    width: "100%",
-    justify: "center",
-    align: "center",
-    paddingX: { base: "1em", md: "10vw" },
-    background: "rgba(0,0,10, 0.8)",
-    backdropFilter: "blur(10px)",
-  },
-  bar: {
-    position: "relative",
     width: "100%",
     justify: "space-around",
     align: "center",
-    height: "100%",
-    paddingX: { base: "0", md: "35%" },
+    paddingX: { base: "0", md: "30vw" },
+    background: "rgba(0,0,10, 0.8)",
+    backdropFilter: "blur(10px)",
   },
   logo: {
     marginLeft: "-3em",
