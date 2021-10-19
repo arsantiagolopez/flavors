@@ -11,9 +11,9 @@ const JoinusPage = ({ providers }) => {
 
   const router = useRouter();
 
-  // Redirect to /dashboard if logged in
+  // Redirect to / if logged in
   useEffect(() => {
-    if (session) router.push("/dashboard");
+    if (session) router.push("/");
   }, [session]);
 
   const signupProps = { providers };

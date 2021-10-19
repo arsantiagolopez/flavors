@@ -15,7 +15,7 @@ const SuccessfulSignupScreen = () => (
         <Text>Now let's get you started with your application.</Text>
       </Flex>
 
-      <Link href="/dashboard">
+      <Link href="/">
         <Button {...styles.button}>Next</Button>
       </Link>
     </FadeIn>

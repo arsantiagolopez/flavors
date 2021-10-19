@@ -71,7 +71,7 @@ const OAuthOnboard = ({ user }) => {
       if (hasErrors(response)) return;
     }
     // Redirect on success
-    router.push("/dashboard");
+    router.push("/");
   };
 
   // Update height post SSR fetch to allow
@@ -109,7 +109,7 @@ const OAuthOnboard = ({ user }) => {
   // Redirect if
   useEffect(() => {
     if (!someFieldNeeded) {
-      router.push("/dashboard");
+      router.push("/");
     }
   }, [user]);
 

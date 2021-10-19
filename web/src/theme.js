@@ -53,6 +53,11 @@ const components = {
       focusBorderColor: "gray.800",
     },
   },
+  Textarea: {
+    defaultProps: {
+      focusBorderColor: "gray.800",
+    },
+  },
   Heading: {
     baseStyle: {
       color: "gray.800",

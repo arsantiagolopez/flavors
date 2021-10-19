@@ -16,19 +16,22 @@ import { DropzoneField } from "../../../components/DropzoneField";
 import { ReturnHeading } from "../../../components/ReturnHeading";
 import { showToast } from "../../../utils/showToast";
 import { LoadingScreen } from "../../LoadingScreen";
+import { SelectLocation } from "../../SelectLocation";
 
 const Profile = ({ user, mutate }) => {
   const [userMounted, setUserMounted] = useState(false);
   const [picture, setPicture] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { name, image, username, bio } = user || {};
+  const { name, image, username, bio, address } = user || {};
 
   const {
     handleSubmit,
     register,
     setError,
     formState: { errors, isDirty },
+    control,
+    getValues,
   } = useForm();
 
   // Handle update response
@@ -47,6 +50,9 @@ const Profile = ({ user, mutate }) => {
   // Handle submit
   const onSubmit = async (values) => {
     setIsLoading(true);
+
+    console.log("values", values);
+    return;
 
     const response = await axios.put("/api/user/profile", values);
 
@@ -107,14 +113,13 @@ const Profile = ({ user, mutate }) => {
 
   const bioRegister = register("bio");
 
-  const addressRegister = register(
-    "username",
-    isDirty && {
-      required: "Your address can't be empty.",
-    }
-  );
+  const addressRegister = { name: "address", control };
 
   const dropzoneFieldProps = { user, mutate, setPicture };
+
+  useEffect(() => {
+    console.log(getValues());
+  }, [getValues]);
 
   if (userMounted) {
     return (
@@ -187,9 +192,28 @@ const Profile = ({ user, mutate }) => {
                   defaultValue={bio}
                   {...bioRegister}
                   {...styles.input}
+                  spellCheck="true"
                 />
                 {errors?.bio && (
                   <Text {...styles.error}>{errors?.bio?.message}</Text>
+                )}
+              </Flex>
+            </Flex>
+
+            <Flex {...styles.field}>
+              <Text {...styles.label}>Address</Text>
+              <Flex {...styles.value}>
+                <SelectLocation
+                  defaultValue={address}
+                  placeholder={address}
+                  {...addressRegister}
+                />
+                {errors?.address ? (
+                  <Text {...styles.error}>{errors?.address?.message}</Text>
+                ) : (
+                  <Text {...styles.helper}>
+                    Select your address to show sellers near you.
+                  </Text>
                 )}
               </Flex>
             </Flex>
@@ -264,6 +288,7 @@ const styles = {
     width: "100%",
   },
   input: {
+    spellCheck: "false",
     _invalid: {
       borderBottom: `2px solid red`,
     },
