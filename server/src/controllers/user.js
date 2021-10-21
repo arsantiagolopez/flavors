@@ -1,7 +1,32 @@
 import argon2 from "argon2";
 import { Account, Session, TempUser, User, UserProfile } from "../models";
-import { validateName } from "../utils/validateName";
-import { validatePassword } from "../utils/validatePassword";
+import { validateFields } from "../utils/validateFields";
+
+/**
+ * Check if username is available.
+ * @method - GET.
+ * @param {object} req - Http request, including the params.
+ * @param {object} res - Http response.
+ * @returns true if username available, false if not.
+ */
+const getUsernameAvailability = async ({ params }, res) => {
+  const { username } = params;
+  try {
+    const userExists = await User.findOne({ username });
+    if (userExists) {
+      return res.status(200).json({ success: true, available: false });
+    }
+    return res.status(200).json({ success: true, available: true });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: {
+        field: "server",
+        message: "Something went wrong. Please try again later.",
+      },
+    });
+  }
+};
 
 /**
  * Send code to email for confirmation purposes.
@@ -11,10 +36,11 @@ import { validatePassword } from "../utils/validatePassword";
  * @returns an object with a success response.
  */
 const sendSignupCode = async ({ body }, res) => {
+  const DAY_EMAIL_LIMIT = 5;
+  const { email } = body;
+  const lowercaseEmail = email.toLowerCase();
+
   try {
-    const DAY_EMAIL_LIMIT = 5;
-    const { email } = body;
-    const lowercaseEmail = email.toLowerCase();
     const emailExists = await User.findOne({ email: lowercaseEmail });
 
     // Check 1: User with email already exists
@@ -192,12 +218,15 @@ const signup = async ({ body }, res) => {
  * @returns a success boolean response.
  */
 const updateUser = async ({ body, userId }, res) => {
-  try {
-    let { password } = body;
+  let { password, username } = body;
 
+  try {
+    // Validate password
     if (password) {
-      // Validate password
-      const { isValid, message } = validatePassword(password);
+      const { isValid, message } = validateFields({
+        field: "password",
+        value: password,
+      });
 
       if (!isValid) {
         return res
@@ -209,7 +238,21 @@ const updateUser = async ({ body, userId }, res) => {
       body = { ...body, password };
     }
 
-    await User.updateOne({ _id: userId }, body);
+    // Validate username
+    if (username) {
+      const { isValid, message } = validateFields({
+        field: "username",
+        value: username,
+      });
+
+      if (!isValid) {
+        return res
+          .status(200)
+          .json({ success: false, error: { field: "username", message } });
+      }
+    }
+
+    await User.findByIdAndUpdate(userId, body);
 
     return res.status(200).json({ success: true });
   } catch (err) {
@@ -239,7 +282,10 @@ const updateProfile = async ({ body, userId }, res) => {
      */
     if (name) {
       // Validate name
-      const { isValid, message } = validateName(name);
+      const { isValid, message } = validateFields({
+        field: "name",
+        value: name,
+      });
 
       if (!isValid) {
         return res
@@ -260,7 +306,7 @@ const updateProfile = async ({ body, userId }, res) => {
       body.name = `${body.firstName} ${body.lastName}`;
     }
 
-    await UserProfile.updateOne({ userId }, body);
+    await UserProfile.findOneAndUpdate({ userId }, body);
     return res.status(200).json({ success: true, profile: body });
   } catch (err) {
     return res.status(500).json({
@@ -357,6 +403,7 @@ const deleteUser = async ({ userId }, res) => {
 };
 
 export {
+  getUsernameAvailability,
   sendSignupCode,
   resendCode,
   signup,

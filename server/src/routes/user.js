@@ -2,6 +2,7 @@ import Router from "express";
 import {
   changePassword,
   deleteUser,
+  getUsernameAvailability,
   sendSignupCode,
   signup,
   updateProfile,
@@ -10,6 +11,9 @@ import {
 import { isAuthenticated } from "../middleware";
 
 const router = Router();
+
+// Check if username is available
+router.get("/username/:username", getUsernameAvailability);
 
 // Send a code for email sign up
 router.post("/send-code", sendSignupCode);

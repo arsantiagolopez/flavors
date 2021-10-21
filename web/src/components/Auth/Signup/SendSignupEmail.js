@@ -101,7 +101,7 @@ const SendSignupEmail = ({ providers, setIsEmailSent }) => {
               {...styles.social}
               onClick={() =>
                 signIn(id, {
-                  callbackUrl: `${process.env.NEXT_PUBLIC_CLIENT_URL}/dashboard`,
+                  callbackUrl: `${process.env.NEXT_PUBLIC_CLIENT_URL}`,
                 })
               }
               marginBottom={

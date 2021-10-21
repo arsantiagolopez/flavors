@@ -17,6 +17,7 @@ import { ReturnHeading } from "../../../components/ReturnHeading";
 import { showToast } from "../../../utils/showToast";
 import { LoadingScreen } from "../../LoadingScreen";
 import { SelectLocation } from "../../SelectLocation";
+import { UsernameCheck } from "../../UsernameCheck";
 
 const Profile = ({ user, mutate }) => {
   const [userMounted, setUserMounted] = useState(false);
@@ -31,7 +32,6 @@ const Profile = ({ user, mutate }) => {
     setError,
     formState: { errors, isDirty },
     control,
-    getValues,
   } = useForm();
 
   // Handle update response
@@ -48,21 +48,43 @@ const Profile = ({ user, mutate }) => {
   };
 
   // Handle submit
-  const onSubmit = async (values) => {
+  const onSubmit = async ({ address, username, ...values }) => {
     setIsLoading(true);
 
-    console.log("values", values);
-    return;
+    const { longitude, latitude } = address || {};
 
-    const response = await axios.put("/api/user/profile", values);
+    const fields = {
+      ...values,
+      ...(longitude &&
+        latitude && {
+          address: address?.name,
+          geolocation: {
+            type: "Point",
+            coordinates: [longitude, latitude],
+          },
+        }),
+    };
+
+    // Update user model (username)
+    const userResponse = await axios.put("/api/user", { username });
 
     // Handle errors
-    if (hasErrors(response)) {
+    if (hasErrors(userResponse)) {
+      return setIsLoading(false);
+    }
+
+    mutate({ ...user, username });
+
+    // Update profile model (all other fields)
+    const profileResponse = await axios.put("/api/user/profile", fields);
+
+    // Handle errors
+    if (hasErrors(profileResponse)) {
       return setIsLoading(false);
     }
 
     // Instantly update mutated fields for better UX
-    const { profile } = response?.data;
+    const { profile } = profileResponse?.data;
 
     // update the local data immediately, but disable the revalidation
     mutate({ ...user, ...profile });
@@ -104,22 +126,13 @@ const Profile = ({ user, mutate }) => {
     }
   );
 
-  const usernameRegister = register(
-    "username",
-    isDirty && {
-      required: "Your username can't be empty.",
-    }
-  );
+  const usernameRegister = { name: "username", control };
 
   const bioRegister = register("bio");
 
   const addressRegister = { name: "address", control };
 
   const dropzoneFieldProps = { user, mutate, setPicture };
-
-  useEffect(() => {
-    console.log(getValues());
-  }, [getValues]);
 
   if (userMounted) {
     return (
@@ -152,8 +165,8 @@ const Profile = ({ user, mutate }) => {
               <Text {...styles.label}>Name</Text>
               <Flex {...styles.value}>
                 <Input
-                  placeholder={name ? name : "Your name"}
                   defaultValue={name}
+                  placeholder={name ? name : "Your name"}
                   {...nameRegister}
                   {...styles.input}
                 />
@@ -170,13 +183,12 @@ const Profile = ({ user, mutate }) => {
             <Flex {...styles.field}>
               <Text {...styles.label}>Username</Text>
               <Flex {...styles.value}>
-                <Input
-                  placeholder={username ? username : "Your username"}
+                <UsernameCheck
                   defaultValue={username}
+                  placeholder={username ? username : "Your username"}
                   {...usernameRegister}
-                  {...styles.input}
                 />
-                {errors?.name && (
+                {errors?.username && (
                   <Text {...styles.error}>{errors?.username?.message}</Text>
                 )}
               </Flex>
@@ -186,13 +198,15 @@ const Profile = ({ user, mutate }) => {
               <Text {...styles.label}>Bio</Text>
               <Flex {...styles.value}>
                 <Textarea
-                  placeholder={
-                    bio ? bio : "What do you want others to know about you?"
-                  }
+                  spellCheck="true"
                   defaultValue={bio}
+                  placeholder={
+                    bio
+                      ? bio
+                      : "What do you want your customers to know about you?"
+                  }
                   {...bioRegister}
                   {...styles.input}
-                  spellCheck="true"
                 />
                 {errors?.bio && (
                   <Text {...styles.error}>{errors?.bio?.message}</Text>
@@ -205,7 +219,7 @@ const Profile = ({ user, mutate }) => {
               <Flex {...styles.value}>
                 <SelectLocation
                   defaultValue={address}
-                  placeholder={address}
+                  placeholder={address ? address : "Your address"}
                   {...addressRegister}
                 />
                 {errors?.address ? (

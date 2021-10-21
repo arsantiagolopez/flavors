@@ -56,15 +56,19 @@ const SelectLocation = ({ name, control, defaultValue, placeholder }) => {
           ? formatAddress(defaultValue)
           : null
       }
-      placeholder={placeholder ? placeholder : "Your address"}
+      placeholder={placeholder}
       onSuggestSelect={onSuggestSelect}
       location={
-        defaultValue && google
-          ? new google.maps.LatLng(
-              defaultValue.latitute,
-              defaultValue.longitude
-            )
-          : new google.maps.LatLng(31, -100)
+        typeof google !== "undefined"
+          ? defaultValue && google
+            ? new google.maps.LatLng(
+                defaultValue.latitute,
+                defaultValue.longitude
+              )
+            : google
+            ? new google.maps.LatLng(31, -100)
+            : null
+          : null
       }
       radius="20"
       autoComplete="off"

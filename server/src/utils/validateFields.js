@@ -1,7 +1,10 @@
 /**
  *  This method returns an object with two fields, both nullable,
- *  errors and success. Errors returns the field and error message
- *  if field is valid, success boolean returned on success.
+ *  errors and isValid. Errors returns the field and error message
+ *  if field is valid, isValid returns a boolean if valid or not.
+ *  @param {string} field -
+ *  @param {string/object} value -
+ *  @returns and error
  **/
 
 // TODO: Have Karina check english vocab
@@ -14,17 +17,46 @@ const validateFields = ({ field, value }) => {
 
   // Generic error object
   const errorObject = (field, message) => ({
-    errors: {
-      field,
-      message,
-    },
-    success: false,
+    error: { field, message },
+    isValid: false,
   });
 
   switch (field) {
     /*********************************************************************
      *
-     *  Email must be of format:
+     *  Password validation:
+     *  1) is required
+     *  2) Must be at least 5 characters long
+     *  3) Cannot exceed the 50 character length
+     *
+     *********************************************************************/
+
+    case "password":
+      // Field required
+      if (empty) {
+        return errorObject("password", "A password is required.");
+      }
+
+      // Must be at least 5 characters long
+      if (value.length < 5) {
+        return errorObject(
+          "password",
+          "Password must be at least 5 characters long."
+        );
+      }
+      // Hashed passwords roughly double in size
+      // Max space set aside in db is 100
+      if (value.length > 50) {
+        return errorObject("password", "Password too long.");
+      }
+
+      return {
+        isValid: true,
+      };
+
+    /*********************************************************************
+     *
+     *  Email validation:
      *  1) is required
      *  2) cannot include "@ "sign
      *
@@ -44,12 +76,12 @@ const validateFields = ({ field, value }) => {
       }
 
       return {
-        success: true,
+        isValid: true,
       };
 
     /*********************************************************************
      *
-     *  Username must be of format:
+     *  Username validation:
      *    /^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/
      *  Explanation:
      *    a) (?=.{3,20}$) = is 3-20 characters long
@@ -97,23 +129,24 @@ const validateFields = ({ field, value }) => {
       }
 
       return {
-        success: true,
+        isValid: true,
       };
 
     /*********************************************************************
      *
-     *  Full name field constraints:
+     *  Name validation:
      *  1) is required
      *  2) cannot be less than 3 characters
      *  3) cannot exceed the 50 characters
+     *  4) must at least have first and last name.
      *
      ********************************************************************/
 
-    case "fullName":
+    case "name":
       // Field required
       if (empty) {
         return errorObject(
-          "fullName",
+          "name",
           "What's your full name? This field is required."
         );
       }
@@ -122,7 +155,7 @@ const validateFields = ({ field, value }) => {
       isShort = value.length < 3;
       if (isShort) {
         return errorObject(
-          "fullName",
+          "name",
           "Your name must be at least 3 characters long."
         );
       }
@@ -131,18 +164,25 @@ const validateFields = ({ field, value }) => {
       isLong = value.length > 20;
       if (isLong) {
         return errorObject(
-          "fullName",
+          "name",
           "We don't need all your names. Your first and last is fine."
         );
       }
 
+      const words = value.split(" ");
+
+      // Must at least have two names (given and family)
+      if (words.length < 2) {
+        return errorObject("name", "Please input your full legal name.");
+      }
+
       return {
-        success: true,
+        isValid: true,
       };
 
     /*********************************************************************
      *
-     *  Address field constraints:
+     *  Address validation:
      *  1) is required
      *
      ********************************************************************/
@@ -154,7 +194,7 @@ const validateFields = ({ field, value }) => {
       }
 
       return {
-        success: true,
+        isValid: true,
       };
 
     case "picture":
@@ -164,32 +204,32 @@ const validateFields = ({ field, value }) => {
       }
 
       return {
-        success: true,
+        isValid: true,
       };
 
     /*********************************************************************
      *
-     *  Item picture field constraints:
+     *  Item image validation:
      *  1) is required
      *
      ********************************************************************/
 
-    case "itemPicture":
+    case "itemImage":
       // Field required
       if (empty) {
         return errorObject(
-          "picture",
+          "image",
           "The picture sells it. Please add add a picture of your plate."
         );
       }
 
       return {
-        success: true,
+        isValid: true,
       };
 
     /*********************************************************************
      *
-     *  Item name field constraints:
+     *  Item name validation:
      *  1) is required
      *
      ********************************************************************/
@@ -201,7 +241,7 @@ const validateFields = ({ field, value }) => {
       }
 
       return {
-        success: true,
+        isValid: true,
       };
 
     case "price":
@@ -211,12 +251,12 @@ const validateFields = ({ field, value }) => {
       }
 
       return {
-        success: true,
+        isValid: true,
       };
 
     /*********************************************************************
      *
-     *  Description field constraints:
+     *  Description validation:
      *  1) is required
      *
      ********************************************************************/
@@ -228,7 +268,7 @@ const validateFields = ({ field, value }) => {
       }
 
       return {
-        success: true,
+        isValid: true,
       };
 
     // case "address":

@@ -5,7 +5,9 @@ import { Logo } from "../Logo";
 const Footer = () => (
   <Flex {...styles.wrapper}>
     <Logo isWhite={true} {...styles.logo} />
-    <Text {...styles.disclaimer}>All rights reserved 2021</Text>
+    <Text {...styles.disclaimer}>
+      ⓒ {new Date().getFullYear()} Flavors, All rights reserved.
+    </Text>
   </Flex>
 );
 

@@ -24,12 +24,12 @@ const UserProfileSchema = new Schema(
     bio: {
       type: String,
     },
+    address: {
+      type: String,
+    },
     geolocation: {
       type: { type: String },
       coordinates: [Number],
-    },
-    address: {
-      type: String,
     },
     // Name can only be changed twice a month
     dateFirstChangeName: {

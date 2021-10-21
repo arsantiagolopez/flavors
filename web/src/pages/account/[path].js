@@ -20,6 +20,8 @@ const AccountPages = () => {
   const { data, mutate } = useSWR(`${CLIENT_URL}/api/auth/session`);
   const { user } = data || {};
 
+  console.log("user", user);
+
   const router = useRouter();
   const { path } = router?.query;
 

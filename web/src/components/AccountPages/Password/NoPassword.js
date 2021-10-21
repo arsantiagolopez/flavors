@@ -64,7 +64,7 @@ const NoPassword = ({ user, mutate }) => {
   return (
     <Flex {...styles.wrapper}>
       <Flex {...styles.field}>
-        <Heading>Add a password</Heading>
+        <Heading {...styles.heading}>Add a password</Heading>
         <Text {...styles.text}>
           You haven't added a password yet. You'll need one to complete your
           account and make moves.
@@ -75,7 +75,6 @@ const NoPassword = ({ user, mutate }) => {
           <Input
             type="password"
             placeholder="New password"
-            {...styles.input}
             {...passwordRegister}
           />
           {errors.password && (
@@ -86,7 +85,6 @@ const NoPassword = ({ user, mutate }) => {
           <Input
             type="password"
             placeholder="Confirm your password"
-            {...styles.input}
             {...confirmPasswordRegister}
           />
           {errors.confirmPassword && (
@@ -123,15 +121,15 @@ const styles = {
     direction: "column",
     marginY: "2vh",
   },
+  heading: {
+    size: "lg",
+  },
   text: {
     spacing: "1rem",
     colorScheme: "gray",
     display: "inline-block",
     color: "gray.500",
     paddingTop: "1vh",
-  },
-  input: {
-    paddingY: "1.5em",
   },
   error: {
     color: "red.600",
