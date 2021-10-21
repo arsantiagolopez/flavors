@@ -4,6 +4,7 @@ import Head from "next/head";
 import { SWRConfig } from "swr";
 import axios from "../axios";
 import { ProtectedRoute } from "../components/ProtectedRoute";
+import "../components/SearchBar/index.css";
 import "../styles/geosuggest.css";
 import "../styles/globals.css";
 import theme from "../theme";

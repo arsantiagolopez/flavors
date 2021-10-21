@@ -118,7 +118,7 @@ const styles = {
     width: "100%",
     background: "rgba(0,0,10, 0.8)",
     paddingY: { base: "4vh", md: "5vh" },
-    paddingX: { base: "2em", md: "20vw" },
+    paddingX: { base: "2em", md: "30vw" },
   },
   categories: {
     direction: { base: "column", md: "row" },

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import useSWR from "swr";
-import { AccountContent } from "../../components/AccountPages";
+import { AccountContent } from "../../components/AccountContent";
 import { Layout } from "../../components/Layout";
 
 const AccountPage = () => {

@@ -59,5 +59,6 @@ const styles = {
   },
   content: {
     flex: "1 1 70%",
+    direction: "column",
   },
 };

@@ -22,8 +22,8 @@ import {
   Socials,
   Subscriptions,
   Terms,
-} from "../../components/AccountPages";
-import { AccountSidebar as SidebarComponent } from "../../components/AccountPages/AccountSidebar";
+} from "../../components/AccountContent";
+import { AccountSidebar as SidebarComponent } from "../../components/AccountContent/AccountSidebar";
 import { Layout } from "../../components/Layout";
 import { ReturnHeading } from "../../components/ReturnHeading";
 

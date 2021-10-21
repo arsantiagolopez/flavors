@@ -1,7 +1,7 @@
-import { Heading } from "@chakra-ui/react";
 import Head from "next/head";
 import React from "react";
 import useSWR from "swr";
+import { ExploreContent } from "../components/ExploreContent";
 import { Layout } from "../components/Layout";
 
 const Explore = () => {
@@ -18,7 +18,7 @@ const Explore = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout {...layoutProps}>
-        <Heading>Explore</Heading>
+        <ExploreContent />
       </Layout>
     </>
   );
