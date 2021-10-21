@@ -1,9 +1,9 @@
-import { Tab, TabList, Tabs as ChakraTabs } from "@chakra-ui/react";
+import { Tab, TabList, Tabs as Tabs } from "@chakra-ui/react";
 import React, { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import { List } from "./List";
 
-const Tabs = ({ reviews, totalRatings }) => {
+const TypeTabs = ({ reviews, totalRatings }) => {
   const [index, setIndex] = useState(0);
 
   const handleChange = (value) => setIndex(value);
@@ -12,9 +12,8 @@ const Tabs = ({ reviews, totalRatings }) => {
   const listProps = { reviews, totalRatings };
 
   return (
-    <ChakraTabs
+    <Tabs
       onChange={(value) => handleChange(value)}
-      // Hide star bars if no reviews, display call to action below
       display={totalRatings < 1 ? "none" : "flex"}
       {...styles.tabs}
     >
@@ -36,11 +35,11 @@ const Tabs = ({ reviews, totalRatings }) => {
         <List type="buying" {...listProps} />
         <List type="selling" {...listProps} />
       </SwipeableViews>
-    </ChakraTabs>
+    </Tabs>
   );
 };
 
-export { Tabs };
+export { TypeTabs };
 
 // Styles
 
@@ -48,12 +47,12 @@ const styles = {
   tabs: {
     flexDirection: "column",
     variant: "unstyled",
-    marginY: "1em",
+    marginY: "2vh",
   },
   list: {
     display: "flex",
-    marginY: "1em",
-    marginTop: { base: "1em", md: "3em" },
+    marginY: "2vh",
+    marginTop: { base: "1em", md: "5vh" },
   },
   tab: {
     fontSize: "1.5rem",

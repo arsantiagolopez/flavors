@@ -20,38 +20,25 @@ const Overview = ({ starRatings, totalRatings }) => {
   ).toFixed(2);
 
   return (
-    <Flex
-      direction={totalRatings < 1 ? "column" : { base: "column", md: "row" }}
-    >
-      {/* Star reviews heading */}
-      <Flex {...styles.stars}>
-        {/* Number text value */}
+    <Flex {...styles.wrapper} direction={totalRatings < 1 && "column"}>
+      {/* Rating out of 5 and stars */}
+      <Flex {...styles.rating}>
         <Heading>
-          <Flex direction="row" align="baseline">
+          <Flex {...styles.average}>
             <Text fontSize="2em">
               {totalRatings < 1 ? Number(5).toFixed(2) : numberRating}
             </Text>
-
-            {/* Responsive display of "Out of 5" or "/5" */}
-            <Text
-              fontSize="1rem"
-              marginLeft="2"
-              display={{ base: "block", md: "none" }}
-            >
+            <Text {...styles.dividend} {...styles.mobileOnly}>
               out of 5
             </Text>
-            <Text
-              fontSize="1rem"
-              marginLeft="2"
-              display={{ base: "none", md: "block" }}
-            >
+            <Text {...styles.dividend} {...styles.desktopOnly}>
               / 5
             </Text>
           </Flex>
         </Heading>
 
-        {/* Stars icon value */}
-        <Flex {...styles.starsIconValue}>
+        {/* Star icons  */}
+        <Flex {...styles.starIconValue}>
           {
             // Create five light gray stars as containers
             Array(5)
@@ -61,14 +48,14 @@ const Overview = ({ starRatings, totalRatings }) => {
                 <Icon
                   key={index}
                   as={TiStar}
-                  {...styles.star}
                   color={totalRatings < 1 ? "gray.700" : "gray.100"}
+                  {...styles.star}
                 />
               ))
           }
 
           {/* Fill stars with solid color based on rating */}
-          <Flex position="absolute">
+          <Flex {...styles.overlay}>
             {
               // Get floor of float number to fill whole stars
               numberRating > 0 &&
@@ -78,45 +65,40 @@ const Overview = ({ starRatings, totalRatings }) => {
                     <Icon
                       key={index}
                       as={TiStar}
+                      {...styles.icon}
                       {...styles.star}
-                      color="gray.700"
                     />
                   ))
             }
             {
               // Get remaining decimal and fill with full, half or no star
               numberRating % 1 === 0 ? null : numberRating % 1 <= 0.54 ? (
-                <Icon as={TiStarHalf} {...styles.star} color="gray.700" />
+                <Icon as={TiStarHalf} {...styles.icon} {...styles.star} />
               ) : (
-                <Icon as={TiStar} {...styles.star} color="gray.700" />
+                <Icon as={TiStar} {...styles.icon} {...styles.star} />
               )
             }
           </Flex>
         </Flex>
 
-        {/* Summary text value */}
-        <Text marginBottom={{ base: "2em", md: "0" }}>
-          {totalRatings} reviews
-        </Text>
+        <Text {...styles.summary}>{totalRatings} reviews</Text>
       </Flex>
 
-      {/* Individual star bars/rows */}
+      {/* Star bars with percentages */}
       <Flex
         {...styles.bars}
         // Hide star bars if no reviews, display call to action below
         display={totalRatings < 1 ? "none" : "block"}
       >
-        {starRatings.map((row, index) => (
-          <Flex key={index} direction="row" marginY="1">
-            {/* Left side star label */}
-            <Text {...styles.starLabel}>{row.stars}</Text>
-            {/* Star percentage bar*/}
-            <Flex {...styles.barPlaceholder}>
+        {starRatings.map(({ stars, amount }) => (
+          <Flex key={stars} {...styles.bar}>
+            <Text {...styles.left}>{stars}</Text>
+            <Flex {...styles.right}>
               <Box
-                {...styles.barFilled}
-                width={`${(row.amount / totalRatings) * 100}%`}
+                {...styles.fill}
+                width={`${(amount / totalRatings) * 100}%`}
               />
-              <Text {...styles.barAmountHelper}>{`(${row.amount})`}</Text>
+              <Text {...styles.amount}>{`(${amount})`}</Text>
             </Flex>
           </Flex>
         ))}
@@ -128,10 +110,8 @@ const Overview = ({ starRatings, totalRatings }) => {
         // Hide star bars if no reviews, display call to action below
         display={totalRatings < 1 ? "block" : "none"}
       >
-        <Heading color="gray.700" paddingBottom="2">
-          Do it right.
-        </Heading>
-        <Text color="gray.500">
+        <Heading {...styles.primary}>Do it right.</Heading>
+        <Text {...styles.secondary}>
           You only have one chance to make a first good impression. Ratings is
           how others see you. Be nice, respectful and keep those reviews high.
           Make your first sell or purchase to update your review.
@@ -146,43 +126,72 @@ export { Overview };
 // Styles
 
 const styles = {
-  wrapper: {},
-  stars: {
+  wrapper: {
+    direction: { base: "column", md: "row" },
+  },
+  rating: {
     width: "100%",
     direction: "column",
     basis: { base: "0", md: "40%" },
   },
-  starsIconValue: {
+  average: {
+    direction: "row",
+    align: "baseline",
+  },
+  mobileOnly: {
+    display: { base: "block", md: "none" },
+  },
+  desktopOnly: {
+    display: { base: "none", md: "block" },
+  },
+  dividend: {
+    fontSize: "1rem",
+    marginLeft: "2",
+  },
+  starIconValue: {
     direction: "row",
     width: "100%",
     marginTop: "0",
-    marginBottom: "1em",
+    marginBottom: { base: "1em", md: "2vh" },
+  },
+  icon: {
+    color: "gray.700",
   },
   star: {
     fontSize: "2.5em",
     marginRight: "-2",
   },
+  overlay: {
+    position: "absolute",
+  },
+  summary: {
+    marginBottom: { base: "2em", md: "0" },
+  },
   bars: {
     direction: "column",
     width: "100%",
   },
-  starLabel: {
+  bar: {
+    direction: "row",
+    marginY: "1",
+  },
+  left: {
     flexBasis: { base: "30%", md: "20%" },
-    paddingRight: { base: "3", md: "2em" },
+    paddingRight: { base: "3", md: "2vw" },
     textAlign: { base: "left", md: "right" },
   },
-  barPlaceholder: {
+  right: {
     width: "100%",
     bg: "gray.100",
     borderRadius: "2px",
     _hover: { bg: "gray.200" },
   },
-  barFilled: {
+  fill: {
     bg: "gray.300",
     borderRadius: "2px",
     _hover: { bg: "gray.500" },
   },
-  barAmountHelper: {
+  amount: {
     position: "absolute",
     marginLeft: "2",
     marginTop: "1",
@@ -191,7 +200,13 @@ const styles = {
   },
   callToAction: {
     direction: "column",
-    marginY: { base: "0", md: "2em" },
-    paddingY: "2em",
+    marginY: { base: "3vh", md: "5vh" },
+  },
+  primary: {
+    color: "gray.700",
+    paddingBottom: "2",
+  },
+  secondary: {
+    color: "gray.500",
   },
 };

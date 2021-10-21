@@ -1,15 +1,15 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
 import { Overview } from "./Overview";
-import { Tabs } from "./Tabs";
+import { TypeTabs } from "./TypeTabs";
 
 const Reviews = () => {
   const starRatings = [
-    { stars: "5 star", amount: 1 || 0 },
+    { stars: "5 star", amount: 2 || 0 },
     { stars: "4 star", amount: null || 0 },
-    { stars: "3 star", amount: null || 0 },
+    { stars: "3 star", amount: 2 || 0 },
     { stars: "2 star", amount: null || 0 },
-    { stars: "1 star", amount: null || 0 },
+    { stars: "1 star", amount: 1 || 0 },
   ];
 
   const userReviews = [
@@ -60,7 +60,7 @@ const Reviews = () => {
   const totalRatings = starRatings.reduce((a, b) => a + b.amount, 0);
 
   const overviewProps = { starRatings, totalRatings };
-  const listProps = { totalRatings, reviews: userReviews };
+  const typeTabsProps = { totalRatings, reviews: userReviews };
 
   return (
     <Flex {...styles.wrapper}>
@@ -68,7 +68,7 @@ const Reviews = () => {
       <Overview {...overviewProps} />
 
       {/* List of reviews */}
-      <Tabs {...listProps} />
+      <TypeTabs {...typeTabsProps} />
     </Flex>
   );
 };
