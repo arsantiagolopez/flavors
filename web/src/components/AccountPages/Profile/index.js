@@ -13,7 +13,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "../../../axios";
 import { DropzoneField } from "../../../components/DropzoneField";
-import { ReturnHeading } from "../../../components/ReturnHeading";
 import { showToast } from "../../../utils/showToast";
 import { LoadingScreen } from "../../LoadingScreen";
 import { SelectLocation } from "../../SelectLocation";
@@ -137,110 +136,106 @@ const Profile = ({ user, mutate }) => {
   if (userMounted) {
     return (
       <Flex {...styles.wrapper}>
-        <ReturnHeading heading="Profile" />
-
-        <Flex {...styles.content}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Flex {...styles.field} marginTop={{ base: "3em", md: "0" }}>
-              <DropzoneField
-                ref={dropzoneRef}
-                {...dropzoneFieldProps}
-                {...styles.label}
-                {...styles.dropzone}
-              >
-                <AspectRatio {...styles.aspect}>
-                  <Avatar src={picture} name={name} {...styles.image} />
-                </AspectRatio>
-              </DropzoneField>
-
-              <Flex {...styles.avatarHeading}>
-                <Heading {...styles.name}>{name}</Heading>
-                <Link onClick={openDropzoneFileDialog} {...styles.link}>
-                  <Text color="gray.400">Change your profile picture</Text>
-                </Link>
-              </Flex>
-            </Flex>
-
-            <Flex {...styles.field} marginTop={{ base: "3em", md: "1em" }}>
-              <Text {...styles.label}>Name</Text>
-              <Flex {...styles.value}>
-                <Input
-                  defaultValue={name}
-                  placeholder={name ? name : "Your name"}
-                  {...nameRegister}
-                  {...styles.input}
-                />
-                {errors?.name ? (
-                  <Text {...styles.error}>{errors?.name?.message}</Text>
-                ) : (
-                  <Text {...styles.helper}>
-                    You can only change your name twice a month.
-                  </Text>
-                )}
-              </Flex>
-            </Flex>
-
-            <Flex {...styles.field}>
-              <Text {...styles.label}>Username</Text>
-              <Flex {...styles.value}>
-                <UsernameCheck
-                  defaultValue={username}
-                  placeholder={username ? username : "Your username"}
-                  {...usernameRegister}
-                />
-                {errors?.username && (
-                  <Text {...styles.error}>{errors?.username?.message}</Text>
-                )}
-              </Flex>
-            </Flex>
-
-            <Flex {...styles.field}>
-              <Text {...styles.label}>Bio</Text>
-              <Flex {...styles.value}>
-                <Textarea
-                  spellCheck="true"
-                  defaultValue={bio}
-                  placeholder={
-                    bio
-                      ? bio
-                      : "What do you want your customers to know about you?"
-                  }
-                  {...bioRegister}
-                  {...styles.input}
-                />
-                {errors?.bio && (
-                  <Text {...styles.error}>{errors?.bio?.message}</Text>
-                )}
-              </Flex>
-            </Flex>
-
-            <Flex {...styles.field}>
-              <Text {...styles.label}>Address</Text>
-              <Flex {...styles.value}>
-                <SelectLocation
-                  defaultValue={address}
-                  placeholder={address ? address : "Your address"}
-                  {...addressRegister}
-                />
-                {errors?.address ? (
-                  <Text {...styles.error}>{errors?.address?.message}</Text>
-                ) : (
-                  <Text {...styles.helper}>
-                    Select your address to show sellers near you.
-                  </Text>
-                )}
-              </Flex>
-            </Flex>
-
-            <Button
-              display={isDirty ? "flex" : "none"}
-              isLoading={isLoading}
-              {...styles.button}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Flex {...styles.field} marginTop={{ base: "3em", md: "0" }}>
+            <DropzoneField
+              ref={dropzoneRef}
+              {...dropzoneFieldProps}
+              {...styles.label}
+              {...styles.dropzone}
             >
-              Save Changes
-            </Button>
-          </form>
-        </Flex>
+              <AspectRatio {...styles.aspect}>
+                <Avatar src={picture} name={name} {...styles.image} />
+              </AspectRatio>
+            </DropzoneField>
+
+            <Flex {...styles.avatarHeading}>
+              <Heading {...styles.name}>{name}</Heading>
+              <Link onClick={openDropzoneFileDialog} {...styles.link}>
+                <Text color="gray.400">Change your profile picture</Text>
+              </Link>
+            </Flex>
+          </Flex>
+
+          <Flex {...styles.field} marginTop={{ base: "3em", md: "1em" }}>
+            <Text {...styles.label}>Name</Text>
+            <Flex {...styles.value}>
+              <Input
+                defaultValue={name}
+                placeholder={name ? name : "Your name"}
+                {...nameRegister}
+                {...styles.input}
+              />
+              {errors?.name ? (
+                <Text {...styles.error}>{errors?.name?.message}</Text>
+              ) : (
+                <Text {...styles.helper}>
+                  You can only change your name twice a month.
+                </Text>
+              )}
+            </Flex>
+          </Flex>
+
+          <Flex {...styles.field}>
+            <Text {...styles.label}>Username</Text>
+            <Flex {...styles.value}>
+              <UsernameCheck
+                defaultValue={username}
+                placeholder={username ? username : "Your username"}
+                {...usernameRegister}
+              />
+              {errors?.username && (
+                <Text {...styles.error}>{errors?.username?.message}</Text>
+              )}
+            </Flex>
+          </Flex>
+
+          <Flex {...styles.field}>
+            <Text {...styles.label}>Bio</Text>
+            <Flex {...styles.value}>
+              <Textarea
+                spellCheck="true"
+                defaultValue={bio}
+                placeholder={
+                  bio
+                    ? bio
+                    : "What do you want your customers to know about you?"
+                }
+                {...bioRegister}
+                {...styles.input}
+              />
+              {errors?.bio && (
+                <Text {...styles.error}>{errors?.bio?.message}</Text>
+              )}
+            </Flex>
+          </Flex>
+
+          <Flex {...styles.field}>
+            <Text {...styles.label}>Address</Text>
+            <Flex {...styles.value}>
+              <SelectLocation
+                defaultValue={address}
+                placeholder={address ? address : "Your address"}
+                {...addressRegister}
+              />
+              {errors?.address ? (
+                <Text {...styles.error}>{errors?.address?.message}</Text>
+              ) : (
+                <Text {...styles.helper}>
+                  Select your address to show sellers near you.
+                </Text>
+              )}
+            </Flex>
+          </Flex>
+
+          <Button
+            display={isDirty ? "flex" : "none"}
+            isLoading={isLoading}
+            {...styles.button}
+          >
+            Save Changes
+          </Button>
+        </form>
       </Flex>
     );
   }
@@ -255,17 +250,9 @@ export { Profile };
 
 const styles = {
   wrapper: {
-    position: "relative",
     direction: "column",
-    minHeight: { base: "90vh", md: "80vh" },
-    marginBottom: "1em",
-    marginX: { base: "0.5em", md: "0" },
-    width: "100%",
-  },
-  content: {
-    direction: "column",
-    width: "100%",
-    marginY: "2em",
+    paddingY: { base: "2em", md: "5vh" },
+    paddingX: { base: "0.5em", md: "0" },
   },
   field: {
     direction: { base: "column", md: "row" },

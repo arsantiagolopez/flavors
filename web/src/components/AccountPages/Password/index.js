@@ -1,6 +1,5 @@
-import { Flex, Spinner } from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/react";
 import React from "react";
-import { ReturnHeading } from "../../../components/ReturnHeading";
 import { HasPassword } from "./HasPassword";
 import { NoPassword } from "./NoPassword";
 
@@ -9,22 +8,18 @@ const Password = ({ user, mutate }) => {
 
   const passwordProps = { user, mutate };
 
-  return (
-    <Flex {...styles.wrapper}>
-      <ReturnHeading heading="Change Your Password" />
+  if (!user) {
+    return <Spinner {...styles.spinner} />;
+  }
 
-      {user ? (
-        <>
-          {hasPassword ? (
-            <HasPassword {...passwordProps} />
-          ) : (
-            <NoPassword {...passwordProps} />
-          )}
-        </>
+  return (
+    <>
+      {hasPassword ? (
+        <HasPassword {...passwordProps} />
       ) : (
-        <Spinner {...styles.spinner} />
+        <NoPassword {...passwordProps} />
       )}
-    </Flex>
+    </>
   );
 };
 
@@ -33,13 +28,6 @@ export { Password };
 // Styles
 
 const styles = {
-  wrapper: {
-    position: "relative",
-    direction: "column",
-    minHeight: { base: "90vh", md: "80vh" },
-    marginBottom: "1em",
-    width: "100%",
-  },
   spinner: {
     alignSelf: "center",
     marginTop: "15vh",

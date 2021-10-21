@@ -1,11 +1,11 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
 
-const Socials = () => {
+const Payments = () => {
   return <Flex {...styles.wrapper}></Flex>;
 };
 
-export { Socials };
+export { Payments };
 
 // Styles
 

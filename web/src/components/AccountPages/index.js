@@ -21,14 +21,24 @@ import {
 } from "react-icons/io5";
 import { useDelay } from "../../utils/useDelay";
 import { ReturnHeading } from "../ReturnHeading";
+import { Addresses } from "./Addresses";
+import { Balance } from "./Balance";
+import { Coupons } from "./Coupons";
 import { Delete } from "./Delete";
 import { Email } from "./Email";
+import { Listings } from "./Listings";
 import { Notifications } from "./Notifications";
+import { Orders } from "./Orders";
 import { Password } from "./Password";
+import { Payments } from "./Payments";
 import { Privacy } from "./Privacy";
 import { Profile } from "./Profile";
 import { Referrals } from "./Referrals";
+import { Reviews } from "./Reviews";
+import { Schedule } from "./Schedule";
 import { Socials } from "./Socials";
+import { Subscriptions } from "./Subscriptions";
+import { Terms } from "./Terms";
 
 const AccountContent = ({ user }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -68,7 +78,6 @@ const AccountContent = ({ user }) => {
       name: "Selling",
       icon: IoPricetagOutline,
       links: [
-        // { name: "Referrals", path: "referrals" },
         { name: "Your listings", path: "listings" }, //
         { name: "Schedule", path: "schedule" }, //
         { name: "Balance", path: "balance" }, //
@@ -78,10 +87,9 @@ const AccountContent = ({ user }) => {
       name: "Preferences",
       icon: IoSettingsOutline,
       links: [
-        // { name: "Notifications", path: "notifications" },
-        // { name: "Privacy", path: "privacy" },
-        { name: "Privacy Policy", path: "../policy" },
-        { name: "Terms and services", path: "../terms" },
+        { name: "Notifications", path: "notifications" },
+        { name: "Privacy Policy", path: "privacy" },
+        { name: "Terms and services", path: "terms" },
         { name: "Delete your account", path: "delete" },
         // { name: "Referrals", path: "referrals" },
       ],
@@ -180,6 +188,16 @@ export {
   Profile,
   Referrals,
   Socials,
+  Payments,
+  Addresses,
+  Reviews,
+  Orders,
+  Subscriptions,
+  Coupons,
+  Listings,
+  Schedule,
+  Balance,
+  Terms,
 };
 
 // Styles

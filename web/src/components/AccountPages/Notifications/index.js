@@ -1,19 +1,8 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Flex, Heading } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { Flex } from "@chakra-ui/react";
 import React from "react";
 
 const Notifications = () => {
-  const router = useRouter();
-
-  return (
-    <Flex {...styles.wrapper}>
-      <Flex {...styles.top}>
-        <ArrowBackIcon onClick={() => router.back()} {...styles.backIcon} />
-        <Heading {...styles.heading}>Notifications</Heading>
-      </Flex>
-    </Flex>
-  );
+  return <Flex {...styles.wrapper}></Flex>;
 };
 
 export { Notifications };
@@ -23,22 +12,7 @@ export { Notifications };
 const styles = {
   wrapper: {
     direction: "column",
-  },
-  top: {
-    display: { base: "flex", md: "none" },
-    direction: "row",
-    justify: "center",
-    align: "center",
-    marginTop: "1em",
-  },
-  backIcon: {
-    position: "absolute",
-    left: "0",
-    marginLeft: "0.5em",
-    fontSize: "3xl",
-    cursor: "pointer",
-  },
-  heading: {
-    fontSize: "2xl",
+    paddingY: { base: "2em", md: "5vh" },
+    paddingX: { base: "0.5em", md: "0" },
   },
 };

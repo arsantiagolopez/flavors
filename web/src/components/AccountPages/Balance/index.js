@@ -1,11 +1,14 @@
 import { Flex } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React from "react";
 
-const Socials = () => {
+const Balance = () => {
+  const router = useRouter();
+
   return <Flex {...styles.wrapper}></Flex>;
 };
 
-export { Socials };
+export { Balance };
 
 // Styles
 

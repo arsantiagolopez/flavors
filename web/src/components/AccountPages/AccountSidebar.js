@@ -54,10 +54,9 @@ const AccountSidebar = () => {
     {
       name: "Preferences",
       links: [
-        // { name: "Notifications", path: "notifications" },
-        // { name: "Privacy", path: "privacy" },
-        { name: "Privacy Policy", path: "../policy" },
-        { name: "Terms and services", path: "../terms" },
+        { name: "Notifications", path: "notifications" },
+        { name: "Privacy policy", path: "privacy" },
+        { name: "Terms and services", path: "terms" },
         { name: "Delete your account", path: "delete" },
         // { name: "Referrals", path: "referrals" },
       ],
