@@ -88,7 +88,7 @@ const CustomMongoDbAdapter = (options) => {
       return from(user);
     },
     async updateUser(data) {
-      const { value: user } = await User.findOneAndUpdate(
+      const { value: user } = await User.updateOne(
         { _id: _id(data.id) },
         { $set: data }
       );
@@ -109,7 +109,7 @@ const CustomMongoDbAdapter = (options) => {
       return account;
     },
     async unlinkAccount(provider_providerAccountId) {
-      const { value: account } = await Account.findOneAndDelete(
+      const { value: account } = await Account.deleteOne(
         provider_providerAccountId
       );
       return from(account);
@@ -141,14 +141,14 @@ const CustomMongoDbAdapter = (options) => {
       return from(session);
     },
     async updateSession(data) {
-      const { value: session } = await Session.findOneAndUpdate(
+      const { value: session } = await Session.updateOne(
         { sessionToken: data.sessionToken },
         { $set: data }
       );
       return from(session);
     },
     async deleteSession(sessionToken) {
-      const { value: session } = await Session.findOneAndDelete({
+      const { value: session } = await Session.deleteOne({
         sessionToken,
       });
       return from(session);
@@ -158,8 +158,9 @@ const CustomMongoDbAdapter = (options) => {
       return data;
     },
     async useVerificationToken(identifier_token) {
-      const { value: verificationToken } =
-        await VerificationToken.findOneAndDelete(identifier_token);
+      const { value: verificationToken } = await VerificationToken.deleteOne(
+        identifier_token
+      );
       if (!verificationToken) return null;
       // @ts-expect-error
       delete verificationToken._id;

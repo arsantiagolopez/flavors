@@ -306,7 +306,7 @@ const updateProfile = async ({ body, userId }, res) => {
       body.name = `${body.firstName} ${body.lastName}`;
     }
 
-    await UserProfile.findOneAndUpdate({ userId }, body);
+    await UserProfile.updateOne({ userId }, body);
     return res.status(200).json({ success: true, profile: body });
   } catch (err) {
     return res.status(500).json({

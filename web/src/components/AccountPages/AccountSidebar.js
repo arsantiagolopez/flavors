@@ -171,7 +171,7 @@ const styles = {
     },
   },
   logout: {
-    paddingY: "0.75em",
+    paddingY: "5vh",
     paddingBottom: "2em",
     color: "red.800",
     cursor: "pointer",
