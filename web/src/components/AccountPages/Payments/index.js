@@ -62,7 +62,7 @@ const Payments = () => {
       </Flex>
 
       <Button {...styles.addCardButton}>
-        <Flex {...styles.left} textAlign={{ base: "center", md: "right" }}>
+        <Flex {...styles.left}>
           <Icon as={IoAddSharp} {...styles.icon} fontSize="1em" />
         </Flex>
         <Flex width="100%" color="gray.400">
@@ -85,10 +85,6 @@ const styles = {
     direction: "column",
     paddingY: { base: "2em", md: "5vh" },
     paddingX: "0",
-    // marginX: "auto",
-    // minHeight: { base: "80vh", md: "80vh" },
-    // paddingTop: { base: "0", md: "1em" },
-    // marginBottom: "1em",
     grow: "1",
     align: "space-between",
   },
@@ -103,8 +99,7 @@ const styles = {
     align: "center",
     fontWeight: "normal",
     borderBottom: "0.5px solid rgba(150,150,150,0.1)",
-    paddingTop: { base: "2em", md: "5vh" },
-    paddingBottom: { base: "2em", md: "5vh" },
+    paddingY: { base: "2em", md: "5vh" },
   },
   left: {
     justify: { base: "flex-start", md: "center" },
