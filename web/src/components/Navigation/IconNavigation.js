@@ -78,7 +78,7 @@ const styles = {
     width: "100%",
     justify: "space-around",
     align: "center",
-    paddingX: { base: "0", md: "35vw" },
+    paddingX: { base: "0", md: "30vw" },
     background: "rgba(0,0,10, 0.8)",
     backdropFilter: "blur(10px)",
   },
