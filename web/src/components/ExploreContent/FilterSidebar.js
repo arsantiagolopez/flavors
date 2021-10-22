@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { IoLocationSharp } from "react-icons/io5";
 import { DeliveryOrPickup } from "./Filters/DeliveryOrPickup";
+import { Dietary } from "./Filters/Dietary";
 import { Nationality } from "./Filters/Nationality";
 import { PriceRange } from "./Filters/PriceRange";
 import { SortBy } from "./Filters/Sortby";
@@ -44,7 +45,7 @@ const FilterSidebar = ({ user, setSearchValue }) => {
     {
       id: "dietary",
       name: "Dietary",
-      children: null,
+      children: <Dietary />,
     },
     {
       id: "nationality",
