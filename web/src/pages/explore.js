@@ -16,8 +16,10 @@ const Explore = () => {
   const router = useRouter();
 
   const isExplore = true;
-  const hideSidebar =
-    (searchValue === "" || searchValue === null) && !router?.query?.search;
+  // const hideSidebar =
+  //   (searchValue === "" || searchValue === null) && !router?.query?.search;
+
+  const hideSidebar = searchValue === "" || searchValue === null;
 
   const filterSidebarProps = {
     hidden: hideSidebar ? true : false,

@@ -96,6 +96,7 @@ const SearchBar = ({
         />
         <Input
           placeholder={suggestion !== "" ? `${suggestion}...` : "Explore..."}
+          value={searchValue ? searchValue : null}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           onFocus={() => setSearchFocused(true)}
