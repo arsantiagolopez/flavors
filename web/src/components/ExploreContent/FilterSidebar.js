@@ -8,86 +8,76 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { Nationality } from "./Filters/Nationality";
 
 const FilterSidebar = ({ setSearchValue }) => {
-  const [accordionIndex, setAccordionIndex] = useState(null);
   const router = useRouter();
-  const { path } = router?.query;
+  const { search } = router?.query;
 
-  // Keep synced with AccountPages's categories
-  const categories = [
+  const filters = [
     {
-      name: "Personal",
-      links: [
-        { name: "Profile", path: "profile" },
-        { name: "Payments", path: "payments" }, //
-        { name: "Addresses", path: "addresses" }, //
-        { name: "Reviews", path: "reviews" }, //
-      ],
+      id: "sort",
+      name: "Sort by",
+      children: null,
     },
     {
-      name: "Security",
-      links: [
-        { name: "Change your password", path: "password" },
-        { name: "Phone & email", path: "email" }, //
-        { name: "Social media accounts", path: "socials" }, //,
-      ],
+      id: "price",
+      name: "Price range",
+      children: null,
     },
     {
-      name: "Buying",
-      links: [
-        { name: "Your orders", path: "orders" }, //
-        { name: "Subscriptions", path: "subscriptions" }, //
-        { name: "Coupons", path: "coupons" }, //
-      ],
+      id: "delivery",
+      name: "Delivery or pickup",
+      children: null,
     },
     {
-      name: "Selling",
-      links: [
-        { name: "Your listings", path: "listings" }, //
-        { name: "Schedule", path: "schedule" }, //
-        { name: "Balance", path: "balance" }, //
-      ],
+      id: "dietary",
+      name: "Dietary",
+      children: null,
     },
     {
-      name: "Preferences",
-      links: [
-        { name: "Notifications", path: "notifications" },
-        { name: "Privacy policy", path: "privacy" },
-        { name: "Terms and services", path: "terms" },
-        { name: "Delete your account", path: "delete" },
-        // { name: "Referrals", path: "referrals" },
-      ],
+      id: "nationality",
+      name: "Nationality",
+      children: <Nationality />,
     },
   ];
 
+  // // Keep synced with AccountPages's categories
+  // const categories = [
+  //   {
+  //     name: "Personal",
+  //     links: [
+  //       { name: "Profile", path: "profile" },
+  //       { name: "Payments", path: "payments" }, //
+  //       { name: "Addresses", path: "addresses" }, //
+  //       { name: "Reviews", path: "reviews" }, //
+  //     ],
+  //   },
+
   useEffect(() => {
-    if (path) {
-      const categoryIndex = categories.findIndex(({ links }) =>
-        links.some((link) => link?.path === path)
-      );
-      setAccordionIndex([categoryIndex]);
+    if (search) {
+      // const categoryIndex = categories.findIndex(({ links }) =>
+      //   links.some((link) => link?.path === path)
+      // );
+      // setAccordionIndex([categoryIndex]);
+
+      console.log("foo", search);
     }
-  }, [path]);
+  }, [search]);
 
   return (
     <Flex {...styles.wrapper}>
       <Text onClick={() => setSearchValue(null)} {...styles.button}>
         <ArrowBackIcon marginRight="3" />
-        Back to suggestions
+        Back to featured
       </Text>
-      <Text {...styles.notice}>Categories</Text>
-      <Accordion
-        index={accordionIndex}
-        onChange={(index) => setAccordionIndex(index)}
-        allowToggle
-      >
-        {categories?.map(({ name, links }, index) => {
+      <Text {...styles.notice}>Filters</Text>
+      <Accordion defaultIndex={[0, 1, 2, 3, 4, 5]} allowMultiple allowToggle>
+        {filters?.map(({ id, name, children }) => {
           return (
-            <AccordionItem key={index} {...styles.links}>
+            <AccordionItem key={id} {...styles.filters}>
               {({ isExpanded }) => (
                 <>
                   <AccordionButton
@@ -99,20 +89,7 @@ const FilterSidebar = ({ setSearchValue }) => {
                   </AccordionButton>
 
                   <AccordionPanel {...styles.panel}>
-                    <Flex direction="column">
-                      {links.map(({ name: link, path: pathname }) => {
-                        return (
-                          <Link key={pathname} href={pathname}>
-                            <Text
-                              fontWeight={pathname === path && "bold"}
-                              {...styles.link}
-                            >
-                              {link}
-                            </Text>
-                          </Link>
-                        );
-                      })}
-                    </Flex>
+                    <Flex {...styles.children}>{children}</Flex>
                   </AccordionPanel>
                 </>
               )}
@@ -120,8 +97,6 @@ const FilterSidebar = ({ setSearchValue }) => {
           );
         })}
       </Accordion>
-
-      <Text {...styles.logout}>Log out</Text>
     </Flex>
   );
 };
@@ -144,7 +119,7 @@ const styles = {
     letterSpacing: "widest",
     paddingY: "0.75em",
   },
-  links: {
+  filters: {
     display: "flex",
     flexDirection: "column",
     border: "none",
@@ -167,23 +142,9 @@ const styles = {
     marginLeft: "0.5",
     paddingY: "0",
   },
-  link: {
+  children: {
+    direction: "column",
     paddingY: "0.5em",
     cursor: "pointer",
-    _hover: {
-      fontWeight: "bold",
-      letterSpacing: "tight",
-    },
-  },
-  logout: {
-    paddingY: "5vh",
-    paddingBottom: "2em",
-    color: "red.800",
-    cursor: "pointer",
-    fontWeight: "bold",
-    _hover: {
-      fontWeight: "extrabold",
-      letterSpacing: "tight",
-    },
   },
 };

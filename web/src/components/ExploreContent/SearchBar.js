@@ -8,24 +8,36 @@ import {
   InputRightElement,
   Spinner,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
 import { useDelay } from "../../utils/useDelay";
 
-const SearchBar = ({ searchValue, setSearchValue }) => {
+const SearchBar = ({
+  searchValue,
+  setSearchValue,
+  isSearchLoading,
+  setIsSearchLoading,
+}) => {
   const [isSearchFocused, setSearchFocused] = useState(false);
-  const [isSearchLoading, setIsSearchLoading] = useState(false);
   const [suggestion, setSuggestion] = useState(null);
   const [fade, setFade] = useState(true);
+
+  const router = useRouter();
 
   // Update search value on change
   const handleChange = (event) => setSearchValue(event.target.value);
 
   // Trigger search and make API calls
-  const handleSearch = () => {
+  const handleSearch = async () => {
     setIsSearchLoading(true);
 
+    // Add search param to URI query
+    router.query.search = searchValue;
+    router.push(router);
+
     // Logic here...
+    await useDelay(2000);
 
     setIsSearchLoading(false);
   };

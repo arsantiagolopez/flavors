@@ -132,6 +132,7 @@ const Profile = ({ user, mutate }) => {
   const addressRegister = { name: "address", control };
 
   const dropzoneFieldProps = { user, mutate, setPicture };
+  const loadingScreenProps = { isFullScreen: true };
 
   if (userMounted) {
     return (
@@ -241,7 +242,7 @@ const Profile = ({ user, mutate }) => {
   }
 
   // Default to loading screen
-  return <LoadingScreen />;
+  return <LoadingScreen {...loadingScreenProps} />;
 };
 
 export { Profile };

@@ -13,13 +13,15 @@ const ProtectedRoute = ({ children }) => {
     if (!isUser) signIn(); // If not authenticated, force log in
   }, [isUser, loading]);
 
+  const loadingScreenProps = { isFullScreen: true };
+
   if (isUser) {
     return children;
   }
 
   // Session is being fetched, or no user.
   // If no user, useEffect() will redirect.
-  return <LoadingScreen />;
+  return <LoadingScreen {...loadingScreenProps} />;
 };
 
 export { ProtectedRoute };

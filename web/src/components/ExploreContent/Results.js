@@ -1,8 +1,11 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
+import { LoadingScreen } from "../LoadingScreen";
 
-const Results = () => {
-  return <Flex {...styles.wrapper}></Flex>;
+const Results = ({ isSearchLoading }) => {
+  return (
+    <Flex {...styles.wrapper}>{isSearchLoading && <LoadingScreen />}</Flex>
+  );
 };
 
 export { Results };

@@ -17,6 +17,7 @@ const JoinusPage = ({ providers }) => {
   }, [session]);
 
   const signupProps = { providers };
+  const loadingScreenProps = { isFullScreen: true };
 
   // Only show page if not logged in
   if (!loading && !session) {
@@ -32,7 +33,7 @@ const JoinusPage = ({ providers }) => {
   }
 
   // Show loading screen until session loaded
-  return <LoadingScreen />;
+  return <LoadingScreen {...loadingScreenProps} />;
 };
 
 export const getServerSideProps = async (context) => {

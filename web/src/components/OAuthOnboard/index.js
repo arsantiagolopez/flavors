@@ -113,6 +113,8 @@ const OAuthOnboard = ({ user }) => {
     }
   }, [user]);
 
+  const loadingScreenProps = { isFullScreen: true };
+
   if (someFieldNeeded) {
     return (
       <Flex {...styles.wrapper} minHeight={screenHeight}>
@@ -197,7 +199,7 @@ const OAuthOnboard = ({ user }) => {
   }
 
   // Default to loading screen
-  return <LoadingScreen />;
+  return <LoadingScreen {...loadingScreenProps} />;
 };
 
 export { OAuthOnboard };

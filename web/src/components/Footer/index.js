@@ -3,6 +3,11 @@ import Link from "next/link";
 import React from "react";
 import { Logo } from "../Logo";
 
+/**
+ * @todo: Make categories and links into accordion for mobile.
+ * Leave as is for desktop.
+ */
+
 const Footer = () => {
   const categories = [
     {
@@ -72,6 +77,24 @@ const Footer = () => {
         },
       ],
     },
+    {
+      id: "legal",
+      category: "Legal",
+      links: [
+        {
+          label: "Privacy policy",
+          href: "/policy",
+        },
+        {
+          label: "Terms of services",
+          href: "/terms",
+        },
+        {
+          label: "Trademark policy",
+          href: "/trademark",
+        },
+      ],
+    },
   ];
   return (
     <Flex {...styles.wrapper}>
@@ -118,7 +141,7 @@ const styles = {
     width: "100%",
     background: "rgba(0,0,10, 0.8)",
     paddingY: { base: "4vh", md: "5vh" },
-    paddingX: { base: "2em", md: "30vw" },
+    paddingX: { base: "2em", md: "20vw" },
   },
   categories: {
     direction: { base: "column", md: "row" },
@@ -134,7 +157,7 @@ const styles = {
   },
   category: {
     direction: "column",
-    marginY: "2vh",
+    marginY: { base: "1vh", md: "2vh" },
   },
   heading: {
     fontWeight: "bold",

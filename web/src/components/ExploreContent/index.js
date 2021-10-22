@@ -1,13 +1,20 @@
 import { Flex, Heading } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { Landing } from "./Landing";
 import { Results } from "./Results";
 import { SearchBar } from "./SearchBar";
 
 const ExploreContent = ({ user, searchValue, setSearchValue }) => {
-  const resultsProps = { searchValue, setSearchValue };
+  const [isSearchLoading, setIsSearchLoading] = useState(false);
+
+  const resultsProps = { searchValue, setSearchValue, isSearchLoading };
   const landingProps = { searchValue, setSearchValue };
-  const searchBarProps = { searchValue, setSearchValue };
+  const searchBarProps = {
+    searchValue,
+    setSearchValue,
+    isSearchLoading,
+    setIsSearchLoading,
+  };
 
   return (
     <Flex {...styles.wrapper}>
