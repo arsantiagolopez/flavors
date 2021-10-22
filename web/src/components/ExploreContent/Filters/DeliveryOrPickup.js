@@ -5,7 +5,7 @@ const DeliveryOrPickup = () => {
   const options = [
     {
       value: "both",
-      label: "Both",
+      label: "Delivery & Pickup",
     },
     {
       value: "delivery",

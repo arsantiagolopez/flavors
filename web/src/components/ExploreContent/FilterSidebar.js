@@ -120,6 +120,7 @@ const styles = {
     cursor: "pointer",
     _hover: {
       fontWeight: "bold",
+      transform: "scale(101%)",
     },
   },
   street: {

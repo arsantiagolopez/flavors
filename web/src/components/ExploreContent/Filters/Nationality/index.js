@@ -34,7 +34,7 @@ const Nationality = () => {
     router.push(router, undefined, { shallow: true });
   };
 
-  // Update
+  // Set active country on query change
   useEffect(() => {
     if (router) {
       const { nationality } = router?.query || {};
