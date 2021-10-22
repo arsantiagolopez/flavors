@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import useSWR from "swr";
 import { ExploreContent } from "../components/ExploreContent";
@@ -12,10 +13,14 @@ const Explore = () => {
   const { data, mutate } = useSWR(`${CLIENT_URL}/api/auth/session`);
   const { user } = data || {};
 
+  const router = useRouter();
+
   const isExplore = true;
+  const hideSidebar =
+    (searchValue === "" || searchValue === null) && !router?.query?.search;
 
   const filterSidebarProps = {
-    hidden: searchValue === "" || searchValue === null ? true : false,
+    hidden: hideSidebar ? true : false,
     setSearchValue,
     user,
   };

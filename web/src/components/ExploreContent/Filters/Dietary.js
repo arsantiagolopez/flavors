@@ -51,13 +51,12 @@ const Dietary = () => {
     if (activeTags.length) {
       const dietary = activeTags.map(({ name }) => name);
       router.query = { ...router?.query, dietary };
-      router.push(router, undefined, { shallow: true });
     } else {
       // Clear query
       const { dietary, ...otherQueries } = router?.query;
       router.query = { ...otherQueries };
-      router.push(router, undefined, { shallow: true });
     }
+    router.push(router, undefined, { shallow: true });
   }, [activeTags]);
 
   return (
@@ -101,6 +100,7 @@ const styles = {
       background: "gray.800",
       color: "white",
       cursor: "pointer",
+      boxShadow: "lg",
     },
   },
   diet: {

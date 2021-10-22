@@ -1,5 +1,6 @@
 import { Radio, RadioGroup, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
 const DeliveryOrPickup = () => {
   const options = [
@@ -18,6 +19,20 @@ const DeliveryOrPickup = () => {
   ];
 
   const [value, setValue] = useState(options[0].value);
+
+  const router = useRouter();
+
+  // Update query string with selected sort value
+  useEffect(() => {
+    // Both query is default, so no query
+    if (value === "both") {
+      const { delivery, ...otherQueries } = router?.query;
+      router.query = { ...otherQueries };
+    } else {
+      router.query = { ...router?.query, delivery: value };
+    }
+    router.push(router, undefined, { shallow: true });
+  }, [value]);
 
   return (
     <RadioGroup onChange={setValue} value={value} {...styles.wrapper}>
@@ -42,5 +57,7 @@ const styles = {
   },
   label: {
     fontSize: "11pt",
+    cursor: "pointer",
+    isTruncated: true,
   },
 };

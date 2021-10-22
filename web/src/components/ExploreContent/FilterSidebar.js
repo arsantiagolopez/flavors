@@ -6,12 +6,11 @@ import {
   AccordionItem,
   AccordionPanel,
   Flex,
-  Icon,
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
-import { IoLocationSharp } from "react-icons/io5";
+import { Address } from "./Filters/Address";
 import { DeliveryOrPickup } from "./Filters/DeliveryOrPickup";
 import { Dietary } from "./Filters/Dietary";
 import { Nationality } from "./Filters/Nationality";
@@ -23,8 +22,6 @@ const FilterSidebar = ({ user, setSearchValue }) => {
   // const { search } = router?.query;
 
   const { address } = user || {};
-
-  const handleAddressChange = () => {};
 
   const filters = [
     {
@@ -63,14 +60,17 @@ const FilterSidebar = ({ user, setSearchValue }) => {
   //   }
   // }, [search]);
 
+  const addressProps = { address };
+
   return (
     <Flex {...styles.wrapper}>
-      <Flex onClick={handleAddressChange} {...styles.address}>
-        <Icon as={IoLocationSharp} color="brand" />
-        <Text {...styles.street}>{address?.split(",")[0]}</Text>
-      </Flex>
+      <Address {...addressProps} />
 
-      <Text onClick={() => setSearchValue(null)} {...styles.button}>
+      <Text
+        onClick={() => setSearchValue(null)}
+        {...styles.button}
+        {...styles.back}
+      >
         <ArrowBackIcon marginRight="3" />
         Back to featured
       </Text>
@@ -114,19 +114,6 @@ const styles = {
     paddingX: "1em",
     paddingY: "7vh",
   },
-  address: {
-    marginLeft: "-2",
-    align: "center",
-    marginBottom: "2vh",
-    cursor: "pointer",
-    _hover: {
-      fontWeight: "bold",
-      transform: "scale(101%)",
-    },
-  },
-  street: {
-    marginLeft: "3",
-  },
   button: {
     paddingY: "0.75em",
     paddingX: "0",
@@ -136,6 +123,9 @@ const styles = {
       background: "none",
       fontWeight: "bold",
     },
+  },
+  back: {
+    cursor: "pointer",
   },
   notice: {
     color: "gray.400",
