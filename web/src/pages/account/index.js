@@ -11,7 +11,7 @@ const AccountPage = () => {
 
   const isAccount = true;
   const layoutProps = { user, isAccount };
-  const accountContentProps = { user };
+  const contentProps = { user };
 
   return (
     <>
@@ -20,7 +20,7 @@ const AccountPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout {...layoutProps}>
-        <AccountContent {...accountContentProps} />
+        <AccountContent {...contentProps} />
       </Layout>
     </>
   );

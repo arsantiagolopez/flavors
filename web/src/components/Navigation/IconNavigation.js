@@ -4,7 +4,6 @@ import React from "react";
 import {
   IoFileTrayOutline,
   IoHeartOutline,
-  IoHomeOutline,
   IoPersonOutline,
   IoPricetagsOutline,
   IoSearchOutline,
@@ -18,15 +17,6 @@ import {
 
 const IconNavigation = ({ user, isPortrait }) => (
   <Flex {...styles.wrapper}>
-    {!isPortrait && (
-      <Link href="/">
-        <IconButton
-          aria-label="Home"
-          icon={<IoHomeOutline />}
-          {...styles.icon}
-        />
-      </Link>
-    )}
     <Link href="/explore">
       <IconButton
         aria-label="Explore"

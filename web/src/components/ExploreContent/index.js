@@ -1,16 +1,27 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import React from "react";
-import { SearchBar } from "../SearchBar";
+import { Landing } from "./Landing";
+import { Results } from "./Results";
+import { SearchBar } from "./SearchBar";
 
-const ExploreContent = () => {
+const ExploreContent = ({ user, searchValue, setSearchValue }) => {
+  const resultsProps = { searchValue, setSearchValue };
+  const landingProps = { searchValue, setSearchValue };
+  const searchBarProps = { searchValue, setSearchValue };
+
   return (
     <Flex {...styles.wrapper}>
-      <Heading>Find food near you</Heading>
-      <Flex {...styles.content}>
-        <SearchBar />
-        <Heading>You might like</Heading>
-        <Heading>All categories</Heading>
-      </Flex>
+      <Heading {...styles.heading}>
+        {searchValue ? searchValue : "Find food near you"}
+      </Heading>
+
+      <SearchBar {...searchBarProps} />
+
+      {searchValue ? (
+        <Results {...resultsProps} />
+      ) : (
+        <Landing {...landingProps} />
+      )}
     </Flex>
   );
 };
@@ -26,9 +37,11 @@ const styles = {
     minHeight: { base: "90vh", md: "80vh" },
     paddingY: { base: "1em", md: "7vh" },
     marginBottom: "2vh",
+    isTruncated: true,
+    paddingX: "1",
   },
-  content: {
-    direction: "column",
-    paddingY: "3vh",
+  heading: {
+    fontSize: { base: "2xl", md: "5xl" },
+    paddingBottom: "3vh",
   },
 };

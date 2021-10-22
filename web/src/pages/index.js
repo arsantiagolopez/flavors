@@ -9,9 +9,7 @@ const Index = () => {
   const { data } = useSWR(`${CLIENT_URL}/api/auth/session`);
   const { user } = data || {};
 
-  const isDashboard = true;
-
-  const layoutProps = { user, isDashboard };
+  const layoutProps = { user };
 
   return (
     <>

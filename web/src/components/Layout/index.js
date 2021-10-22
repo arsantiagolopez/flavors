@@ -4,13 +4,7 @@ import { useDimensions } from "../../utils/useDimensions";
 import { Footer } from "../Footer";
 import { Navigation } from "../Navigation";
 
-const Layout = ({
-  children,
-  user,
-  isAccount,
-  isDashboard,
-  SidebarComponent,
-}) => {
+const Layout = ({ children, user, isAccount, isExplore, SidebarComponent }) => {
   const { height, width } = useDimensions();
   const isPortrait = height > width;
 
@@ -22,12 +16,9 @@ const Layout = ({
         children
       ) : (
         <Flex {...styles.userContent}>
-          {SidebarComponent && (
-            <Flex
-              flex={isDashboard ? "1 1 35%" : "1 1 30%"}
-              {...styles.sidebar}
-            >
-              <SidebarComponent />
+          {SidebarComponent && !SidebarComponent?.props?.hidden && (
+            <Flex flex={isExplore ? "1 1 20%" : "1 1 30%"} {...styles.sidebar}>
+              {SidebarComponent}
             </Flex>
           )}
           <Flex {...styles.content}>{children}</Flex>
@@ -60,5 +51,7 @@ const styles = {
   content: {
     flex: "1 1 70%",
     direction: "column",
+    width: "100%",
+    maxWidth: "100%",
   },
 };

@@ -23,7 +23,7 @@ import {
   Subscriptions,
   Terms,
 } from "../../components/AccountContent";
-import { AccountSidebar as SidebarComponent } from "../../components/AccountContent/AccountSidebar";
+import { AccountSidebar } from "../../components/AccountContent/AccountSidebar";
 import { Layout } from "../../components/Layout";
 import { ReturnHeading } from "../../components/ReturnHeading";
 
@@ -37,7 +37,7 @@ const AccountPages = () => {
 
   let content, title;
 
-  const layoutProps = { user, SidebarComponent };
+  const layoutProps = { user, SidebarComponent: <AccountSidebar /> };
   const commonProps = { user, mutate };
 
   switch (path) {
