@@ -36,7 +36,7 @@ const CountrySearch = ({ countries }) => {
 
   return (
     <>
-      <InputGroup>
+      <InputGroup {...styles.group}>
         <InputLeftElement
           children={<IoSearchSharp {...styles.icon} />}
           {...styles.left}
@@ -75,18 +75,17 @@ export { CountrySearch };
 // Styles
 
 const styles = {
+  group: {
+    size: "sm",
+  },
   left: {
     pointerEvents: "none",
-    marginTop: "-1",
-    marginLeft: "-1",
   },
   icon: {
     color: "gray.300",
-    fontSize: "0.8rem",
   },
   input: {
     zIndex: "3",
-    size: "sm",
     borderRadius: "0.5em",
     paddingLeft: "1.7rem",
     background: "white",

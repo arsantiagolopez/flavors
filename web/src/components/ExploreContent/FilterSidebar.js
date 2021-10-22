@@ -145,6 +145,5 @@ const styles = {
   children: {
     direction: "column",
     paddingY: "0.5em",
-    cursor: "pointer",
   },
 };

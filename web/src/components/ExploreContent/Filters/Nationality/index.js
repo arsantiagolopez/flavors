@@ -30,7 +30,8 @@ const Nationality = () => {
     setActive(null);
     const { nationality, ...otherQueries } = router?.query;
     router.query = { ...otherQueries };
-    router.push(router);
+    // Don't refresh the page
+    router.push(router, undefined, { shallow: true });
   };
 
   // Update
@@ -108,5 +109,6 @@ const styles = {
   emoji: {
     fontSize: "1.5rem",
     paddingRight: "1",
+    cursor: "pointer",
   },
 };
