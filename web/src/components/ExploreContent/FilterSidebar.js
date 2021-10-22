@@ -6,31 +6,40 @@ import {
   AccordionItem,
   AccordionPanel,
   Flex,
+  Icon,
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
+import { IoLocationSharp } from "react-icons/io5";
+import { DeliveryOrPickup } from "./Filters/DeliveryOrPickup";
 import { Nationality } from "./Filters/Nationality";
+import { PriceRange } from "./Filters/PriceRange";
+import { SortBy } from "./Filters/Sortby";
 
-const FilterSidebar = ({ setSearchValue }) => {
+const FilterSidebar = ({ user, setSearchValue }) => {
   const router = useRouter();
-  const { search } = router?.query;
+  // const { search } = router?.query;
+
+  const { address } = user || {};
+
+  const handleAddressChange = () => {};
 
   const filters = [
     {
       id: "sort",
       name: "Sort by",
-      children: null,
+      children: <SortBy />,
     },
     {
       id: "price",
       name: "Price range",
-      children: null,
+      children: <PriceRange />,
     },
     {
       id: "delivery",
       name: "Delivery or pickup",
-      children: null,
+      children: <DeliveryOrPickup />,
     },
     {
       id: "dietary",
@@ -44,35 +53,27 @@ const FilterSidebar = ({ setSearchValue }) => {
     },
   ];
 
-  // // Keep synced with AccountPages's categories
-  // const categories = [
-  //   {
-  //     name: "Personal",
-  //     links: [
-  //       { name: "Profile", path: "profile" },
-  //       { name: "Payments", path: "payments" }, //
-  //       { name: "Addresses", path: "addresses" }, //
-  //       { name: "Reviews", path: "reviews" }, //
-  //     ],
-  //   },
-
-  useEffect(() => {
-    if (search) {
-      // const categoryIndex = categories.findIndex(({ links }) =>
-      //   links.some((link) => link?.path === path)
-      // );
-      // setAccordionIndex([categoryIndex]);
-
-      console.log("foo", search);
-    }
-  }, [search]);
+  // useEffect(() => {
+  //   if (search) {
+  //     // const categoryIndex = categories.findIndex(({ links }) =>
+  //     //   links.some((link) => link?.path === path)
+  //     // );
+  //     // setAccordionIndex([categoryIndex]);
+  //   }
+  // }, [search]);
 
   return (
     <Flex {...styles.wrapper}>
+      <Flex onClick={handleAddressChange} {...styles.address}>
+        <Icon as={IoLocationSharp} color="brand" />
+        <Text {...styles.street}>{address?.split(",")[0]}</Text>
+      </Flex>
+
       <Text onClick={() => setSearchValue(null)} {...styles.button}>
         <ArrowBackIcon marginRight="3" />
         Back to featured
       </Text>
+
       <Text {...styles.notice}>Filters</Text>
       <Accordion defaultIndex={[0, 1, 2, 3, 4, 5]} allowMultiple allowToggle>
         {filters?.map(({ id, name, children }) => {
@@ -112,6 +113,28 @@ const styles = {
     paddingX: "1em",
     paddingY: "7vh",
   },
+  address: {
+    marginLeft: "-2",
+    align: "center",
+    marginBottom: "2vh",
+    cursor: "pointer",
+    _hover: {
+      fontWeight: "bold",
+    },
+  },
+  street: {
+    marginLeft: "3",
+  },
+  button: {
+    paddingY: "0.75em",
+    paddingX: "0",
+    marginLeft: "-2",
+    width: "100%",
+    _hover: {
+      background: "none",
+      fontWeight: "bold",
+    },
+  },
   notice: {
     color: "gray.400",
     textTransform: "uppercase",
@@ -124,16 +147,7 @@ const styles = {
     flexDirection: "column",
     border: "none",
   },
-  button: {
-    paddingY: "0.75em",
-    paddingX: "0",
-    marginLeft: "-2",
-    width: "100%",
-    _hover: {
-      background: "none",
-      fontWeight: "bold",
-    },
-  },
+
   name: {
     isTruncated: true,
   },

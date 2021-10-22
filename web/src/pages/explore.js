@@ -17,6 +17,7 @@ const Explore = () => {
   const filterSidebarProps = {
     hidden: searchValue === "" || searchValue === null ? true : false,
     setSearchValue,
+    user,
   };
 
   const SidebarComponent = <FilterSidebar {...filterSidebarProps} />;
