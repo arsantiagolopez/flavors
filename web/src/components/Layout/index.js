@@ -9,6 +9,7 @@ const Layout = ({ children, user, isAccount, isExplore, SidebarComponent }) => {
   const isPortrait = height > width;
 
   const navigationProps = { user, isPortrait };
+
   return (
     <Flex {...styles.wrapper}>
       <Navigation {...navigationProps} />
@@ -17,7 +18,11 @@ const Layout = ({ children, user, isAccount, isExplore, SidebarComponent }) => {
       ) : (
         <Flex {...styles.userContent}>
           {SidebarComponent && !SidebarComponent?.props?.hidden && (
-            <Flex flex={isExplore ? "1 1 20%" : "1 1 30%"} {...styles.sidebar}>
+            <Flex
+              flex={isExplore ? "1 1 20%" : "1 1 30%"}
+              height={isExplore ? "100%" : "90vh"}
+              {...styles.sidebar}
+            >
               {SidebarComponent}
             </Flex>
           )}
@@ -45,7 +50,7 @@ const styles = {
     display: { base: "none", md: "flex" },
     position: "sticky",
     top: "10vh",
-    height: "90vh",
+    // height: "90vh",
     overflowY: "auto",
   },
   content: {

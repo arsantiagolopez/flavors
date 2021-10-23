@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 const Dietary = () => {
-  const [activeTags, setActiveTags] = useState([]);
+  const [active, setActive] = useState([]);
 
   const router = useRouter();
 
@@ -33,23 +33,24 @@ const Dietary = () => {
 
   // Set tag to active if not previously active, remove if it was
   const toggleActive = (selected) => {
-    let diet = activeTags.find(({ name }) => name === selected);
+    let diet = active.find(({ name }) => name === selected);
+    let updatedTags = null;
 
     if (diet) {
-      const updatedTags = activeTags.filter(({ name }) => diet?.name !== name);
-      return setActiveTags(updatedTags);
+      updatedTags = active.filter(({ name }) => diet?.name !== name);
+    } else {
+      diet = diets.find(({ name }) => name === selected);
+      updatedTags = [...active, diet];
     }
 
-    diet = diets.find(({ name }) => name === selected);
-    return setActiveTags([...activeTags, diet]);
+    setActive(updatedTags);
+    return updatedTags;
   };
 
-  const isTagActive = (tag) => activeTags?.find(({ name }) => name === tag);
-
   // Update dietary query on active diets change
-  useEffect(() => {
-    if (activeTags.length) {
-      const dietary = activeTags.map(({ name }) => name);
+  const updateQuery = (tags) => {
+    if (tags.length) {
+      const dietary = tags.map(({ name }) => name);
       router.query = { ...router?.query, dietary };
     } else {
       // Clear query
@@ -57,14 +58,33 @@ const Dietary = () => {
       router.query = { ...otherQueries };
     }
     router.push(router, undefined, { shallow: true });
-  }, [activeTags]);
+  };
+
+  // Update tag state and query
+  const handleClick = (name) => {
+    const tags = toggleActive(name);
+    updateQuery(tags);
+  };
+
+  const isTagActive = (tag) => active?.find(({ name }) => name === tag);
+
+  // Update dietary based on query
+  useEffect(() => {
+    if (router) {
+      const { dietary } = router?.query || {};
+      if (dietary) {
+        const dietObjects = diets.filter(({ name }) => dietary.includes(name));
+        setActive(dietObjects);
+      }
+    }
+  }, [router]);
 
   return (
     <Flex {...styles.wrapper}>
       {diets.map(({ name, label }) => (
         <Flex
           key={name}
-          onClick={() => toggleActive(name)}
+          onClick={() => handleClick(name)}
           color={isTagActive(name) && "white"}
           background={isTagActive(name) && "gray.800"}
           {...styles.tag}

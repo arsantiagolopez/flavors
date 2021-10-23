@@ -18,12 +18,12 @@ const SortBy = () => {
     },
   ];
 
-  const [value, setValue] = useState(options[0].value);
+  const [active, setActive] = useState(options[0].value);
 
   const router = useRouter();
 
   // Update query string with selected sort value
-  useEffect(() => {
+  const handleChange = (value) => {
     // Popular query is default, so no query
     if (value === "popular") {
       const { sort, ...otherQueries } = router?.query;
@@ -32,10 +32,25 @@ const SortBy = () => {
       router.query = { ...router?.query, sort: value };
     }
     router.push(router, undefined, { shallow: true });
-  }, [value]);
+
+    setActive(value);
+  };
+
+  // Update radio choice based on query
+  useEffect(() => {
+    if (router) {
+      const { sort } = router?.query || {};
+      if (sort) setActive(sort);
+    }
+  }, [router]);
 
   return (
-    <RadioGroup onChange={setValue} value={value} {...styles.wrapper}>
+    <RadioGroup
+      onChange={(val) => handleChange(val)}
+      value={active}
+      defaultValue={options[0].value}
+      {...styles.wrapper}
+    >
       {options.map(({ value, label }) => (
         <Radio key={value} value={value}>
           <Text {...styles.label}>{label}</Text>

@@ -12,45 +12,78 @@ const PriceRange = () => {
     const number = parseInt(val).toLocaleString();
     return "$" + number.toString();
   };
+
   const parse = (val) => val.replace(/^\$/, "");
 
-  const handleMinChange = (str) => setMin(parse(str));
-  const handleMaxChange = (str) => setMax(parse(str));
+  /**
+   * Update min and max state and call query update.
+   * @param {string} value - Number value.
+   * @param {string} type - Min or max.
+   */
+  const handleChange = ({ value, type }) => {
+    const number = parse(value);
 
-  const clearValues = (event) => {
-    const { target } = event;
+    if (type === "min") setMin(number);
+    else setMax(number);
 
-    if (target?.id === "min" && min) setMin(null);
-    if (target?.id === "max" && max) setMax(null);
+    updateQuery({ action: "add", type, number });
   };
 
-  // Update query on price change
-  useEffect(() => {
-    // Handle min query
-    if (min) {
-      router.query = { ...router?.query, min };
-    } else {
-      const { min: minQuery, ...otherQueries } = router?.query;
-      router.query = { ...otherQueries };
+  /**
+   * Update query on price change.
+   * @param {string} action - Add or remove from query.
+   * @param {string} type - Min or max.
+   * @param {string} number - Number string.
+   */
+  const updateQuery = ({ action, type, number }) => {
+    if (action === "add") {
+      router.query = {
+        ...router?.query,
+        ...(type === "min" ? { min: number } : { max: number }),
+      };
     }
 
-    // Handle max query
-    if (max) {
-      router.query = { ...router?.query, max };
-    } else {
-      const { max: maxQuery, ...otherQueries } = router?.query;
-      router.query = { ...otherQueries };
+    if (action === "remove") {
+      if (type === "min") {
+        const { min: minQuery, ...otherQueries } = router?.query;
+        router.query = { ...otherQueries };
+      } else {
+        const { max: minQuery, ...otherQueries } = router?.query;
+        router.query = { ...otherQueries };
+      }
     }
 
     // Make shallow request to update query
     router.push(router, undefined, { shallow: true });
-  }, [min, max]);
+  };
+
+  const clearValues = (event) => {
+    const { target } = event;
+
+    if (target?.id === "min" && min) {
+      setMin(null);
+      updateQuery({ action: "remove", type: "min" });
+    }
+    if (target?.id === "max" && max) {
+      setMax(null);
+      updateQuery({ action: "remove", type: "max" });
+    }
+  };
+
+  // Update prices state based on query on mount
+  useEffect(() => {
+    if (router) {
+      const { min, max } = router?.query || {};
+      if (min) setMin(min);
+      if (max) setMax(max);
+    }
+  }, [router]);
 
   return (
     <Flex {...styles.wrapper}>
       <NumberInput
         onClick={clearValues}
-        onChange={(str) => handleMinChange(str)}
+        onChange={(value) => handleChange({ value, type: "min" })}
         value={min ? format(min) : "Min"}
         clampValueOnBlur={min ? true : false}
         min={0}
@@ -69,7 +102,7 @@ const PriceRange = () => {
 
       <NumberInput
         onClick={clearValues}
-        onChange={(str) => handleMaxChange(str)}
+        onChange={(value) => handleChange({ value, type: "max" })}
         value={max ? format(max) : "Max"}
         clampValueOnBlur={max ? true : false}
         min={1}

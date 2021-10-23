@@ -1,20 +1,21 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Landing } from "./Landing";
 import { Results } from "./Results";
 import { SearchBar } from "./SearchBar";
 
-const ExploreContent = ({ user, searchValue, setSearchValue }) => {
+const ExploreContent = ({ user }) => {
+  const [searchValue, setSearchValue] = useState(null);
   const [isSearchLoading, setIsSearchLoading] = useState(false);
 
   const router = useRouter();
 
   // Update search value on initial page mount
-  // useEffect(() => {
-  //   const search = router?.query.search;
-  //   if (search) setSearchValue(search);
-  // }, [router]);
+  useEffect(() => {
+    const search = router?.query.search;
+    if (search) setSearchValue(search);
+  }, [router]);
 
   const resultsProps = { searchValue, setSearchValue, isSearchLoading };
   const landingProps = { searchValue, setSearchValue };
@@ -33,7 +34,7 @@ const ExploreContent = ({ user, searchValue, setSearchValue }) => {
 
       <SearchBar {...searchBarProps} />
 
-      {searchValue ? (
+      {router?.query.search ? (
         <Results {...resultsProps} />
       ) : (
         <Landing {...landingProps} />

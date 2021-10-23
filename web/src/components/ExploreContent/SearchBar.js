@@ -26,15 +26,26 @@ const SearchBar = ({
   const router = useRouter();
 
   // Update search value on change
-  const handleChange = (event) => setSearchValue(event.target.value);
+  const handleChange = (event) => {
+    const { value } = event?.target;
+
+    // If no search query, hide filter sidebar
+    if (value === "") {
+      const { search, ...otherQueries } = router?.query;
+      router.query = { ...otherQueries };
+      router.push(router, undefined, { shallow: true });
+    }
+    setSearchValue(value);
+  };
 
   // Trigger search and make API calls
   const handleSearch = async () => {
     setIsSearchLoading(true);
 
-    // Add search param to URI query
-    router.query.search = searchValue;
-    router.push(router);
+    // Add search param to URI query without affecting others
+    const { search, ...otherQueries } = router?.query;
+    router.query = { ...otherQueries, search: searchValue };
+    router.push(router, undefined, { shallow: true });
 
     // Logic here...
     await useDelay(2000);
@@ -96,7 +107,7 @@ const SearchBar = ({
         />
         <Input
           placeholder={suggestion !== "" ? `${suggestion}...` : "Explore..."}
-          value={searchValue ? searchValue : null}
+          value={searchValue ? searchValue : ""}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           onFocus={() => setSearchFocused(true)}

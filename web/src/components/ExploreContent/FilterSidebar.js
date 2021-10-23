@@ -8,6 +8,7 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { Address } from "./Filters/Address";
@@ -17,7 +18,7 @@ import { Nationality } from "./Filters/Nationality";
 import { PriceRange } from "./Filters/PriceRange";
 import { SortBy } from "./Filters/SortBy";
 
-const FilterSidebar = ({ user, setSearchValue }) => {
+const FilterSidebar = ({ user }) => {
   const router = useRouter();
   // const { search } = router?.query;
 
@@ -51,6 +52,9 @@ const FilterSidebar = ({ user, setSearchValue }) => {
     },
   ];
 
+  // @todo: Set Accordion's default index based on query. Expand
+  // filters which queries are active, alongside defaults.
+
   // useEffect(() => {
   //   if (search) {
   //     // const categoryIndex = categories.findIndex(({ links }) =>
@@ -66,17 +70,15 @@ const FilterSidebar = ({ user, setSearchValue }) => {
     <Flex {...styles.wrapper}>
       <Address {...addressProps} />
 
-      <Text
-        onClick={() => setSearchValue(null)}
-        {...styles.button}
-        {...styles.back}
-      >
-        <ArrowBackIcon marginRight="3" />
-        Back to featured
-      </Text>
+      <Link href="/explore">
+        <Text {...styles.button} {...styles.back}>
+          <ArrowBackIcon marginRight="3" />
+          Back to featured
+        </Text>
+      </Link>
 
       <Text {...styles.notice}>Filters</Text>
-      <Accordion defaultIndex={[0, 1, 2, 3, 4, 5]} allowMultiple allowToggle>
+      <Accordion defaultIndex={[0, 1, 2, 4]} allowMultiple allowToggle>
         {filters?.map(({ id, name, children }) => {
           return (
             <AccordionItem key={id} {...styles.filters}>
