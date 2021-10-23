@@ -15,7 +15,7 @@ const LoadingScreen = ({ isFullScreen }) => {
       justify={isFullScreen ? "center" : "flex-start"}
       height={isFullScreen ? screenHeight : "100%"}
     >
-      <Spinner marginTop={isFullScreen ? "auto" : "30vh"} {...styles.spinner} />
+      <Spinner marginTop={isFullScreen ? "none" : "30vh"} {...styles.spinner} />
     </Flex>
   );
 };

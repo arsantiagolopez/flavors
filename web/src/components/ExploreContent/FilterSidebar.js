@@ -78,7 +78,12 @@ const FilterSidebar = ({ user }) => {
       </Link>
 
       <Text {...styles.notice}>Filters</Text>
-      <Accordion defaultIndex={[0, 1, 2, 4]} allowMultiple allowToggle>
+      <Accordion
+        defaultIndex={[0, 1, 2, 4]}
+        allowMultiple
+        allowToggle
+        {...styles.accordion}
+      >
         {filters?.map(({ id, name, children }) => {
           return (
             <AccordionItem key={id} {...styles.filters}>
@@ -114,7 +119,7 @@ const styles = {
     direction: "column",
     width: "100%",
     paddingX: "1em",
-    paddingY: "7vh",
+    paddingTop: "1vh",
   },
   button: {
     paddingY: "0.75em",
@@ -136,12 +141,14 @@ const styles = {
     letterSpacing: "widest",
     paddingY: "0.75em",
   },
+  accordion: {
+    paddingBottom: "10vh",
+  },
   filters: {
     display: "flex",
     flexDirection: "column",
     border: "none",
   },
-
   name: {
     isTruncated: true,
   },

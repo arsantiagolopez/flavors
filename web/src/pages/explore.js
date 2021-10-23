@@ -8,7 +8,7 @@ import { Layout } from "../components/Layout";
 
 const Explore = () => {
   const CLIENT_URL = process.env.NEXT_PUBLIC_CLIENT_URL;
-  const { data, mutate } = useSWR(`${CLIENT_URL}/api/auth/session`);
+  const { data } = useSWR(`${CLIENT_URL}/api/auth/session`);
   const { user } = data || {};
 
   const router = useRouter();

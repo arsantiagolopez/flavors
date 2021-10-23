@@ -4,7 +4,7 @@ import { StickyNavigation } from "./StickyNavigation";
 
 const Navigation = ({ user, isPortrait }) => {
   const iconNavigationProps = { user, isPortrait };
-  const stickyNavigationProps = { user, isPortrait };
+  const stickyNavigationProps = { user };
   return (
     <>
       <IconNavigation {...iconNavigationProps} />

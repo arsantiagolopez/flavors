@@ -19,8 +19,12 @@ const Layout = ({ children, user, isAccount, isExplore, SidebarComponent }) => {
         <Flex {...styles.userContent}>
           {SidebarComponent && !SidebarComponent?.props?.hidden && (
             <Flex
+              top={isExplore ? "6vh" : "10vh"}
               flex={isExplore ? "1 1 20%" : "1 1 30%"}
-              height={isExplore ? "100%" : "90vh"}
+              height={isExplore ? "94vh" : "90vh"}
+              maxWidth={isExplore ? "18vw" : "30%"}
+              marginLeft={isExplore ? "-18vw" : "auto"}
+              paddingRight={isExplore ? "1vw" : "none"}
               {...styles.sidebar}
             >
               {SidebarComponent}
@@ -49,9 +53,8 @@ const styles = {
   sidebar: {
     display: { base: "none", md: "flex" },
     position: "sticky",
-    top: "10vh",
-    // height: "90vh",
-    overflowY: "auto",
+    overflowY: "scroll",
+    overflowX: "hidden",
   },
   content: {
     flex: "1 1 70%",

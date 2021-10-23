@@ -5,7 +5,7 @@ import { Logo } from "../Logo";
 import { ProfileAvatar } from "../ProfileAvatar";
 import { ResponsiveSearchIcon } from "../ResponsiveSearchIcon";
 
-const StickyNavigation = ({ user, isPortrait }) => {
+const StickyNavigation = ({ user }) => {
   const [isSearchFocused, setSearchFocused] = useState(false);
 
   let body;
@@ -32,7 +32,10 @@ const StickyNavigation = ({ user, isPortrait }) => {
   const searchProps = { isSearchFocused, setSearchFocused };
 
   return (
-    <Flex {...styles.wrapper}>
+    <Flex
+      // width=
+      {...styles.wrapper}
+    >
       {/* Display full width search bar on focus */}
       {isSearchFocused ? (
         <Flex {...styles.left}>

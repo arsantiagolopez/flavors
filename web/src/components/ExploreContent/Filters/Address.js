@@ -26,6 +26,7 @@ const styles = {
     alignSelf: "flex-start",
   },
   address: {
+    zIndex: "1000",
     marginLeft: "-2",
     align: "center",
     marginBottom: "2vh",
