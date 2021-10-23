@@ -12,10 +12,10 @@ const LoadingScreen = ({ isFullScreen }) => {
   return (
     <Flex
       {...styles.wrapper}
-      height={isFullScreen ? screenHeight : "30vh"}
-      position={isFullScreen ? "absolute" : "static"}
+      justify={isFullScreen ? "center" : "flex-start"}
+      height={isFullScreen ? screenHeight : "100%"}
     >
-      <Spinner {...styles.spinner} />
+      <Spinner marginTop={isFullScreen ? "auto" : "30vh"} {...styles.spinner} />
     </Flex>
   );
 };
@@ -27,15 +27,15 @@ export { LoadingScreen };
 const styles = {
   wrapper: {
     zIndex: "5000",
+    position: "absolute",
     top: "0",
     left: "0",
     direction: "column",
-    justify: "center",
     align: "center",
     marginX: "auto",
     width: "100%",
     background: "rgba(255,255,255,0.5)",
-    backdropFilter: "blur(10px)",
+    backdropFilter: "blur(3px)",
   },
   spinner: {
     color: "gray.800",
