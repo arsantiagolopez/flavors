@@ -21,6 +21,7 @@ import {
 } from "react-icons/io5";
 import { useDelay } from "../../utils/useDelay";
 import { ReturnHeading } from "../ReturnHeading";
+import { AccountSidebar } from "./AccountSidebar";
 import { Addresses } from "./Addresses";
 import { Balance } from "./Balance";
 import { Coupons } from "./Coupons";
@@ -198,6 +199,7 @@ export {
   Schedule,
   Balance,
   Terms,
+  AccountSidebar,
 };
 
 // Styles

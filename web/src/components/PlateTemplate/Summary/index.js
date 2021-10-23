@@ -1,44 +1,29 @@
-import { Button, Divider, Flex, Icon, Text } from "@chakra-ui/react";
+import { Button, Divider, Flex, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { FaTruck } from "react-icons/fa";
-import { IoTimeSharp } from "react-icons/io5";
+import { Meta } from "./Meta";
 import { SellerInfo } from "./SellerInfo";
 
 const Summary = ({ data }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const { price, markdown, description, meta, seller } = data || {};
+  const { description, meta, seller } = data || {};
 
   // Toggle description expand state
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
+  const metaProps = { data };
   const sellerInfoProps = { seller };
 
   return (
     <Flex {...styles.wrapper}>
       <Flex {...styles.plate}>
-        <Flex {...styles.meta}>
-          <Flex {...styles.prices}>
-            <Text {...styles.price}>${price}</Text>
-            <Text {...styles.markdown}>{markdown && `$${markdown}`}</Text>
-          </Flex>
-
-          <Flex {...styles.prop}>
-            <Icon as={FaTruck} {...styles.icon} />
-            <Text>Delivery & Pickup</Text>
-          </Flex>
-
-          <Flex {...styles.prop}>
-            <Icon as={IoTimeSharp} {...styles.icon} />
-            <Text>Estimated 30 minutes</Text>
-          </Flex>
-        </Flex>
+        <Meta {...metaProps} />
 
         <Divider {...styles.divider} />
 
         <Flex {...styles.details}>
           <Text {...styles.subheading}>Details</Text>
-          <Text noOfLines={isExpanded ? "none" : 3} {...styles.description}>
+          <Text noOfLines={isExpanded ? "none" : 2} {...styles.description}>
             {description}
           </Text>
           <Text
@@ -77,39 +62,14 @@ const styles = {
     direction: "column",
     width: { base: "100%", md: "49%" },
     paddingX: "1vw",
-    height: { base: "100%", md: "60vh" },
-    maxHeight: { base: "100%", md: "60vh" },
-    overflow: "scroll",
+    height: { base: "100%", md: "62vh" },
+    minHeight: { base: "100%", md: "62vh" },
+    maxHeight: { base: "100%", md: "62vh" },
+    overflowY: "scroll",
+    overflowX: "hidden",
   },
   plate: {
     direction: "column",
-  },
-  meta: {
-    direction: "column",
-  },
-  prices: {
-    direction: "row",
-    align: "baseline",
-    letterSpacing: "tighter",
-  },
-  price: {
-    fontSize: { base: "xl", md: "4xl" },
-    fontWeight: "bold",
-  },
-  markdown: {
-    textDecoration: "line-through",
-    fontWeight: "semibold",
-    fontSize: "xl",
-    color: "gray.300",
-    marginLeft: "2",
-  },
-  prop: {
-    direction: "row",
-    align: "center",
-  },
-  icon: {
-    marginRight: "3",
-    fontSize: "14pt",
   },
   details: {
     direction: "column",

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import useSWR from "swr";
 import {
+  AccountSidebar,
   Addresses,
   Balance,
   Coupons,
@@ -23,7 +24,6 @@ import {
   Subscriptions,
   Terms,
 } from "../../components/AccountContent";
-import { AccountSidebar } from "../../components/AccountContent/AccountSidebar";
 import { Layout } from "../../components/Layout";
 import { ReturnHeading } from "../../components/ReturnHeading";
 

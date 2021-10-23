@@ -1,6 +1,7 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { FilterSidebar } from "./FilterSidebar";
 import { Landing } from "./Landing";
 import { Results } from "./Results";
 import { SearchBar } from "./SearchBar";
@@ -43,7 +44,7 @@ const ExploreContent = ({ user }) => {
   );
 };
 
-export { ExploreContent };
+export { ExploreContent, FilterSidebar };
 
 // Styles
 

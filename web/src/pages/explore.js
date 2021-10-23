@@ -2,8 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 import useSWR from "swr";
-import { ExploreContent } from "../components/ExploreContent";
-import { FilterSidebar } from "../components/ExploreContent/FilterSidebar";
+import { ExploreContent, FilterSidebar } from "../components/ExploreContent";
 import { Layout } from "../components/Layout";
 
 const Explore = () => {

@@ -1,11 +1,12 @@
-import { AspectRatio, Flex, Heading } from "@chakra-ui/react";
+import { AspectRatio, Flex, Heading, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
 import { Breadcrumb } from "../Breadcrumb";
+import { Location } from "./Location";
 import { Summary } from "./Summary";
 
 const PlateTemplate = ({ user, data }) => {
-  const { id, image, title, seller } = data || {};
+  const { id, image, title, description, seller } = data || {};
 
   const breadcrumbLinks = [
     { name: "Home", href: "/" },
@@ -43,21 +44,27 @@ const PlateTemplate = ({ user, data }) => {
         <Summary {...summaryProps} />
       </Flex>
 
-      <Flex {...styles.description}>
+      <Flex {...styles.section}>
         <Heading {...styles.heading}>More details</Heading>
+        <Text {...styles.text}>{description}</Text>
       </Flex>
 
-      <Flex {...styles.description}>
+      <Flex {...styles.section}>
         <Heading {...styles.heading}>
           Customers who viewed this item also viewed
         </Heading>
       </Flex>
 
-      <Flex {...styles.description}>
+      <Flex {...styles.section}>
+        <Heading {...styles.heading}>Location</Heading>
+        <Location />
+      </Flex>
+
+      <Flex {...styles.section}>
         <Heading {...styles.heading}>More on the seller</Heading>
       </Flex>
 
-      <Flex {...styles.description}>
+      <Flex {...styles.section}>
         <Heading {...styles.heading}>Customer reviews</Heading>
       </Flex>
     </Flex>
@@ -94,11 +101,15 @@ const styles = {
     borderRadius: "0.5em",
     overflow: "hidden",
   },
-  description: {
+  section: {
     direction: "column",
     paddingBottom: { base: "1em", md: "5vh" },
   },
   heading: {
     size: "lg",
+  },
+  text: {
+    color: "gray.600",
+    paddingY: "3vh",
   },
 };

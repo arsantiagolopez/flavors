@@ -34,6 +34,8 @@ const PlatePage = () => {
   };
   const { seller, title } = plateData || {};
 
+  const firstName = seller?.name.split(" ")[0];
+
   const layoutProps = { user };
   const templateProps = { user, data: plateData };
 
@@ -41,7 +43,7 @@ const PlatePage = () => {
     <>
       <Head>
         <title>
-          {seller?.name} - {title}
+          {firstName}'s {title}
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>

@@ -30,7 +30,7 @@ const SellerInfo = ({ seller }) => {
         <Avatar src={avatar} {...styles.avatar} />
         <Flex {...styles.meta}>
           <Text {...styles.name}>{name}</Text>
-          <Text {...styles.status}>😛 Open now</Text>
+          <Text {...styles.joined}>Joined on June, 2021</Text>
         </Flex>
         <Flex {...styles.reputation}>
           <Flex {...styles.reviews}>
@@ -63,15 +63,22 @@ const styles = {
   heading: {
     fontSize: "lg",
     fontWeight: "bold",
-    marginBottom: "1vh",
+    marginBottom: "0.5vh",
   },
   info: {
     direction: "row",
     justify: "space-between",
     align: "center",
+    borderRadius: "0.5em",
+    paddingY: "1vh",
+    cursor: "pointer",
+    _hover: {
+      background: "gray.100",
+    },
   },
   avatar: {
     boxSize: { base: "3em", md: "4em" },
+    marginLeft: "1",
   },
   meta: {
     flex: "auto",
@@ -85,9 +92,8 @@ const styles = {
     fontSize: "xl",
     noOfLines: 1,
   },
-  status: {
-    color: "green.500",
-    fontSize: "sm",
+  joined: {
+    color: "gray.300",
   },
   reputation: {
     direction: "column",
@@ -106,6 +112,7 @@ const styles = {
   },
   stars: {
     fontSize: "xl",
+    isTruncated: true,
   },
   ratings: {
     color: "gray.500",
@@ -116,6 +123,7 @@ const styles = {
   reactions: {
     direction: "row",
     maxWidth: "100%",
+    isTruncated: true,
   },
   reaction: {
     align: "center",
@@ -125,10 +133,12 @@ const styles = {
     cursor: "pointer",
     maxWidth: "100%",
     isTruncated: true,
+
     _hover: {
       border: "0.5px solid",
       borderColor: "gray.100",
       boxShadow: "md",
+      background: "white",
     },
   },
   emoji: {

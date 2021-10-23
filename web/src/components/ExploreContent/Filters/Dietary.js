@@ -11,23 +11,23 @@ const Dietary = () => {
   const diets = [
     {
       name: "allergies",
-      label: "Allergy friendly",
+      label: "🥜 Allergy friendly",
     },
     {
       name: "glutten",
-      label: "Glutten-free",
+      label: "🌾 Glutten-free",
     },
     {
       name: "lowCarb",
-      label: "Low carb",
+      label: "🥑 Low carb",
     },
     {
       name: "vegetarian",
-      label: "Vegetarian",
+      label: "🌱 Vegetarian",
     },
     {
       name: "vegan",
-      label: "Vegan",
+      label: "🌿 Vegan",
     },
   ];
 
