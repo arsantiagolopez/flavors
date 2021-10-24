@@ -37,6 +37,9 @@ const components = {
         paddingY: "1.5em",
         color: "white",
         background: "gray.800",
+        _hover: {
+          background: "black",
+        },
       },
       outline: {
         paddingY: "1.5em",
