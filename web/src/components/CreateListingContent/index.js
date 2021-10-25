@@ -68,10 +68,10 @@ const CreateListingContent = () => {
   useEffect(() => {
     switch (index) {
       case 0:
-        setTitle("Create a plate");
+        setTitle("Create a plate 🍴");
         break;
       case 1:
-        setTitle("Add a photo & name");
+        setTitle("Add a photo & title");
         break;
       case 2:
         setTitle("Add details");
@@ -121,11 +121,12 @@ const styles = {
   },
   views: {
     width: "100vw",
-    marginTop: "20vh",
+    marginTop: "15vh",
   },
   screen: {
-    width: "100%",
-    minHeight: "calc(100vh - 6em - 20vh)",
+    position: "relative",
+    minHeight: "calc(100vh - 6em - 15vh)",
     height: "100%",
+    width: "100%",
   },
 };

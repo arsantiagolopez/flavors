@@ -4,7 +4,7 @@ import React, { forwardRef, useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import axios from "../../axios";
 
-const DropzoneField = forwardRef(
+const AvatarDropzone = forwardRef(
   ({ children, user, mutate, setPicture, ...props }, ref) => {
     const [file, setFile] = useState(null);
 
@@ -97,7 +97,7 @@ const DropzoneField = forwardRef(
   }
 );
 
-export { DropzoneField };
+export { AvatarDropzone };
 
 // Styles
 

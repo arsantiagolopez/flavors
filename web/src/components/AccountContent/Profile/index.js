@@ -12,8 +12,8 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "../../../axios";
-import { DropzoneField } from "../../../components/DropzoneField";
 import { showToast } from "../../../utils/showToast";
+import { AvatarDropzone } from "../../Dropzone";
 import { LoadingScreen } from "../../LoadingScreen";
 import { SelectLocation } from "../../SelectLocation";
 import { UsernameCheck } from "../../UsernameCheck";
@@ -131,7 +131,7 @@ const Profile = ({ user, mutate }) => {
 
   const addressRegister = { name: "address", control };
 
-  const dropzoneFieldProps = { user, mutate, setPicture };
+  const avatarDropzoneProps = { user, mutate, setPicture };
   const loadingScreenProps = { isFullScreen: true };
 
   if (userMounted) {
@@ -139,16 +139,16 @@ const Profile = ({ user, mutate }) => {
       <Flex {...styles.wrapper}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Flex {...styles.field} marginTop={{ base: "3em", md: "0" }}>
-            <DropzoneField
+            <AvatarDropzone
               ref={dropzoneRef}
-              {...dropzoneFieldProps}
+              {...avatarDropzoneProps}
               {...styles.label}
               {...styles.dropzone}
             >
               <AspectRatio {...styles.aspect}>
                 <Avatar src={picture} name={name} {...styles.image} />
               </AspectRatio>
-            </DropzoneField>
+            </AvatarDropzone>
 
             <Flex {...styles.avatarHeading}>
               <Heading {...styles.name}>{name}</Heading>

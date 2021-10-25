@@ -40,7 +40,7 @@ const styles = {
   wrapper: {
     position: "absolute",
     direction: "column",
-    paddingTop: { base: "1em", md: "7vh" },
+    paddingTop: { base: "1em", md: "10vh" },
     width: "100vw",
     overflow: "hidden",
   },
@@ -52,24 +52,27 @@ const styles = {
   slider: {
     size: "sm",
     marginTop: "5vh",
-    marginBottom: "3vh",
+    transition: "all 0.3s cubic-bezier(0.7, 0.030, 0.685, 0.220)",
   },
   track: {
-    bg: "gray.100",
+    background: "gray.100",
+    transition: "all 0.3s cubic-bezier(0.7, 0.030, 0.685, 0.220)",
   },
   filledTrack: {
-    bg: "gray.800",
+    background: "gray.800",
+    transition: "all 0.3s cubic-bezier(0.7, 0.030, 0.685, 0.220)",
   },
   thumb: {
     boxSize: 5,
     background: "gray.800",
     justify: "center",
     align: "center",
+    transition: "all 0.3s cubic-bezier(0.7, 0.030, 0.685, 0.220)",
   },
   desktopTitle: {
     display: { base: "none", md: "block" },
     position: "absolute",
-    top: "-8vh",
+    top: "-9vh",
     width: "10em",
     letterSpacing: "tighter",
   },
