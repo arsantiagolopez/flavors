@@ -52,22 +52,20 @@ const styles = {
   slider: {
     size: "sm",
     marginTop: "5vh",
-    transition: "all 0.3s cubic-bezier(0.7, 0.030, 0.685, 0.220)",
   },
   track: {
     background: "gray.100",
-    transition: "all 0.3s cubic-bezier(0.7, 0.030, 0.685, 0.220)",
   },
   filledTrack: {
     background: "gray.800",
-    transition: "all 0.3s cubic-bezier(0.7, 0.030, 0.685, 0.220)",
+    transition: "width 0.3s cubic-bezier(0.7, 0.030, 0.685, 0.220)",
   },
   thumb: {
     boxSize: 5,
     background: "gray.800",
     justify: "center",
     align: "center",
-    transition: "all 0.3s cubic-bezier(0.7, 0.030, 0.685, 0.220)",
+    transition: "left 0.3s cubic-bezier(0.7, 0.030, 0.685, 0.220)",
   },
   desktopTitle: {
     display: { base: "none", md: "block" },
