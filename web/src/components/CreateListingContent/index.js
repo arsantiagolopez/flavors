@@ -11,6 +11,7 @@ import {
 } from "./Screens";
 
 const CreateListingContent = () => {
+  const [listing, setListing] = useState(null);
   const [index, setIndex] = useState(0);
   // formCompleteIndex holds the number of unlocked screens
   const [formCompleteIndex, setFormCompleteIndex] = useState(0);
@@ -34,10 +35,16 @@ const CreateListingContent = () => {
     }
   };
 
-  const startProps = { handleChange, setFormCompleteIndex };
-  const photoProps = { handleChange, setFormCompleteIndex, plate, setPlate };
-  const detailsProps = { handleChange, setFormCompleteIndex, plate, setPlate };
-  const priceProps = { handleChange, setFormCompleteIndex, plate, setPlate };
+  const commonProps = {
+    listing,
+    setListing,
+    handleChange,
+    setFormCompleteIndex,
+  };
+  const startProps = { ...commonProps };
+  const photoProps = { ...commonProps, plate, setPlate };
+  const detailsProps = { ...commonProps, plate, setPlate };
+  const priceProps = { ...commonProps, plate, setPlate };
   const successProps = { index, lastIndex, formCompleteIndex };
 
   // Screens to be displayed

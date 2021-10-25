@@ -12,16 +12,21 @@ import { useForm } from "react-hook-form";
 import { IoDuplicate } from "react-icons/io5";
 import { ListingDropzone } from "../../Dropzone";
 
-const PhotoScreen = ({ handleChange, setFormCompleteIndex }) => {
-  const [photo, setPhoto] = useState(null);
+const PhotoScreen = ({
+  listing,
+  setListing,
+  handleChange,
+  setFormCompleteIndex,
+}) => {
   const [photoPreview, setPhotoPreview] = useState(null);
 
   const {
     handleSubmit,
     register,
-    setError,
     formState: { errors },
     control,
+    setError,
+    clearErrors,
   } = useForm();
 
   const handleNext = () => {
@@ -35,25 +40,26 @@ const PhotoScreen = ({ handleChange, setFormCompleteIndex }) => {
     setFormCompleteIndex(2);
     handleChange(1);
 
-    console.log(values);
+    // Update root form state
+    setListing({ ...listing, ...values });
   };
 
   // Form field registration
   const titleRegister = register("title", {
     required: "Your plate needs a title.",
   });
-  const photoRegister = { name: "address", control, setError };
+  const photoRegister = { name: "photo", control, setError };
 
   const listingDropzoneProps = {
-    setPhoto,
     setPhotoPreview,
     setError,
+    clearErrors,
     ...photoRegister,
   };
 
   return (
     <Flex
-      marginTop={photo ? { base: "-10vh", md: "-9vh" } : "none"}
+      marginTop={photoPreview ? { base: "-10vh", md: "-9vh" } : "none"}
       {...styles.wrapper}
     >
       <form>
@@ -121,6 +127,7 @@ const styles = {
     borderRadius: "0.5em",
     overflow: "hidden",
     maxHeight: { base: "none", md: "40vh" },
+    cursor: "pointer",
   },
   spinner: {
     color: "red.500",
@@ -132,6 +139,7 @@ const styles = {
     paddingY: "10vh",
     background: "none",
     fontWeight: "normal",
+    whiteSpace: "wrap",
     _hover: {
       background: "none",
     },

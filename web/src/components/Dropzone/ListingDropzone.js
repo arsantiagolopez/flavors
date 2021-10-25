@@ -1,14 +1,14 @@
 import { Flex } from "@chakra-ui/react";
 import Compressor from "compressorjs";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useController } from "react-hook-form";
 
 const ListingDropzone = ({
   children,
-  setPhoto,
   setPhotoPreview,
   setError,
+  clearErrors,
   name,
   control,
   ...props
@@ -16,15 +16,13 @@ const ListingDropzone = ({
   const [rejectedError, setRejectedError] = useState(null);
 
   const {
-    field: { ref, onChange, ...controllerProps },
+    field: { ref, value, onChange, ...controllerProps },
   } = useController({
     name,
     control,
-    rules: { required: true },
+    rules: { required: "You need to add a photo for your plate." },
     defaultValue: "",
   });
-
-  const controllerRef = useRef(null);
 
   // Further image limitations
   const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
@@ -40,6 +38,9 @@ const ListingDropzone = ({
     if (acceptedFiles.length) {
       const [file] = acceptedFiles;
 
+      // Clear previous errors
+      clearErrors("photo");
+
       // Create preview
       file["preview"] = URL.createObjectURL(file);
 
@@ -52,8 +53,8 @@ const ListingDropzone = ({
         // Convert PNG to JPEG if over 1MB
         converstSize: 1000000,
         success(result) {
-          // Store compressed image file readdy for form submit
-          setPhoto(result);
+          // Store compressed image file ready for form submit
+          onChange(result);
         },
       });
 
@@ -82,14 +83,9 @@ const ListingDropzone = ({
   }, [rejectedError]);
 
   return (
-    <Flex
-      {...getRootProps()}
-      {...styles.wrapper}
-      {...props}
-      ref={controllerRef}
-    >
+    <Flex {...getRootProps()} {...styles.wrapper} {...props}>
       {children}
-      <input {...getInputProps()} {...controllerProps} />
+      <input onChange={onChange} {...getInputProps()} {...controllerProps} />
     </Flex>
   );
 };
