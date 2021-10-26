@@ -5,6 +5,7 @@ import { ProgressLine } from "./ProgressLine";
 import {
   DetailsScreen,
   PhotoScreen,
+  PreviewScreen,
   PriceScreen,
   StartScreen,
   SuccessScreen,
@@ -12,13 +13,12 @@ import {
 
 const CreateListingContent = () => {
   const [listing, setListing] = useState(null);
-  const [index, setIndex] = useState(2);
+  const [index, setIndex] = useState(3);
   // formCompleteIndex holds the number of unlocked screens
   const [formCompleteIndex, setFormCompleteIndex] = useState(0);
   const [title, setTitle] = useState(null);
-  const [plate, setPlate] = useState(null);
 
-  const lastIndex = 3;
+  const lastIndex = 5;
 
   const handleChange = (value) => {
     if (value === -1 && index < 1) setIndex(0);
@@ -35,35 +35,35 @@ const CreateListingContent = () => {
     }
   };
 
-  const commonProps = {
+  const screenProps = {
     listing,
     setListing,
     handleChange,
     setFormCompleteIndex,
   };
-  const startProps = { ...commonProps };
-  const photoProps = { ...commonProps, plate, setPlate };
-  const detailsProps = { ...commonProps, plate, setPlate };
-  const priceProps = { ...commonProps, plate, setPlate };
   const successProps = { index, lastIndex, formCompleteIndex };
 
   // Screens to be displayed
   const screens = [
     {
       id: "start",
-      screen: <StartScreen {...startProps} />,
+      screen: <StartScreen {...screenProps} />,
     },
     {
       id: "photo",
-      screen: <PhotoScreen {...photoProps} />,
+      screen: <PhotoScreen {...screenProps} />,
     },
     {
       id: "details",
-      screen: <DetailsScreen {...detailsProps} />,
+      screen: <DetailsScreen {...screenProps} />,
     },
     {
       id: "price",
-      screen: <PriceScreen {...priceProps} />,
+      screen: <PriceScreen {...screenProps} />,
+    },
+    {
+      id: "preview",
+      screen: <PreviewScreen {...screenProps} />,
     },
     {
       id: "success",
@@ -87,6 +87,9 @@ const CreateListingContent = () => {
         setTitle("What's the price?");
         break;
       case 4:
+        setTitle("Preview");
+        break;
+      case 5:
         setTitle("Congrats! 🎉");
         break;
     }

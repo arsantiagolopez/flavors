@@ -39,7 +39,7 @@ const PhotoScreen = ({
     handleChange(1);
 
     // Update root form state
-    setListing({ ...listing, ...values });
+    setListing({ ...listing, ...values, photoPreview });
   };
 
   // Form field registration
@@ -113,7 +113,7 @@ export { PhotoScreen };
 const styles = {
   wrapper: {
     direction: "column",
-    paddingTop: "15vh",
+    paddingTop: { base: "8vh", md: "12vh" },
     width: "100%",
     textAlign: "center",
     marginX: { base: "2em", md: "35vw" },
@@ -125,6 +125,7 @@ const styles = {
     overflow: "hidden",
     maxHeight: { base: "none", md: "40vh" },
     cursor: "pointer",
+    marginTop: { base: "5vh", md: "2vh" },
   },
   spinner: {
     color: "red.500",

@@ -20,7 +20,7 @@ import React, { useState } from "react";
 import { useController } from "react-hook-form";
 import { categoriesData } from "./categoriesData";
 
-const CategorySelect = ({ name, control }) => {
+const CategorySelect = ({ name, control, errors }) => {
   const [selection, setSelection] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -43,6 +43,8 @@ const CategorySelect = ({ name, control }) => {
       <Button
         onClick={onOpen}
         color={selection ? "gray.800" : "gray.400"}
+        border={errors?.category && "2px solid"}
+        borderColor={errors?.category && "red.500"}
         rightIcon={
           selection ? (
             <CheckIcon color="green.400" {...styles.icon} />

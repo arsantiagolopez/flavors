@@ -21,7 +21,6 @@ const DetailsScreen = ({
     register,
     formState: { errors },
     control,
-    getValues,
   } = useForm();
 
   // Submit form
@@ -37,7 +36,7 @@ const DetailsScreen = ({
     setListing({ ...listing, ...values });
   };
 
-  const categoryRegister = { name: "category", control };
+  const categoryRegister = { name: "category", control, errors };
   const descriptionRegister = register("description", {
     required: "A description for your plate is required.",
   });
@@ -49,13 +48,11 @@ const DetailsScreen = ({
   };
   const tagsRegister = { name: "tags", control };
 
-  console.log(getValues());
-
   // @todo: ADD TYPE: breakfast, brunch, lunch, dinner ?
   return (
     <Flex {...styles.wrapper}>
       <form style={styles.form}>
-        <Flex {...styles.field}>
+        <Flex {...styles.field} marginTop="0">
           <CategorySelect {...categoryRegister} />
           {errors?.category && (
             <Text {...styles.error}>{errors?.category?.message}</Text>
@@ -68,7 +65,9 @@ const DetailsScreen = ({
         >
           <Textarea
             spellCheck="true"
-            placeholder="Your plate description. More detailed plates sell best!"
+            placeholder="Your plate description. The more details, the more your plate will be seen!"
+            isInvalid={errors?.description}
+            focusBorderColor={errors?.description && "red.500"}
             {...descriptionRegister}
           />
           {errors?.description && (
@@ -108,7 +107,7 @@ export { DetailsScreen };
 const styles = {
   wrapper: {
     direction: "column",
-    paddingTop: { base: "5vh", md: "10vh" },
+    paddingTop: { base: "8vh", md: "10vh" },
     width: "100%",
     textAlign: "center",
     marginX: { base: "1em", md: "calc(35vw - 2em)" },
