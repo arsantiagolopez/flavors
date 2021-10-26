@@ -50,6 +50,8 @@ const PriceScreen = ({
 
   // Handle submit
   const onSubmit = async (values) => {
+    setIsLoading(false);
+
     // Unlock & swipe to next screen
     setFormCompleteIndex(4);
     handleScreenChange(1);
