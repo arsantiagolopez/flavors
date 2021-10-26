@@ -30,6 +30,8 @@ const PreviewScreen = ({
   const redirectToScreen = (screen) => handleChange(screen - 4);
 
   const handleNext = () => {
+    window.scrollTo(0, 0);
+
     // Unlock & swipe to next screen
     setFormCompleteIndex(5);
     handleChange(1);

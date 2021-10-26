@@ -1,6 +1,6 @@
 import { Flex, Heading, Icon, ScaleFade, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { RiCheckboxCircleFill } from "react-icons/ri";
 import { useDelay } from "../../../utils/useDelay";
 
@@ -10,21 +10,18 @@ const SuccessScreen = ({ index, lastIndex, formCompleteIndex }) => {
   const isCurrentScreen = index === lastIndex;
   const isFormCompleted = formCompleteIndex === lastIndex;
 
-  const wrapperRef = useRef(null);
-
   const router = useRouter();
 
   // Redirect on complete
   useEffect(async () => {
     if (isCurrentScreen && isFormCompleted) {
-      wrapperRef?.current.scrollIntoView({ behavior: "smooth" });
       await useDelay();
       // router.push("/");
     }
   }, [isFormCompleted]);
 
   return (
-    <Flex ref={wrapperRef} {...styles.wrapper}>
+    <Flex {...styles.wrapper}>
       <ScaleFade initialScale={0.2} in={isCurrentScreen}>
         <Flex {...styles.content}>
           <Icon as={RiCheckboxCircleFill} {...styles.icon} />
