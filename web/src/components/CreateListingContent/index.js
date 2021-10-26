@@ -13,7 +13,7 @@ import {
 
 const CreateListingContent = () => {
   const [listing, setListing] = useState(null);
-  const [index, setIndex] = useState(3);
+  const [index, setIndex] = useState(0);
   // formCompleteIndex holds the number of unlocked screens
   const [formCompleteIndex, setFormCompleteIndex] = useState(0);
   const [title, setTitle] = useState(null);
@@ -41,6 +41,7 @@ const CreateListingContent = () => {
     handleChange,
     setFormCompleteIndex,
   };
+  const previewProps = { index, lastIndex };
   const successProps = { index, lastIndex, formCompleteIndex };
 
   // Screens to be displayed
@@ -63,7 +64,7 @@ const CreateListingContent = () => {
     },
     {
       id: "preview",
-      screen: <PreviewScreen {...screenProps} />,
+      screen: <PreviewScreen {...screenProps} {...previewProps} />,
     },
     {
       id: "success",
@@ -102,7 +103,7 @@ const CreateListingContent = () => {
       <ProgressLine {...progressLineProps} />
       <SwipeableViews
         enableMouseEvents={true}
-        // onTransitionEnd={preventUnauthorizedSwipe}
+        onTransitionEnd={preventUnauthorizedSwipe}
         index={index}
         onChangeIndex={handleChangeIndex}
         style={styles.views}
@@ -131,7 +132,7 @@ const styles = {
   },
   views: {
     width: "100vw",
-    marginTop: "15vh",
+    marginTop: "16vh",
   },
   screen: {
     position: "relative",

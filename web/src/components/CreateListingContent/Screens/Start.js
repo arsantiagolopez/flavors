@@ -1,7 +1,10 @@
 import { Button, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 
+// Screen index: 0
+
 const StartScreen = ({ handleChange, setFormCompleteIndex }) => {
+  // Unlock & swipe to next screen
   const handleNext = () => {
     setFormCompleteIndex(1);
     handleChange(1);

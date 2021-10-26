@@ -79,8 +79,8 @@ const styles = {
     ...provided,
     backgroundColor: "transparent",
     borderRadius: "0.375rem", // md
-    paddingTop: "0.5em",
-    paddingBottom: "0.5em",
+    paddingTop: "0.75em",
+    paddingBottom: "0.75em",
     // Hover & State
     border: state.isFocused ? `2px solid #1A202C` : `1px solid #E2E8F0`, // gray.200
     marginLeft: state.isFocused ? "-1px" : "0",

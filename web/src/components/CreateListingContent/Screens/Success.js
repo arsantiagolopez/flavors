@@ -1,35 +1,35 @@
 import { Flex, Heading, Icon, ScaleFade, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { RiCheckboxCircleFill } from "react-icons/ri";
+import { useDelay } from "../../../utils/useDelay";
+
+// Screen index: 5
 
 const SuccessScreen = ({ index, lastIndex, formCompleteIndex }) => {
   const isCurrentScreen = index === lastIndex;
-  const onboardSuccess = formCompleteIndex === lastIndex;
+  const isFormCompleted = formCompleteIndex === lastIndex;
+
+  const wrapperRef = useRef(null);
 
   const router = useRouter();
 
-  useEffect(() => {
-    if (isCurrentScreen && onboardSuccess) {
-      // Redirect in 3 seconds
-      setTimeout(() => {
-        router.push("/account");
-      }, 3000);
+  // Redirect on complete
+  useEffect(async () => {
+    if (isCurrentScreen && isFormCompleted) {
+      wrapperRef?.current.scrollIntoView({ behavior: "smooth" });
+      await useDelay();
+      // router.push("/");
     }
-  }, [onboardSuccess]);
+  }, [isFormCompleted]);
 
   return (
-    <Flex {...styles.wrapper}>
+    <Flex ref={wrapperRef} {...styles.wrapper}>
       <ScaleFade initialScale={0.2} in={isCurrentScreen}>
-        <Flex direction="column" justify="center" align="center">
-          {/* Success icon */}
-          <Icon as={RiCheckboxCircleFill} color="green.400" boxSize="7em" />
-
-          {/* Header */}
-          <Heading {...styles.heading}>Everything looks right.</Heading>
-
-          {/* Call to action */}
-          <Text {...styles.text}>Now go taste new flavors!</Text>
+        <Flex {...styles.content}>
+          <Icon as={RiCheckboxCircleFill} {...styles.icon} />
+          <Heading {...styles.heading}>Everything looks right!</Heading>
+          <Text {...styles.text}>Let's see your live post.</Text>
         </Flex>
       </ScaleFade>
     </Flex>
@@ -42,23 +42,27 @@ export { SuccessScreen };
 
 const styles = {
   wrapper: {
+    direction: "column",
+    paddingTop: { base: "7vh", md: "15vh" },
+    width: "100%",
+    textAlign: "center",
+    marginX: { base: "2em", md: "35vw" },
+  },
+  content: {
+    direction: "column",
     justify: "center",
     align: "center",
-    direction: "row",
-    width: "100%",
-    height: "100%",
-    // minHeight: { base: "80vh", md: "80vh" },
+  },
+  icon: {
+    color: "green.400",
+    boxSize: "7em",
   },
   heading: {
-    color: "gray.700",
-    fontSize: { base: "2.2em", md: "3.5em" },
-    letterSpacing: "-2px",
-    lineHeight: "1em",
-    marginY: "0.25em",
+    marginY: "2vh",
   },
   text: {
     color: "gray.500",
-    fontSize: { base: "1rem", md: "1em" },
-    marginY: "0.5em",
+
+    // fontSize: { base: "1rem", md: "1em" },
   },
 };

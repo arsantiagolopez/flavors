@@ -1,12 +1,16 @@
+import { CheckIcon } from "@chakra-ui/icons";
 import {
   Button,
   Flex,
   NumberInput,
   NumberInputField,
+  Spinner,
   Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+
+// Screen index: 3
 
 const PriceScreen = ({
   listing,
@@ -14,6 +18,7 @@ const PriceScreen = ({
   handleChange: handleScreenChange,
   setFormCompleteIndex,
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [value, setValue] = useState(null);
 
   const {
@@ -46,7 +51,7 @@ const PriceScreen = ({
   // Handle submit
   const onSubmit = async (values) => {
     // Unlock & swipe to next screen
-    setFormCompleteIndex(5);
+    setFormCompleteIndex(4);
     handleScreenChange(1);
 
     // Update root form state
@@ -84,7 +89,11 @@ const PriceScreen = ({
       </NumberInput>
       {errors?.price && <Text {...styles.error}>{errors?.price?.message}</Text>}
 
-      <Button onClick={handleNext} {...styles.next}>
+      <Button
+        onClick={handleNext}
+        rightIcon={isLoading ? <Spinner {...styles.spinner} /> : <CheckIcon />}
+        {...styles.next}
+      >
         Next
       </Button>
     </Flex>
@@ -98,7 +107,7 @@ export { PriceScreen };
 const styles = {
   wrapper: {
     direction: "column",
-    paddingTop: { base: "8vh", md: "12vh" },
+    paddingTop: { base: "7vh", md: "12vh" },
     width: "100%",
     textAlign: "center",
     marginX: { base: "2em", md: "35vw" },
@@ -112,12 +121,17 @@ const styles = {
   field: {
     justify: "center",
     align: "center",
-    paddingY: "1.5em",
+    paddingY: "1.75em",
   },
   error: {
     color: "red.500",
     marginY: "2",
     textAlign: "left",
+  },
+  spinner: {
+    size: "sm",
+    speed: "2s",
+    color: "white",
   },
   next: {
     position: "absolute",
@@ -125,5 +139,6 @@ const styles = {
     width: { base: "calc(100% - 4em)", md: "calc(100% - 35vw - 35vw)" },
     padding: "1.75em",
     borderRadius: "0.5em",
+    iconSpacing: "3",
   },
 };

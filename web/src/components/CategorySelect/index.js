@@ -1,4 +1,4 @@
-import { CheckIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import {
   Accordion,
   AccordionButton,
@@ -34,7 +34,7 @@ const CategorySelect = ({ name, control, errors }) => {
 
   const handleSelection = (category, subCategory) => {
     onChange({ category, subCategory });
-    setSelection(category);
+    setSelection({ category, subCategory });
     onClose();
   };
 
@@ -55,7 +55,15 @@ const CategorySelect = ({ name, control, errors }) => {
         {...styles.trigger}
       >
         <Text {...styles.text}>
-          {selection ? selection?.label : "Category"}
+          {selection ? (
+            <>
+              {selection?.category.label}
+              <ChevronRightIcon />
+              {selection?.subCategory.label}
+            </>
+          ) : (
+            "Category"
+          )}
         </Text>
       </Button>
 
@@ -120,6 +128,7 @@ const styles = {
     fontWeight: "normal",
     width: "100%",
     justify: "flex-end",
+    paddingY: "1.75em",
     _hover: {
       background: "none",
       border: "1px solid",
@@ -133,6 +142,9 @@ const styles = {
   text: {
     width: "100%",
     textAlign: "left",
+    isTruncated: true,
+    maxWidth: "90%",
+    marginRight: "auto",
   },
   icon: {
     position: "absolute",

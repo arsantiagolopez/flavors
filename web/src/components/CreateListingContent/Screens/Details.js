@@ -1,9 +1,12 @@
-import { Button, Flex, Text, Textarea } from "@chakra-ui/react";
-import React from "react";
+import { CheckIcon } from "@chakra-ui/icons";
+import { Button, Flex, Spinner, Text, Textarea } from "@chakra-ui/react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { CategorySelect } from "../../CategorySelect";
 import { MenuSelectCreatable } from "../../MenuSelectCreatable";
 import { TagSelect } from "../../TagSelect";
+
+// Screen index: 2
 
 const DetailsScreen = ({
   listing,
@@ -11,6 +14,8 @@ const DetailsScreen = ({
   handleChange,
   setFormCompleteIndex,
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
   // @todo: Get menu options from BACKEND
   let menuOptions = ["My Plates", "Keto", "Breakfast"];
 
@@ -69,6 +74,7 @@ const DetailsScreen = ({
             isInvalid={errors?.description}
             focusBorderColor={errors?.description && "red.500"}
             {...descriptionRegister}
+            {...styles.textarea}
           />
           {errors?.description && (
             <Text {...styles.error}>{errors?.description?.message}</Text>
@@ -93,7 +99,11 @@ const DetailsScreen = ({
         </Flex>
       </form>
 
-      <Button onClick={handleNext} {...styles.next}>
+      <Button
+        onClick={handleNext}
+        rightIcon={isLoading ? <Spinner {...styles.spinner} /> : <CheckIcon />}
+        {...styles.next}
+      >
         Next
       </Button>
     </Flex>
@@ -107,8 +117,12 @@ export { DetailsScreen };
 const styles = {
   wrapper: {
     direction: "column",
-    paddingTop: { base: "8vh", md: "10vh" },
+    paddingTop: { base: "7vh", md: "10vh" },
     width: "100%",
+    maxWidth: {
+      base: "calc(100% - 2em)",
+      md: "calc(100% - 35vw - 35vw + 2em + 2em)",
+    },
     textAlign: "center",
     marginX: { base: "1em", md: "calc(35vw - 2em)" },
   },
@@ -124,13 +138,21 @@ const styles = {
     marginTop: { base: "3vh", md: "2vh" },
     width: "100%",
   },
+  textarea: {
+    minHeight: { base: "12vh", md: "15vh" },
+  },
   error: {
     color: "red.500",
     marginY: "2",
     textAlign: "left",
   },
   lastField: {
-    paddingBottom: { base: "3vh", md: "none" },
+    paddingBottom: { base: "10vh", md: "13vh" },
+  },
+  spinner: {
+    size: "sm",
+    speed: "2s",
+    color: "white",
   },
   next: {
     position: "absolute",
@@ -139,5 +161,6 @@ const styles = {
     padding: "1.75em",
     borderRadius: "0.5em",
     marginX: "1em",
+    iconSpacing: "3",
   },
 };

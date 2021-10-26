@@ -10,6 +10,6 @@ export {
   PhotoScreen,
   DetailsScreen,
   PriceScreen,
-  SuccessScreen,
   PreviewScreen,
+  SuccessScreen,
 };

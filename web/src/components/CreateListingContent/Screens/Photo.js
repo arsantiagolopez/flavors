@@ -1,3 +1,4 @@
+import { CheckIcon } from "@chakra-ui/icons";
 import {
   AspectRatio,
   Button,
@@ -12,12 +13,15 @@ import { useForm } from "react-hook-form";
 import { IoDuplicate } from "react-icons/io5";
 import { ListingDropzone } from "../../Dropzone";
 
+// Screen index: 1
+
 const PhotoScreen = ({
   listing,
   setListing,
   handleChange,
   setFormCompleteIndex,
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [photoPreview, setPhotoPreview] = useState(null);
 
   const {
@@ -34,6 +38,7 @@ const PhotoScreen = ({
 
   // Handle submit
   const onSubmit = async (values) => {
+    setIsLoading(false);
     // Unlock & swipe to next screen
     setFormCompleteIndex(2);
     handleChange(1);
@@ -99,7 +104,11 @@ const PhotoScreen = ({
         </Flex>
       </form>
 
-      <Button onClick={handleNext} {...styles.next}>
+      <Button
+        onClick={handleNext}
+        rightIcon={isLoading ? <Spinner {...styles.spinner} /> : <CheckIcon />}
+        {...styles.next}
+      >
         Next
       </Button>
     </Flex>
@@ -113,7 +122,7 @@ export { PhotoScreen };
 const styles = {
   wrapper: {
     direction: "column",
-    paddingTop: { base: "8vh", md: "12vh" },
+    paddingTop: { base: "7vh", md: "12vh" },
     width: "100%",
     textAlign: "center",
     marginX: { base: "2em", md: "35vw" },
@@ -166,11 +175,17 @@ const styles = {
     marginY: "2",
     textAlign: "left",
   },
+  spinner: {
+    size: "sm",
+    speed: "2s",
+    color: "white",
+  },
   next: {
     position: "absolute",
     bottom: "10vh",
     width: { base: "calc(100% - 4em)", md: "calc(100% - 35vw - 35vw)" },
     padding: "1.75em",
     borderRadius: "0.5em",
+    iconSpacing: "3",
   },
 };

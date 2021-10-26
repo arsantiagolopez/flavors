@@ -38,6 +38,7 @@ export { ProgressLine };
 
 const styles = {
   wrapper: {
+    zIndex: "5",
     position: "absolute",
     direction: "column",
     paddingTop: { base: "1em", md: "10vh" },
