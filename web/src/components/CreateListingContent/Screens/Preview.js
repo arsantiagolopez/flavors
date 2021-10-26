@@ -27,7 +27,10 @@ const PreviewScreen = ({
     listing || {};
 
   // Redirect to screen number passed: Current index is 4
-  const redirectToScreen = (screen) => handleChange(screen - 4);
+  const redirectToScreen = (screen) => {
+    window.scrollTo(0, 0);
+    handleChange(screen - 4);
+  };
 
   const handleNext = () => {
     window.scrollTo(0, 0);
@@ -340,6 +343,7 @@ const styles = {
     align: "center",
     wrap: "wrap",
     paddingTop: "1vh",
+    paddingBottom: "3vh",
   },
   tag: {
     borderRadius: "2em",
