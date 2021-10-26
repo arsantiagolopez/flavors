@@ -12,7 +12,7 @@ import {
 
 const CreateListingContent = () => {
   const [listing, setListing] = useState(null);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(2);
   // formCompleteIndex holds the number of unlocked screens
   const [formCompleteIndex, setFormCompleteIndex] = useState(0);
   const [title, setTitle] = useState(null);

@@ -80,40 +80,38 @@ const AccountSidebar = () => {
         onChange={(index) => setAccordionIndex(index)}
         allowToggle
       >
-        {categories?.map(({ name, links }, index) => {
-          return (
-            <AccordionItem key={index} {...styles.links}>
-              {({ isExpanded }) => (
-                <>
-                  <AccordionButton
-                    fontWeight={isExpanded && "bold"}
-                    {...styles.button}
-                  >
-                    <AccordionIcon marginRight="2" />
-                    <Text {...styles.name}>{name}</Text>
-                  </AccordionButton>
+        {categories?.map(({ name, links }, index) => (
+          <AccordionItem key={index} {...styles.links}>
+            {({ isExpanded }) => (
+              <>
+                <AccordionButton
+                  fontWeight={isExpanded && "bold"}
+                  {...styles.button}
+                >
+                  <AccordionIcon marginRight="2" />
+                  <Text {...styles.name}>{name}</Text>
+                </AccordionButton>
 
-                  <AccordionPanel {...styles.panel}>
-                    <Flex direction="column">
-                      {links.map(({ name: link, path: pathname }) => {
-                        return (
-                          <Link key={pathname} href={pathname}>
-                            <Text
-                              fontWeight={pathname === path && "bold"}
-                              {...styles.link}
-                            >
-                              {link}
-                            </Text>
-                          </Link>
-                        );
-                      })}
-                    </Flex>
-                  </AccordionPanel>
-                </>
-              )}
-            </AccordionItem>
-          );
-        })}
+                <AccordionPanel {...styles.panel}>
+                  <Flex direction="column">
+                    {links.map(({ name: link, path: pathname }) => {
+                      return (
+                        <Link key={pathname} href={pathname}>
+                          <Text
+                            fontWeight={pathname === path && "bold"}
+                            {...styles.link}
+                          >
+                            {link}
+                          </Text>
+                        </Link>
+                      );
+                    })}
+                  </Flex>
+                </AccordionPanel>
+              </>
+            )}
+          </AccordionItem>
+        ))}
       </Accordion>
 
       <Text {...styles.logout}>Log out</Text>

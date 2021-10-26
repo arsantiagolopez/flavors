@@ -29,10 +29,8 @@ const PhotoScreen = ({
     clearErrors,
   } = useForm();
 
-  const handleNext = () => {
-    // Submit form
-    handleSubmit(onSubmit)();
-  };
+  // Submit form
+  const handleNext = () => handleSubmit(onSubmit)();
 
   // Handle submit
   const onSubmit = async (values) => {
@@ -54,7 +52,6 @@ const PhotoScreen = ({
     setPhotoPreview,
     setError,
     clearErrors,
-    ...photoRegister,
   };
 
   return (
@@ -63,7 +60,7 @@ const PhotoScreen = ({
       {...styles.wrapper}
     >
       <form>
-        <ListingDropzone {...listingDropzoneProps}>
+        <ListingDropzone {...listingDropzoneProps} {...photoRegister}>
           {photoPreview && !errors.photo ? (
             <AspectRatio {...styles.aspect}>
               <Image src={photoPreview} />

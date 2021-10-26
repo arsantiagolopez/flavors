@@ -30,7 +30,7 @@ const ListingDropzone = ({
       accept: "image/*",
       multiple: false,
       minSize: 1024,
-      maxSize: 500000,
+      maxSize: 2000000,
     });
 
   // Handle successfully updated files

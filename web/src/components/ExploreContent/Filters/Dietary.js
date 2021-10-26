@@ -29,6 +29,14 @@ const Dietary = () => {
       name: "vegan",
       label: "🌿 Vegan",
     },
+    {
+      name: "organic",
+      label: "🍊 Organic",
+    },
+    {
+      name: "lowFat",
+      label: "🥗 Low fat",
+    },
   ];
 
   // Set tag to active if not previously active, remove if it was
