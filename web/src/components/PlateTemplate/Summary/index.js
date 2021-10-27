@@ -3,15 +3,15 @@ import React, { useState } from "react";
 import { Meta } from "./Meta";
 import { SellerInfo } from "./SellerInfo";
 
-const Summary = ({ data }) => {
+const Summary = ({ plate, seller }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const { description, meta, seller } = data || {};
+  const { description, meta } = plate || {};
 
   // Toggle description expand state
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
-  const metaProps = { data };
+  const metaProps = { plate, seller };
   const sellerInfoProps = { seller };
 
   return (

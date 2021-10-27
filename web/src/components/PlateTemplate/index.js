@@ -1,43 +1,48 @@
-import { AspectRatio, Flex, Heading, Text } from "@chakra-ui/react";
+import { AspectRatio, Flex, Heading, Skeleton, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
 import { Breadcrumb } from "../Breadcrumb";
-import { Location } from "./Location";
+import { HeadingWithSkeleton } from "../HeadingWithSkeleton";
+// import { Location } from "./Location";
 import { Summary } from "./Summary";
 
-const PlateTemplate = ({ user, data }) => {
-  const { id, image, title, description, seller } = data || {};
+const PlateTemplate = ({ user, plate, seller }) => {
+  const { _id, image, category, subCategory, title, description } = plate || {};
 
   const breadcrumbLinks = [
     { name: "Home", href: "/" },
     {
-      name: "Electronics & Media Books, Movies, & Music",
-      href: "/categories/electronics",
+      name: category,
+      href: `/${category?.toLowerCase()}`,
     },
-    { name: "Go Pro Max 360", href: "#" },
+    { name: subCategory, href: `/${subCategory?.toLowerCase()}` },
   ];
 
   const breadcrumbProps = { links: breadcrumbLinks };
-  const summaryProps = { data };
+  const summaryProps = { plate, seller };
 
   return (
     <Flex {...styles.wrapper}>
       <Flex {...styles.header}>
-        <Heading {...styles.title}>{title}</Heading>
+        <HeadingWithSkeleton {...styles.title}>{title}</HeadingWithSkeleton>
         <Breadcrumb {...breadcrumbProps} />
       </Flex>
 
       <Flex {...styles.landing}>
         {/* Left */}
         <AspectRatio {...styles.aspect}>
-          <Image
-            src={image}
-            alt={title}
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-            priority="true"
-          />
+          {image ? (
+            <Image
+              src={image}
+              alt={title}
+              layout="fill"
+              objectFit="cover"
+              quality={100}
+              priority="true"
+            />
+          ) : (
+            <Skeleton {...styles.placeholder} />
+          )}
         </AspectRatio>
 
         {/* Right */}
@@ -57,7 +62,7 @@ const PlateTemplate = ({ user, data }) => {
 
       <Flex {...styles.section}>
         <Heading {...styles.heading}>Location</Heading>
-        <Location />
+        {/* <Location /> */}
       </Flex>
 
       <Flex {...styles.section}>
@@ -99,7 +104,11 @@ const styles = {
     width: { base: "100%", md: "50%" },
     boxShadow: "lg",
     borderRadius: "0.5em",
-    overflow: "hidden",
+    overflow: { base: "none", md: "hidden" },
+  },
+  placeholder: {
+    width: "100%",
+    height: "100%",
   },
   section: {
     direction: "column",

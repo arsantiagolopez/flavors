@@ -3,8 +3,7 @@ import "dotenv-safe/config";
 import express from "express";
 import { InitiateMongoServer } from "./config/db";
 import { getUserId } from "./middleware";
-import s3Routes from "./routes/s3";
-import userRoutes from "./routes/user";
+import { plateRoutes, s3Routes, userRoutes } from "./routes";
 
 require("dotenv").config();
 
@@ -28,6 +27,7 @@ app.use(getUserId);
 // Routes
 app.use("/api/user", userRoutes);
 app.use("/api/s3", s3Routes);
+app.use("/api/plates", plateRoutes);
 
 // Start Server
 app.listen(process.env.PORT, () => {

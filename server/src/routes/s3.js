@@ -10,4 +10,4 @@ router.get("/url", isAuthenticated, generateUploadURL);
 // Deletes image object from s3 bucket
 router.post("/delete", isAuthenticated, deleteImageFromBucket);
 
-export default router;
+export { router as s3Routes };

@@ -68,7 +68,7 @@ const CreateListingContent = () => {
     },
     {
       id: "success",
-      screen: <SuccessScreen {...successProps} />,
+      screen: <SuccessScreen {...screenProps} {...successProps} />,
     },
   ];
 

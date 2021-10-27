@@ -33,4 +33,4 @@ router.put("/change-password", isAuthenticated, changePassword);
 // Delete user's account
 router.delete("/delete", isAuthenticated, deleteUser);
 
-export default router;
+export { router as userRoutes };

@@ -1,17 +1,22 @@
-import { Flex, Icon, Text } from "@chakra-ui/react";
+import { Flex, Icon, Skeleton, Text } from "@chakra-ui/react";
 import React from "react";
 import { FaTruck } from "react-icons/fa";
 import { IoBagCheck, IoRestaurant, IoTimeSharp } from "react-icons/io5";
 
-const Meta = ({ data }) => {
-  const { price, markdown } = data || {};
+const Meta = ({ plate }) => {
+  const { price, markdown } = plate || {};
 
   const available = true;
 
   return (
     <Flex {...styles.wrapper}>
       <Flex {...styles.prices}>
-        <Text {...styles.price}>${price}</Text>
+        {price ? (
+          <Text {...styles.price}>${price}</Text>
+        ) : (
+          <Skeleton {...styles.priceSkeleton} />
+        )}
+
         <Text {...styles.markdown}>{markdown && `$${markdown}`}</Text>
       </Flex>
 
@@ -45,6 +50,12 @@ const styles = {
     direction: "row",
     align: "baseline",
     letterSpacing: "tighter",
+    marginTop: { base: "3vh", md: "0" },
+  },
+  priceSkeleton: {
+    height: "4vh",
+    width: "25%",
+    marginBottom: "1vh",
   },
   price: {
     fontSize: { base: "xl", md: "4xl" },

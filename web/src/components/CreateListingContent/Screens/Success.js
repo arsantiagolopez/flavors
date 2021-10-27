@@ -1,32 +1,104 @@
-import { Flex, Heading, Icon, ScaleFade, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  Icon,
+  ScaleFade,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { RiCheckboxCircleFill } from "react-icons/ri";
+import axios from "../../../axios";
 import { useDelay } from "../../../utils/useDelay";
 
 // Screen index: 5
 
-const SuccessScreen = ({ index, lastIndex, formCompleteIndex }) => {
+const SuccessScreen = ({ index, lastIndex, formCompleteIndex, listing }) => {
+  const [isCreating, setIsCreating] = useState(true);
+
   const isCurrentScreen = index === lastIndex;
   const isFormCompleted = formCompleteIndex === lastIndex;
+  const allFieldsCompleted =
+    listing?.photo && listing?.category && listing?.title && listing?.price;
+  listing?.description && listing?.tags && listing?.menu;
+
+  const createPlateOnce =
+    isCurrentScreen && isFormCompleted && allFieldsCompleted && isCreating;
 
   const router = useRouter();
 
-  // Redirect on complete
+  // Upload image securely to S3, get link & store link in DB
+  const uploadImageToS3 = async (file) => {
+    // Get secure URL from server
+    const { status, data } = await axios.get("/api/s3/url");
+    if (status !== 200) return;
+    const { url } = data;
+    // Post image to S3 Bucket
+    await axios.put(url, file, {
+      headers: { "Content-type": file.type },
+    });
+    const imageURL = url.split("?")[0];
+    return imageURL;
+  };
+
+  // Create a plate document and save in DB
+  const createPlate = async () => {
+    const {
+      menu,
+      photo,
+      photoPreview,
+      category: {
+        category: { label: category },
+        subCategory: { label: subCategory },
+      },
+      ...values
+    } = listing;
+
+    // Upload & store image URL
+    const image = await uploadImageToS3(photo);
+
+    const params = { ...values, category, subCategory, image, menu: [menu] };
+    const { status, data } = await axios.post("/api/plates", params);
+
+    // Return false if something went wrong
+    if (status !== 200) return false;
+
+    return data?.plate;
+  };
+
+  // Handle form completion
   useEffect(async () => {
-    if (isCurrentScreen && isFormCompleted) {
-      await useDelay();
-      // router.push("/");
+    if (createPlateOnce) {
+      setIsCreating(false);
+
+      const plate = await createPlate();
+
+      if (!plate) return console.log("something went wrong");
+
+      // Redirect on complete
+      await useDelay(2000);
+
+      const { _id } = plate;
+      router.push(`/plates/${_id}`);
     }
-  }, [isFormCompleted]);
+  }, [isCurrentScreen, isFormCompleted]);
 
   return (
     <Flex {...styles.wrapper}>
       <ScaleFade initialScale={0.2} in={isCurrentScreen}>
         <Flex {...styles.content}>
-          <Icon as={RiCheckboxCircleFill} {...styles.icon} />
+          {isCreating ? (
+            <Spinner {...styles.spinner} />
+          ) : (
+            <Icon as={RiCheckboxCircleFill} {...styles.icon} />
+          )}
           <Heading {...styles.heading}>Everything looks right!</Heading>
-          <Text {...styles.text}>Let's see your live post.</Text>
+          <Text {...styles.text}>
+            {isCreating
+              ? "We're creating your plate..."
+              : "Done! Let's see your live post."}
+          </Text>
         </Flex>
       </ScaleFade>
     </Flex>
@@ -50,6 +122,13 @@ const styles = {
     justify: "center",
     align: "center",
   },
+  spinner: {
+    color: "brand",
+    speed: "1s",
+    marginLeft: "2",
+    boxSize: "5em",
+    thickness: "4px",
+  },
   icon: {
     color: "green.400",
     boxSize: "7em",
@@ -59,7 +138,5 @@ const styles = {
   },
   text: {
     color: "gray.500",
-
-    // fontSize: { base: "1rem", md: "1em" },
   },
 };

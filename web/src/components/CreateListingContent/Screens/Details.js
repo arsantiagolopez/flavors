@@ -19,7 +19,7 @@ const DetailsScreen = ({
   // @todo: Get menu options from BACKEND
   let menuOptions = ["My Plates", "Keto", "Breakfast"];
 
-  const DEFAULT_MENU_NAME = "My plates";
+  const DEFAULT_MENU_NAME = "My Plates";
 
   const {
     handleSubmit,
