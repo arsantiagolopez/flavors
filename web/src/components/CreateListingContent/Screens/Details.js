@@ -1,6 +1,14 @@
 import { CheckIcon } from "@chakra-ui/icons";
-import { Button, Flex, Spinner, Text, Textarea } from "@chakra-ui/react";
-import React, { useState } from "react";
+import {
+  Button,
+  Flex,
+  InputGroup,
+  InputRightElement,
+  Spinner,
+  Text,
+  Textarea,
+} from "@chakra-ui/react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { CategorySelect } from "../../CategorySelect";
 import { MenuSelectCreatable } from "../../MenuSelectCreatable";
@@ -14,27 +22,25 @@ const DetailsScreen = ({
   handleChange,
   setFormCompleteIndex,
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
   // @todo: Get menu options from BACKEND
   let menuOptions = ["My Plates", "Keto", "Breakfast"];
-
-  const DEFAULT_MENU_NAME = "My Plates";
 
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, dirtyFields },
     control,
+    watch,
   } = useForm();
+
+  // Loading is false when user is missing required fields
+  const isLoading = !dirtyFields?.category || !dirtyFields?.description;
 
   // Submit form
   const handleNext = () => handleSubmit(onSubmit)();
 
   // Handle submit
   const onSubmit = async (values) => {
-    setIsLoading(false);
-
     // Unlock & swipe to next screen
     setFormCompleteIndex(3);
     handleChange(1);
@@ -51,7 +57,6 @@ const DetailsScreen = ({
     name: "menu",
     control,
     menuOptions,
-    defaultValue: DEFAULT_MENU_NAME,
   };
   const tagsRegister = { name: "tags", control };
 
@@ -70,17 +75,22 @@ const DetailsScreen = ({
           {...styles.field}
           marginTop={errors?.category ? "1vh" : { base: "3vh", md: "2vh" }}
         >
-          <Textarea
-            spellCheck="true"
-            placeholder="Your plate description. The more details, the more your plate will be seen!"
-            isInvalid={errors?.description}
-            focusBorderColor={errors?.description && "red.500"}
-            {...descriptionRegister}
-            {...styles.textarea}
-          />
-          {errors?.description && (
-            <Text {...styles.error}>{errors?.description?.message}</Text>
-          )}
+          <InputGroup>
+            <Textarea
+              spellCheck="true"
+              placeholder="Your plate description. The more details, the more your plate will be seen!"
+              isInvalid={errors?.description}
+              focusBorderColor={errors?.description && "red.500"}
+              {...descriptionRegister}
+              {...styles.textarea}
+            />
+            {errors?.description && (
+              <Text {...styles.error}>{errors?.description?.message}</Text>
+            )}
+            {watch("description") && (
+              <InputRightElement children={<CheckIcon {...styles.icon} />} />
+            )}
+          </InputGroup>
         </Flex>
 
         <Flex
@@ -147,6 +157,11 @@ const styles = {
     color: "red.500",
     marginY: "2",
     textAlign: "left",
+  },
+  icon: {
+    pointerEvents: "none",
+    color: "green.400",
+    marginRight: "0.6em",
   },
   lastField: {
     paddingBottom: { base: "10vh", md: "13vh" },

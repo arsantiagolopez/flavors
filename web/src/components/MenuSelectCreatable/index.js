@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useController } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
 import { useDelay } from "../../utils/useDelay";
 import { ClearIndicator, DropdownIndicator } from "./CustomComponents";
 
-const MenuSelectCreatable = ({ name, control, menuOptions, defaultValue }) => {
+const MenuSelectCreatable = ({ name, control, menuOptions }) => {
   const createOption = (label) => ({
     label,
     value: label.toLowerCase().replace(/\W/g, ""),
@@ -46,14 +46,10 @@ const MenuSelectCreatable = ({ name, control, menuOptions, defaultValue }) => {
     if (newOption) onChange(newOption?.label);
   };
 
-  // Set initial value to passed down default value
-  useEffect(() => handleChange(createOption(defaultValue)), []);
-
   return (
     <CreatableSelect
       value={value}
       onChange={handleChange}
-      defaultValue={defaultValue}
       isDisabled={isLoading}
       isLoading={isLoading}
       onCreateOption={handleCreate}

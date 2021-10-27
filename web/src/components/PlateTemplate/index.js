@@ -102,9 +102,10 @@ const styles = {
   aspect: {
     ratio: 1,
     width: { base: "100%", md: "50%" },
+    height: "100%",
     boxShadow: "lg",
-    borderRadius: "0.5em",
-    overflow: { base: "none", md: "hidden" },
+    borderRadius: { base: "1em", md: "0.5em" },
+    overflow: { base: "visible", md: "hidden" },
   },
   placeholder: {
     width: "100%",

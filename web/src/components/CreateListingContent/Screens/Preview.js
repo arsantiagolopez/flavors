@@ -159,13 +159,14 @@ const PreviewScreen = ({
           {...styles.field}
           {...styles.scaleOnHover}
         >
-          <Heading color={menu ? "gray.800" : "gray.400"} {...styles.heading}>
-            Menu
-          </Heading>
+          <Heading {...styles.heading}>Menu</Heading>
           {menu ? (
             <Text {...styles.menu}>{menu}</Text>
           ) : (
-            <Skeleton {...styles.menuSkeleton} />
+            <Text {...styles.menu} {...styles.empty}>
+              You didn't add your plate to menu. Menu's are like Spotify
+              playlists. Add plates to them, and stay organized.
+            </Text>
           )}
           {menu && <Icon as={IoCreate} {...styles.editIcon} />}
         </Flex>
@@ -176,20 +177,10 @@ const PreviewScreen = ({
           {...styles.field}
           {...styles.scaleOnHover}
           overflow="hidden"
-          maxWidth="100%"
         >
-          <Heading color={tags ? "gray.800" : "gray.400"} {...styles.heading}>
-            Tags
-          </Heading>
+          <Heading {...styles.heading}>Tags</Heading>
           {tags ? (
-            <Flex
-              {...styles.tags}
-              maxWidth={{
-                base: "calc(100vw - 2em - 2em)",
-                md: "calc(100% - 35vw - 35vw)",
-              }}
-              oveflow="hidden"
-            >
+            <Flex {...styles.tags}>
               {tags.map((tag) => (
                 <Text key={tag} {...styles.tag}>
                   {tag}
@@ -197,10 +188,9 @@ const PreviewScreen = ({
               ))}
             </Flex>
           ) : (
-            <Flex {...styles.tagsSkeleton}>
-              <Skeleton {...styles.tagsSkeletonBadge} />
-              <Skeleton {...styles.tagsSkeletonBadge} />
-              <Skeleton {...styles.tagsSkeletonBadge} />
+            <Flex {...styles.tags} {...styles.empty}>
+              No tags? Tags help your plate be seen by more people. Click here
+              to add some.
             </Flex>
           )}
           {tags && <Icon as={IoCreate} {...styles.editIcon} />}
@@ -332,6 +322,9 @@ const styles = {
   menu: {
     textAlign: "left",
   },
+  empty: {
+    color: "gray.400",
+  },
   menuSkeleton: {
     width: "50%",
     height: { base: "4vh", md: "5vh" },
@@ -339,11 +332,13 @@ const styles = {
   },
   tags: {
     direction: "row",
-    width: "100%",
     align: "center",
+    width: "100%",
     wrap: "wrap",
     paddingTop: "1vh",
     paddingBottom: "3vh",
+    overflow: "hidden",
+    textAlign: "left",
   },
   tag: {
     borderRadius: "2em",

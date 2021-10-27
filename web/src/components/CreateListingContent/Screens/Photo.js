@@ -21,24 +21,25 @@ const PhotoScreen = ({
   handleChange,
   setFormCompleteIndex,
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
   const [photoPreview, setPhotoPreview] = useState(null);
 
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, dirtyFields },
     control,
     setError,
     clearErrors,
   } = useForm();
+
+  // Loading is false when user is missing required fields
+  const isLoading = !dirtyFields?.photo || !dirtyFields?.title;
 
   // Submit form
   const handleNext = () => handleSubmit(onSubmit)();
 
   // Handle submit
   const onSubmit = async (values) => {
-    setIsLoading(false);
     // Unlock & swipe to next screen
     setFormCompleteIndex(2);
     handleChange(1);
@@ -48,10 +49,10 @@ const PhotoScreen = ({
   };
 
   // Form field registration
+  const photoRegister = { name: "photo", control, setError };
   const titleRegister = register("title", {
     required: "Your plate needs a title.",
   });
-  const photoRegister = { name: "photo", control, setError };
 
   const listingDropzoneProps = {
     setPhotoPreview,
@@ -94,6 +95,7 @@ const PhotoScreen = ({
             placeholder="Title"
             isInvalid={errors?.title}
             focusBorderColor={errors?.title && "red.500"}
+            defaultValue={null}
             {...titleRegister}
             {...styles.input}
           />

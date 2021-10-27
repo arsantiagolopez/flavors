@@ -18,16 +18,18 @@ const PriceScreen = ({
   handleChange: handleScreenChange,
   setFormCompleteIndex,
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
   const [value, setValue] = useState(null);
 
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, dirtyFields },
     setError,
     trigger,
   } = useForm();
+
+  // Loading is false when user is missing required fields
+  const isLoading = !dirtyFields?.price;
 
   const format = (val) => "$" + val.toLocaleString();
   const parse = (val) => val.replace(/^\$/, "");
@@ -49,9 +51,7 @@ const PriceScreen = ({
   const handleNext = () => handleSubmit(onSubmit)();
 
   // Handle submit
-  const onSubmit = async (values) => {
-    setIsLoading(false);
-
+  const onSubmit = async () => {
     // Unlock & swipe to next screen
     setFormCompleteIndex(4);
     handleScreenChange(1);

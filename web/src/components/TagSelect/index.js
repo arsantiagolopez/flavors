@@ -73,7 +73,6 @@ const styles = {
   container: (provided) => ({
     ...provided,
     padding: 0,
-    maxWidth: "100%",
   }),
   control: (provided, state) => ({
     ...provided,
