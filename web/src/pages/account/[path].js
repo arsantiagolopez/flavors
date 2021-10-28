@@ -38,13 +38,13 @@ const AccountPages = () => {
   let content, title;
 
   const layoutProps = { user, SidebarComponent: <AccountSidebar /> };
-  const commonProps = { user, mutate };
+  const contentProps = { user, mutate };
 
   switch (path) {
     // Personal
     case "profile":
       title = "My Profile";
-      content = <Profile {...commonProps} />;
+      content = <Profile {...contentProps} />;
       break;
     case "payments":
       title = "My Payments";
@@ -65,7 +65,7 @@ const AccountPages = () => {
       break;
     case "password":
       title = "Change Your Password";
-      content = <Password {...commonProps} />;
+      content = <Password {...contentProps} />;
       break;
     case "socials":
       title = "Social Media Accounts";

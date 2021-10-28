@@ -97,10 +97,11 @@ const styles = {
     marginY: "2vh",
   },
   actions: {
-    position: "sticky",
+    position: { base: "static", md: "sticky" },
     bottom: "0",
+    marginTop: { base: "3vh", md: "auto" },
+    marginBottom: { base: "5vh", md: "0" },
     direction: "column",
-    marginTop: "auto",
     width: "100%",
     background:
       "linear-gradient(0deg, rgba(255,255,255,1) 20%, rgba(0,0,0,0) 100%);",

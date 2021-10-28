@@ -148,7 +148,7 @@ export { SearchBar };
 const styles = {
   wrapper: {
     focusBorderColor: "gray.700",
-    paddingBottom: "3vh",
+    paddingBottom: { base: "2vh", md: "3vh" },
   },
   input: {
     className: "searchbar",

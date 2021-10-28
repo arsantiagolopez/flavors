@@ -36,7 +36,7 @@ const Breadcrumb = ({ links }) => {
       {...styles.breadcrumb}
     >
       {links?.map(({ name, href }, index) => (
-        <BreadcrumbItem key={index}>
+        <BreadcrumbItem key={index} {...styles.link}>
           <BreadcrumbLink as={Link} href={href}>
             {name}
           </BreadcrumbLink>
@@ -70,5 +70,12 @@ const styles = {
   },
   chevron: {
     marginX: "1",
+  },
+  link: {
+    _hover: {
+      color: "gray.500",
+      fontWeight: "semibold",
+      letterSpacing: "tight",
+    },
   },
 };

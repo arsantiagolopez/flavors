@@ -59,8 +59,8 @@ const styles = {
     paddingX: "1",
   },
   heading: {
-    fontSize: { base: "2xl", md: "5xl" },
-    paddingBottom: "3vh",
+    fontSize: { base: "3xl", md: "5xl" },
+    paddingBottom: { base: "2vh", md: "3vh" },
     isTruncated: true,
   },
 };

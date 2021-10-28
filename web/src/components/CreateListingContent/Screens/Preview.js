@@ -164,7 +164,7 @@ const PreviewScreen = ({
             <Text {...styles.menu}>{menu}</Text>
           ) : (
             <Text {...styles.menu} {...styles.empty}>
-              You didn't add your plate to menu. Menu's are like Spotify
+              You didn't add your plate to menu. Menus are like Spotify
               playlists. Add plates to them, and stay organized.
             </Text>
           )}
@@ -179,7 +179,7 @@ const PreviewScreen = ({
           overflow="hidden"
         >
           <Heading {...styles.heading}>Tags</Heading>
-          {tags ? (
+          {tags?.length ? (
             <Flex {...styles.tags}>
               {tags.map((tag) => (
                 <Text key={tag} {...styles.tag}>
