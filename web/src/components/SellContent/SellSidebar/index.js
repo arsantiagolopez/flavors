@@ -15,14 +15,14 @@ import { SellingStatusButton } from "../../SellingStatusButton";
 const SellSidebar = () => {
   const [accordionIndex, setAccordionIndex] = useState(null);
   const router = useRouter();
-  const { asPath } = router;
+  const { asPath, query } = router;
 
   const categories = [
     {
       name: "Seller profile",
-      href: "/sell",
+      href: "",
       links: [
-        { name: "My profile", path: "/" },
+        { name: "My profile", path: "" },
         { name: "Insights", path: "insights" },
         { name: "Reactions", path: "reactions" },
         { name: "Most searched foods", path: "suggestions" },
@@ -30,38 +30,57 @@ const SellSidebar = () => {
     },
     {
       name: "My Plates",
-      href: "/sell/plates",
-      links: [{ name: "All listings", path: "/" }],
+      href: "plates",
+      links: [{ name: "All listings", path: "" }],
     },
     {
       name: "My Menus",
-      href: "/sell/menus",
-      links: [{ name: "All menus", path: "/" }],
+      href: "menus",
+      links: [{ name: "All menus", path: "" }],
     },
     {
       name: "My Subscriptions",
-      href: "/sell/subscriptions",
-      links: [{ name: "All subscriptions", path: "/" }],
+      href: "subscriptions",
+      links: [{ name: "All subscriptions", path: "" }],
     },
   ];
 
   // Scroll to top of page
   const scrollToTop = () => window.scrollTo(0, 0);
 
-  // Scroll to top on root element of dropdown
-  useEffect(() => {
-    if (asPath === "/sell") scrollToTop();
-  }, [asPath]);
+  // Scroll to last item & exclude footer
+  const scrollToBottom = () => {
+    const bottom = document.body.scrollHeight;
+    window.scrollTo({ top: bottom, behavior: "smooth" });
+  };
 
   // Keep right accordion panel open
   useEffect(() => {
-    if (asPath) {
-      const categoryIndex = categories.findIndex(({ links }) =>
-        links.some(({ path }) => asPath.includes(path))
+    if (query?.path) {
+      const category = categories.find(({ href }) =>
+        query?.path.includes(href)
       );
-      setAccordionIndex([categoryIndex]);
+      setAccordionIndex([categories.indexOf(category)]);
+    } else {
+      setAccordionIndex([0]);
     }
-  }, [asPath]);
+  }, [query]);
+
+  // Scroll to top or bottom based on active link
+  useEffect(() => {
+    // Get active category
+    let category = categories.find(({ href }) => query?.path?.includes(href));
+    if (typeof category === "undefined") category = categories[0];
+
+    const { links } = category;
+
+    // Scroll to top on first item of links
+    if (!asPath.includes("#")) return scrollToTop();
+
+    // Scroll to bottom on last item of links
+    const lastItem = links[links?.length - 1];
+    if (asPath.includes(lastItem?.path)) return scrollToBottom();
+  }, [router]);
 
   return (
     <Flex {...styles.wrapper}>
@@ -80,35 +99,33 @@ const SellSidebar = () => {
                   fontWeight={isExpanded && "bold"}
                   {...styles.button}
                 >
-                  <Link href={href}>
-                    <>
-                      <AccordionIcon marginRight="2" />
-                      <Text {...styles.name}>{name}</Text>
-                    </>
-                  </Link>
+                  <AccordionIcon marginRight="2" />
+                  <Text {...styles.name}>{name}</Text>
                 </AccordionButton>
 
                 <AccordionPanel {...styles.panel}>
-                  {links?.map(({ name: link, path: pathname }) => (
-                    <Link
-                      key={pathname}
-                      href={pathname === "/" ? href : `${href}#${pathname}`}
-                      shallow
-                    >
-                      <Text
-                        fontWeight={
-                          pathname === "/" && asPath === href
-                            ? "bold"
-                            : asPath.replace("/", "").includes(pathname)
-                            ? "bold"
-                            : "normal"
-                        }
-                        {...styles.link}
-                      >
-                        {link}
-                      </Text>
-                    </Link>
-                  ))}
+                  {links?.map(({ name: link, path: pathname }) => {
+                    const path = href === "" ? "/sell" : `/sell/${href}`;
+                    const param = pathname === "" ? "" : `#${pathname}`;
+                    const linkHref = path + param;
+
+                    return (
+                      <Link key={pathname} href={linkHref} shallow>
+                        <Text
+                          fontWeight={
+                            pathname === "" && asPath === href
+                              ? "bold"
+                              : asPath.replace("/", "").includes(pathname)
+                              ? "bold"
+                              : "normal"
+                          }
+                          {...styles.link}
+                        >
+                          {link}
+                        </Text>
+                      </Link>
+                    );
+                  })}
                 </AccordionPanel>
               </>
             )}

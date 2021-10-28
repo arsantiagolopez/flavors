@@ -97,7 +97,7 @@ const Footer = () => {
     },
   ];
   return (
-    <Flex {...styles.wrapper}>
+    <Flex id="footer" {...styles.wrapper}>
       <Flex {...styles.categories}>
         {categories.map(({ id, category, links }) => (
           <Flex key={id} {...styles.category}>

@@ -21,7 +21,7 @@ const SellerProfile = ({ user }) => {
     <Flex {...styles.wrapper}>
       <Heading {...styles.title}>My Seller Profile</Heading>
       <Flex {...styles.content}>
-        <Flex id="root" {...styles.profile}>
+        <Flex {...styles.profile}>
           <AspectRatio {...styles.aspect}>
             <Avatar src={image} name={name} {...styles.avatar} />
           </AspectRatio>
@@ -34,28 +34,23 @@ const SellerProfile = ({ user }) => {
           </Flex>
         </Flex>
 
-        <Divider {...styles.divider} />
+        <Divider id="insights" {...styles.divider} />
 
-        <Heading id="insights" {...styles.heading}>
-          Insights
-        </Heading>
+        <Heading {...styles.heading}>Insights</Heading>
         <Flex {...styles.insights}>
           <Insights />
         </Flex>
 
-        <Divider {...styles.divider} />
+        <Divider id="reactions" {...styles.divider} />
 
-        <Heading id="reactions" {...styles.heading}>
-          Reactions
-        </Heading>
+        <Heading {...styles.heading}>Reactions</Heading>
         <Flex {...styles.reactions}>
           <Reactions />
         </Flex>
-        <Divider {...styles.divider} />
 
-        <Heading id="suggestions" {...styles.heading}>
-          Most searched foods
-        </Heading>
+        <Divider id="suggestions" {...styles.divider} />
+
+        <Heading {...styles.heading}>Most searched foods</Heading>
         <Flex {...styles.suggestions}>
           <SellingSuggestions />
         </Flex>
@@ -107,7 +102,8 @@ const styles = {
     fontSize: "10pt",
   },
   divider: {
-    marginY: "3vh",
+    paddingTop: "3vh",
+    marginBottom: "3vh",
   },
   heading: {
     fontSize: { base: "2xl", md: "2xl" },
