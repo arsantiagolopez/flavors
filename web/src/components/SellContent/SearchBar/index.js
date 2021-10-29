@@ -99,7 +99,7 @@ const styles = {
   },
   wrapper: {
     focusBorderColor: "gray.700",
-    marginY: "2",
+    marginY: { base: "0", md: "2" },
   },
   input: {
     focusBorderColor: "gray.800",

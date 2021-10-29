@@ -34,6 +34,54 @@ const Orders = () => {
           "https://images.pexels.com/photos/3535383/pexels-photo-3535383.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
       },
     },
+    {
+      buyer: {
+        id: 1,
+        name: "Andrea Piacquiado",
+        photo:
+          "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+        rating: "⭐⭐⭐⭐",
+        ratingAmount: "1.2k",
+      },
+      plate: {
+        id: 2,
+        name: "food",
+        photo:
+          "https://images.pexels.com/photos/3535383/pexels-photo-3535383.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      },
+    },
+    {
+      buyer: {
+        id: 1,
+        name: "Andrea Piacquiado",
+        photo:
+          "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+        rating: "⭐⭐⭐⭐",
+        ratingAmount: "1.2k",
+      },
+      plate: {
+        id: 2,
+        name: "food",
+        photo:
+          "https://images.pexels.com/photos/3535383/pexels-photo-3535383.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      },
+    },
+    {
+      buyer: {
+        id: 1,
+        name: "Andrea Piacquiado",
+        photo:
+          "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+        rating: "⭐⭐⭐⭐",
+        ratingAmount: "1.2k",
+      },
+      plate: {
+        id: 2,
+        name: "food",
+        photo:
+          "https://images.pexels.com/photos/3535383/pexels-photo-3535383.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      },
+    },
   ];
 
   return (
@@ -45,9 +93,7 @@ const Orders = () => {
 
       <Flex {...styles.content}>
         <Section heading="To accept" type="accept" items={acceptOrders} />
-
         <Section heading="Preparing" type="preparing" />
-
         <Section heading="Pending pickup/delivery" type="pickup" />
       </Flex>
     </Flex>
@@ -78,7 +124,7 @@ const styles = {
     paddingBottom: "1vh",
   },
   content: {
-    direction: "row",
+    direction: { base: "column", md: "row" },
     paddingY: { base: "2vh", md: "5vh" },
     height: "100%",
   },

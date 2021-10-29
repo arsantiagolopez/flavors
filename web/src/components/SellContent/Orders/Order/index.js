@@ -73,48 +73,52 @@ export { Order };
 
 const styles = {
   wrapper: {
-    direction: "row",
-    width: "100%",
-    height: "8vh",
-    minHeight: "8vh",
+    direction: { base: "column", md: "row" },
+    width: { base: "30vw", md: "100%" },
+    minWidth: { base: "30vw", md: "100%" },
+    height: { base: "95%", md: "8vh" },
+    minHeight: { base: "none", md: "8vh" },
     boxShadow: "sm",
     borderRadius: "0.5em",
-    marginBottom: "2",
+    marginBottom: { base: "0", md: "2" },
+    marginRight: { base: "2", md: "0" },
     cursor: "pointer",
     _hover: {
       background: "gray.100",
     },
   },
   card: {
-    direction: "row",
+    direction: { base: "column", md: "row" },
     justify: "space-between",
     align: "center",
     width: "100%",
     height: "100%",
     paddingX: "2",
+    paddingY: { base: "1", md: "0" },
   },
   photos: {
     direction: "row",
     cursor: "pointer",
   },
   photo: {
-    boxSize: "3em",
+    boxSize: { base: "2em", md: "3em" },
   },
   backPhoto: {
     zIndex: "3",
   },
   frontPhoto: {
     zIndex: "5",
-    marginLeft: "-1.5em",
+    marginLeft: { base: "-1em", md: "-1.5em" },
   },
   meta: {
     direction: "column",
     justify: "center",
-    align: "flex-start",
+    align: { base: "center", md: "flex-start" },
     letterSpacing: "tight",
     cursor: "pointer",
-    maxWidth: "45%",
-    minWidth: "30%",
+    maxWidth: { base: "100%", md: "45%" },
+    minWidth: { base: "100%", md: "30%" },
+    paddingY: "1",
   },
   name: {
     fontWeight: "semibold",
@@ -129,6 +133,7 @@ const styles = {
     isTruncated: true,
   },
   details: {
+    display: { base: "none", md: "block" },
     color: "gray.400",
     fontSize: "8pt",
   },
@@ -139,22 +144,27 @@ const styles = {
   },
   progress: {
     color: "gray.800",
+    size: { base: "1.5em", md: "1.75em" },
   },
   actions: {
-    direction: "column",
-    width: "10%",
+    direction: { base: "row", md: "column" },
+    width: { base: "100%", md: "10%" },
     height: "100%",
-    marginRight: "-2",
+    marginRight: { base: "none", md: "-2" },
   },
   button: {
     justify: "center",
     align: "center",
     height: "100%",
+    width: "100%",
     cursor: "pointer",
+    paddingY: "1.5",
   },
   acceptButton: {
+    order: { base: 2, md: 1 },
     background: "green.400",
-    borderTopRightRadius: "0.5em",
+    borderTopRightRadius: { base: "0", md: "0.5em" },
+    borderBottomRightRadius: { base: "0.5em", md: "0" },
     _hover: {
       background: "green.500",
     },
@@ -164,8 +174,10 @@ const styles = {
     width: "45%",
   },
   declineButton: {
+    order: { base: 1, md: 2 },
     background: "red.400",
-    borderBottomRightRadius: "0.5em",
+    borderBottomRightRadius: { base: "0", md: "0.5em" },
+    borderBottomLeftRadius: { base: "0.5em", md: "0" },
     _hover: {
       background: "red.500",
     },
