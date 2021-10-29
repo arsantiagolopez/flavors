@@ -98,7 +98,6 @@ const styles = {
   },
   photos: {
     direction: "row",
-    cursor: "pointer",
   },
   photo: {
     boxSize: { base: "2em", md: "3em" },

@@ -125,7 +125,7 @@ const styles = {
   },
   content: {
     direction: { base: "column", md: "row" },
-    paddingY: { base: "2vh", md: "5vh" },
+    paddingY: { base: "2vh", md: "3vh" },
     height: "100%",
   },
 };

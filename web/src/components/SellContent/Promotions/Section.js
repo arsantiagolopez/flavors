@@ -1,18 +1,16 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import React from "react";
-import { Order } from "./Order";
+import { Promotion } from "./Promotion";
 
-const Section = ({ heading, items }) => {
-  const amount = items?.length ? items?.length : 0;
+const Section = ({ heading, type, items }) => {
   return (
     <Flex {...styles.section}>
       <Flex {...styles.header}>
         <Heading {...styles.heading}>{heading}</Heading>
-        <Flex {...styles.badge}>{amount}</Flex>
       </Flex>
       <Flex {...styles.items}>
         {items?.map((item) => (
-          <Order key={item?.id} order={item} />
+          <Promotion key={item?.id} promotion={item} />
         ))}
       </Flex>
     </Flex>
@@ -26,7 +24,7 @@ export { Section };
 const styles = {
   section: {
     positon: "relative",
-    flex: "1 1 25%",
+    flex: "1 1 50%",
     direction: "column",
     minHeight: { base: "25vh", md: "60vh" },
     maxHeight: { base: "25vh", md: "60vh" },
