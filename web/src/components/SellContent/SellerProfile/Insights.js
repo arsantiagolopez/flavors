@@ -10,7 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-import { IoBookmark, IoEyeSharp, IoFileTray } from "react-icons/io5";
+import { IoEyeSharp, IoHeart, IoPricetags } from "react-icons/io5";
 
 const Insights = () => {
   const views = "0";
@@ -37,14 +37,21 @@ const Insights = () => {
                 // fontWeight={isActive("DATE") && "600"}
                 >
                   Last month
-                  {true && <CheckIcon {...styles.icon} />}
+                  {true && <CheckIcon />}
                 </MenuItem>
                 <MenuItem
                 // onClick={() => handleClick("NAME")}
                 // fontWeight={isActive("NAME") && "600"}
                 >
                   Last year
-                  {false && <CheckIcon {...styles.icon} />}
+                  {false && <CheckIcon />}
+                </MenuItem>
+                <MenuItem
+                // onClick={() => handleClick("NAME")}
+                // fontWeight={isActive("NAME") && "600"}
+                >
+                  All time
+                  {false && <CheckIcon />}
                 </MenuItem>
               </MenuList>
             </>
@@ -59,13 +66,13 @@ const Insights = () => {
         </Flex>
 
         <Flex {...styles.section}>
-          <Icon as={IoBookmark} {...styles.icon} />
-          <Text {...styles.views}>{saves} plate saves</Text>
+          <Icon as={IoHeart} {...styles.icon} />
+          <Text {...styles.views}>{saves} plates loved</Text>
         </Flex>
 
         <Flex {...styles.section} marginRight="none">
-          <Icon as={IoFileTray} {...styles.icon} />
-          <Text {...styles.views}>{chats} chats to answer</Text>
+          <Icon as={IoPricetags} {...styles.icon} />
+          <Text {...styles.views}>{chats} sales</Text>
         </Flex>
       </Flex>
     </Flex>

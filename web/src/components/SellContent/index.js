@@ -1,7 +1,8 @@
 import { Listings } from "./Listings";
 import { Menus } from "./Menus";
+import { Orders } from "./Orders";
+import { Promotions } from "./Promotions";
 import { SellerProfile } from "./SellerProfile";
 import { SellSidebar } from "./SellSidebar";
-import { Subscriptions } from "./Subsbcriptions";
 
-export { Listings, Menus, SellerProfile, SellSidebar, Subscriptions };
+export { Listings, Menus, SellerProfile, SellSidebar, Orders, Promotions };

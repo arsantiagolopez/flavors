@@ -6,9 +6,10 @@ import { Layout } from "../../components/Layout";
 import {
   Listings,
   Menus,
+  Orders,
+  Promotions,
   SellerProfile,
   SellSidebar,
-  Subscriptions,
 } from "../../components/SellContent";
 
 // @todo: {isSeller ? <SellerProfile {...sellerProfileProps} /> : <SellerOnboard />}
@@ -31,21 +32,25 @@ const SellPages = () => {
   const contentProps = { user };
 
   switch (path) {
-    case undefined:
-      title = "My Seller Profile";
-      content = <SellerProfile {...contentProps} />;
+    case "orders":
+      title = "Orders";
+      content = <Orders {...contentProps} />;
       break;
     case "listings":
-      title = "My Listings";
+      title = "Listings";
       content = <Listings {...contentProps} />;
       break;
     case "menus":
-      title = "My Menus";
+      title = "Menus";
       content = <Menus {...contentProps} />;
       break;
-    case "subscriptions":
-      title = "My Subscriptions";
-      content = <Subscriptions {...contentProps} />;
+    case "promotions":
+      title = "Promotions";
+      content = <Promotions {...contentProps} />;
+      break;
+    case "profile":
+      title = "Seller Profile";
+      content = <SellerProfile {...contentProps} />;
       break;
   }
 

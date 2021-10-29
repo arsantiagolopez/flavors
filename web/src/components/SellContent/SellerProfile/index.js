@@ -19,13 +19,12 @@ const SellerProfile = ({ user }) => {
 
   return (
     <Flex {...styles.wrapper}>
-      <Heading {...styles.title}>My Seller Profile</Heading>
+      <Heading {...styles.title}>Seller Profile</Heading>
       <Flex {...styles.content}>
         <Flex {...styles.profile}>
           <AspectRatio {...styles.aspect}>
             <Avatar src={image} name={name} {...styles.avatar} />
           </AspectRatio>
-
           <Flex {...styles.info}>
             <Text {...styles.name}>{name}</Text>
             <Text {...styles.reviews}>
@@ -34,21 +33,21 @@ const SellerProfile = ({ user }) => {
           </Flex>
         </Flex>
 
-        <Divider id="insights" {...styles.divider} />
+        <Divider {...styles.divider} />
 
         <Heading {...styles.heading}>Insights</Heading>
         <Flex {...styles.insights}>
           <Insights />
         </Flex>
 
-        <Divider id="reactions" {...styles.divider} />
+        <Divider {...styles.divider} />
 
         <Heading {...styles.heading}>Reactions</Heading>
         <Flex {...styles.reactions}>
           <Reactions />
         </Flex>
 
-        <Divider id="suggestions" {...styles.divider} />
+        <Divider {...styles.divider} />
 
         <Heading {...styles.heading}>Most searched foods</Heading>
         <Flex {...styles.suggestions}>
@@ -102,8 +101,7 @@ const styles = {
     fontSize: "10pt",
   },
   divider: {
-    paddingTop: "3vh",
-    marginBottom: "3vh",
+    marginY: "3vh",
   },
   heading: {
     fontSize: { base: "2xl", md: "2xl" },

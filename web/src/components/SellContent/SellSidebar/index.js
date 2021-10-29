@@ -1,137 +1,71 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Flex,
-  Text,
-} from "@chakra-ui/react";
+import { Flex, Icon, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { IoRemove } from "react-icons/io5";
 import { SellingStatusButton } from "../../SellingStatusButton";
 
 const SellSidebar = () => {
-  const [accordionIndex, setAccordionIndex] = useState(null);
+  const [listIndex, setListIndex] = useState(null);
   const router = useRouter();
   const { asPath, query } = router;
 
   const categories = [
     {
+      name: "Orders",
+      href: "/sell/orders",
+    },
+    {
+      name: "Menus",
+      href: "/sell/menus",
+    },
+    {
+      name: "Listings",
+      href: "/sell/listings",
+    },
+    {
+      name: "Promotions",
+      href: "/sell/promotions",
+    },
+    {
       name: "Seller profile",
-      href: "",
-      links: [
-        { name: "My profile", path: "" },
-        { name: "Insights", path: "insights" },
-        { name: "Reactions", path: "reactions" },
-        { name: "Most searched foods", path: "suggestions" },
-      ],
-    },
-    {
-      name: "My Plates",
-      href: "plates",
-      links: [{ name: "All listings", path: "" }],
-    },
-    {
-      name: "My Menus",
-      href: "menus",
-      links: [{ name: "All menus", path: "" }],
-    },
-    {
-      name: "My Subscriptions",
-      href: "subscriptions",
-      links: [{ name: "All subscriptions", path: "" }],
+      href: "/sell/profile",
     },
   ];
 
   // Scroll to top of page
   const scrollToTop = () => window.scrollTo(0, 0);
 
-  // Scroll to last item & exclude footer
-  const scrollToBottom = () => {
-    const bottom = document.body.scrollHeight;
-    window.scrollTo({ top: bottom, behavior: "smooth" });
-  };
-
   // Keep right accordion panel open
   useEffect(() => {
-    if (query?.path) {
-      const category = categories.find(({ href }) =>
-        query?.path.includes(href)
-      );
-      setAccordionIndex([categories.indexOf(category)]);
-    } else {
-      setAccordionIndex([0]);
+    if (asPath) {
+      const categoryIndex = categories.findIndex(({ href }) => asPath === href);
+      console.log(categoryIndex);
+      setListIndex(categoryIndex);
     }
-  }, [query]);
-
-  // Scroll to top or bottom based on active link
-  useEffect(() => {
-    // Get active category
-    let category = categories.find(({ href }) => query?.path?.includes(href));
-    if (typeof category === "undefined") category = categories[0];
-
-    const { links } = category;
-
-    // Scroll to top on first item of links
-    if (!asPath.includes("#")) return scrollToTop();
-
-    // Scroll to bottom on last item of links
-    const lastItem = links[links?.length - 1];
-    if (asPath.includes(lastItem?.path)) return scrollToBottom();
-  }, [router]);
+  }, [asPath]);
 
   return (
     <Flex {...styles.wrapper}>
       <SellingStatusButton {...styles.status} />
       <Text {...styles.notice}>Sell</Text>
-      <Accordion
-        index={accordionIndex}
-        onChange={(index) => setAccordionIndex(index)}
-        allowToggle
-      >
-        {categories?.map(({ name, href, links }, index) => (
-          <AccordionItem key={index} {...styles.links}>
-            {({ isExpanded }) => (
-              <>
-                <AccordionButton
-                  fontWeight={isExpanded && "bold"}
-                  {...styles.button}
-                >
-                  <AccordionIcon marginRight="2" />
-                  <Text {...styles.name}>{name}</Text>
-                </AccordionButton>
 
-                <AccordionPanel {...styles.panel}>
-                  {links?.map(({ name: link, path: pathname }) => {
-                    const path = href === "" ? "/sell" : `/sell/${href}`;
-                    const param = pathname === "" ? "" : `#${pathname}`;
-                    const linkHref = path + param;
-
-                    return (
-                      <Link key={pathname} href={linkHref} shallow>
-                        <Text
-                          fontWeight={
-                            pathname === "" && asPath === href
-                              ? "bold"
-                              : asPath.replace("/", "").includes(pathname)
-                              ? "bold"
-                              : "normal"
-                          }
-                          {...styles.link}
-                        >
-                          {link}
-                        </Text>
-                      </Link>
-                    );
-                  })}
-                </AccordionPanel>
-              </>
-            )}
-          </AccordionItem>
+      <Flex {...styles.links}>
+        {categories?.map(({ name, href }, index) => (
+          <Flex
+            key={href}
+            fontWeight={listIndex === index && "bold"}
+            {...styles.link}
+          >
+            <Icon as={IoRemove} {...styles.icon} />
+            <Link href={href} shallow>
+              <Text onClick={scrollToTop} {...styles.name}>
+                {name}
+              </Text>
+            </Link>
+          </Flex>
         ))}
-      </Accordion>
+      </Flex>
     </Flex>
   );
 };
@@ -159,34 +93,25 @@ const styles = {
     paddingY: "0.75em",
   },
   links: {
-    display: "flex",
-    flexDirection: "column",
+    direction: "column",
     border: "none",
   },
-  button: {
+  link: {
+    direction: "row",
+    align: "center",
     paddingY: "0.75em",
-    paddingX: "0",
     marginLeft: "-2",
-    width: "100%",
+    cursor: "pointer",
     _hover: {
       background: "none",
       fontWeight: "bold",
+      letterSpacing: "tight",
     },
+  },
+  icon: {
+    marginRight: "2",
   },
   name: {
     isTruncated: true,
-  },
-  panel: {
-    borderLeft: "1px solid rgba(200,200,200,0.3)",
-    marginLeft: "0.5",
-    paddingY: "0",
-  },
-  link: {
-    paddingY: "0.5em",
-    cursor: "pointer",
-    _hover: {
-      fontWeight: "bold",
-      letterSpacing: "tight",
-    },
   },
 };
