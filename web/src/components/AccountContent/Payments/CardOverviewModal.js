@@ -13,7 +13,7 @@ import { SiVisa } from "react-icons/si";
 const CardOverviewModal = ({ isOpen, onClose }) => {
   return (
     <Modal {...styles.modal} onClose={onClose} isOpen={isOpen}>
-      <ModalOverlay />
+      <ModalOverlay {...styles.overlay} />
       <ModalContent {...styles.content}>
         <Flex {...styles.description}>
           <Icon as={SiVisa} {...styles.icon} />
@@ -42,6 +42,9 @@ const styles = {
   modal: {
     isCentered: "true",
     motionPreset: "slideInBottom",
+  },
+  overlay: {
+    backdropFilter: "blur(2px)",
   },
   content: {
     justify: "center",

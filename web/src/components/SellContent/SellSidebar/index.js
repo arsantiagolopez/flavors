@@ -40,7 +40,6 @@ const SellSidebar = () => {
   useEffect(() => {
     if (asPath) {
       const categoryIndex = categories.findIndex(({ href }) => asPath === href);
-      console.log(categoryIndex);
       setListIndex(categoryIndex);
     }
   }, [asPath]);
@@ -79,7 +78,7 @@ const styles = {
     direction: "column",
     width: "100%",
     paddingX: "1em",
-    paddingY: "7vh",
+    // paddingY: "7vh",
   },
   status: {
     marginLeft: "-2",

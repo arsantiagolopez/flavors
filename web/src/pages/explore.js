@@ -12,7 +12,7 @@ const Explore = () => {
 
   const router = useRouter();
 
-  const isExplore = true;
+  const isFullScreen = true;
   const hideSidebar = !router?.query.search;
 
   const filterSidebarProps = {
@@ -22,7 +22,7 @@ const Explore = () => {
 
   const SidebarComponent = <FilterSidebar {...filterSidebarProps} />;
 
-  const layoutProps = { user, SidebarComponent, isExplore };
+  const layoutProps = { user, SidebarComponent, isFullScreen };
   const contentProps = { user };
 
   return (

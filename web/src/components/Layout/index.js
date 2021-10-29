@@ -8,8 +8,7 @@ const Layout = ({
   children,
   user,
   isAccount,
-  isExplore,
-  isSell,
+  isFullScreen,
   SidebarComponent,
 }) => {
   const { height, width } = useDimensions();
@@ -26,23 +25,18 @@ const Layout = ({
         <Flex {...styles.userContent}>
           {SidebarComponent && !SidebarComponent?.props?.hidden && (
             <Flex
-              top={isExplore ? "6vh" : "10vh"}
-              flex={isExplore ? "1 1 20%" : "1 1 30%"}
-              height={isExplore ? "94vh" : "90vh"}
-              maxWidth={isExplore ? "18vw" : "30%"}
-              marginLeft={isExplore ? "-18vw" : "auto"}
-              paddingRight={isExplore ? "1vw" : "none"}
+              top={isFullScreen ? "6vh" : "10vh"}
+              flex={isFullScreen ? "1 1 20%" : "1 1 30%"}
+              height={isFullScreen ? "94vh" : "90vh"}
+              maxWidth={isFullScreen ? "18vw" : "30%"}
+              marginLeft={isFullScreen ? "-18vw" : "auto"}
+              paddingRight={isFullScreen ? "1vw" : "none"}
               {...styles.sidebar}
             >
               {SidebarComponent}
             </Flex>
           )}
-          <Flex
-            maxWidth={isSell ? { base: "100%", md: "70%" } : "100%"}
-            {...styles.content}
-          >
-            {children}
-          </Flex>
+          <Flex {...styles.content}>{children}</Flex>
         </Flex>
       )}
       <Footer />

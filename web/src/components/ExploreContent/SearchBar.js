@@ -2,6 +2,7 @@ import {
   Button,
   Flex,
   Heading,
+  Icon,
   Input,
   InputGroup,
   InputLeftElement,
@@ -102,8 +103,8 @@ const SearchBar = ({
       {/* Search bar */}
       <InputGroup {...styles.wrapper}>
         <InputLeftElement
-          pointerEvents="none"
-          children={<IoSearchSharp color="gray.300" />}
+          children={<Icon as={IoSearchSharp} color="gray.300" />}
+          {...styles.left}
         />
         <Input
           placeholder={suggestion !== "" ? `${suggestion}...` : "Explore..."}
@@ -119,6 +120,7 @@ const SearchBar = ({
           <InputRightElement
             pointerEvents={isSearchLoading ? "none" : "auto"}
             width={isSearchLoading ? { base: "3em", md: "4em" } : "5.75em"}
+            height="100%"
           >
             {isSearchLoading ? (
               <Spinner {...styles.spinner} />
@@ -148,12 +150,17 @@ export { SearchBar };
 const styles = {
   wrapper: {
     focusBorderColor: "gray.700",
-    paddingBottom: { base: "2vh", md: "3vh" },
+    marginBottom: { base: "2vh", md: "3vh" },
+  },
+  left: {
+    pointerEvents: "none",
+    height: "100%",
   },
   input: {
     className: "searchbar",
     transition: "fade 5s",
     focusBorderColor: "gray.800",
+    paddingY: "1.5em",
   },
   spinner: {
     color: "brand",
@@ -162,10 +169,10 @@ const styles = {
   },
   button: {
     size: "md",
-    paddingY: "auto",
     background: "brand",
-    height: "90%",
     marginRight: "0.5",
+    height: "90%",
+    paddingY: "auto",
   },
   recent: {
     marginBottom: "auto",

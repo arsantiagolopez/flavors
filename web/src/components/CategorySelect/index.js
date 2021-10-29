@@ -68,7 +68,7 @@ const CategorySelect = ({ name, control, errors }) => {
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
+        <ModalOverlay {...styles.overlay} />
         <ModalContent>
           <ModalHeader>Categories</ModalHeader>
           <ModalCloseButton />
@@ -145,6 +145,9 @@ const styles = {
     isTruncated: true,
     maxWidth: "90%",
     marginRight: "auto",
+  },
+  overlay: {
+    backdropFilter: "blur(2px)",
   },
   icon: {
     position: "absolute",
