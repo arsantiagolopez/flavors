@@ -81,7 +81,7 @@ const styles = {
     boxShadow: "sm",
     borderRadius: "0.5em",
     marginBottom: { base: "0", md: "2" },
-    marginRight: { base: "2", md: "0" },
+    paddingRight: { base: "2", md: "0" },
     cursor: "pointer",
     _hover: {
       background: "gray.100",
@@ -93,7 +93,7 @@ const styles = {
     align: "center",
     width: "100%",
     height: "100%",
-    paddingX: "2",
+    paddingX: "3",
     paddingY: { base: "1", md: "0" },
   },
   photos: {
@@ -148,9 +148,8 @@ const styles = {
   },
   actions: {
     direction: { base: "row", md: "column" },
-    width: { base: "100%", md: "10%" },
+    width: { base: "100%", md: "15%" },
     height: "100%",
-    marginRight: { base: "none", md: "-2" },
   },
   button: {
     justify: "center",

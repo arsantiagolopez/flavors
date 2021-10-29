@@ -3,11 +3,12 @@ import React from "react";
 import { Order } from "./Order";
 
 const Section = ({ heading, items }) => {
+  const amount = items?.length ? items?.length : 0;
   return (
     <Flex {...styles.section}>
       <Flex {...styles.header}>
         <Heading {...styles.heading}>{heading}</Heading>
-        <Flex {...styles.badge}>1</Flex>
+        <Flex {...styles.badge}>{amount}</Flex>
       </Flex>
       <Flex {...styles.items}>
         {items?.map((item, index) => (
@@ -41,6 +42,7 @@ const styles = {
     zIndex: "100",
     position: "sticky",
     top: "0",
+    left: "0",
     justify: "space-between",
     width: "100%",
     padding: "1vw",
@@ -67,6 +69,7 @@ const styles = {
     height: "100%",
     width: "100%",
     paddingX: { base: "2", md: "1vw" },
+    marginX: "0",
     paddingBottom: { base: "0", md: "1vw" },
   },
 };
