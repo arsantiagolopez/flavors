@@ -6,8 +6,10 @@ const Promotion = ({ promotion }) => {
   const { id, name, discount, startDate, endDate, active } = promotion || {};
 
   const formatDiscount = ({ type, amount }) => {
-    const metric = type === "percent" ? "percent" : "dollars";
-    return `${amount} ${metric} off`;
+    if (type === "percent") {
+      return `${amount} % off`;
+    }
+    return `$${amount} off`;
   };
 
   return (
@@ -31,42 +33,41 @@ export { Promotion };
 
 const styles = {
   wrapper: {
-    direction: { base: "column", base: "row" },
+    direction: "column",
     align: "center",
-    width: { base: "30vw", md: "100%" },
-    minWidth: { base: "30vw", md: "100%" },
-    height: { base: "95%", md: "8vh" },
-    minHeight: { base: "none", md: "8vh" },
-    marginBottom: { base: "0", md: "2" },
-    paddingRight: { base: "2", md: "0" },
-    boxShadow: "sm",
+    width: { base: "30vw", md: "10vw" },
+    minWidth: { base: "30vw", md: "10vw" },
+    height: "100%",
+    marginRight: "2",
+    boxShadow: "md",
     borderRadius: "0.5em",
     cursor: "pointer",
+    paddingY: "2vh",
     _hover: {
       background: "gray.100",
     },
   },
   icon: {
     boxSize: { base: "2em", md: "3em" },
-    marginRight: { base: "0", md: "1vw" },
-    marginX: "2",
   },
   meta: {
     direction: "column",
     justify: "center",
-    align: { base: "center", md: "flex-start" },
+    align: "center",
     letterSpacing: "tight",
     cursor: "pointer",
-    maxWidth: { base: "100%", md: "45%" },
-    minWidth: { base: "100%", md: "30%" },
-    paddingY: "1",
+    width: "100%",
+    maxWidth: "100%",
+    paddingY: { base: "1", md: "1vh" },
   },
   name: {
     fontWeight: "semibold",
     letterSpacing: "tight",
     color: "gray.800",
     maxWidth: "100%",
-    isTruncated: true,
+    noOfLines: 2,
+    textAlign: "center",
+    paddingX: "2",
   },
   discount: {
     color: "gray.400",

@@ -104,7 +104,7 @@ const styles = {
     marginY: "3vh",
   },
   heading: {
-    fontSize: { base: "2xl", md: "2xl" },
+    fontSize: { base: "2xl", md: "3xl" },
   },
   insights: {
     minHeight: { base: "35vh", md: "30vh" },

@@ -25,10 +25,10 @@ const SellPages = () => {
   let title,
     content = null;
 
-  const isFullScreen = true;
+  // const isFullScreen = true;
   const SidebarComponent = <SellSidebar />;
 
-  const layoutProps = { user, SidebarComponent, isFullScreen };
+  const layoutProps = { user, SidebarComponent };
   const contentProps = { user };
 
   switch (path) {

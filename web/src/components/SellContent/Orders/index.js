@@ -1,4 +1,4 @@
-import { Flex, Heading } from "@chakra-ui/react";
+import { Divider, Flex, Heading } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { SearchBar } from "../SearchBar";
 import { Section } from "./Section";
@@ -93,7 +93,13 @@ const Orders = () => {
 
       <Flex {...styles.content}>
         <Section heading="To accept" type="accept" items={acceptOrders} />
+
+        <Divider {...styles.divider} />
+
         <Section heading="Preparing" type="preparing" />
+
+        <Divider {...styles.divider} />
+
         <Section heading="Pending pickup/delivery" type="pickup" />
       </Flex>
     </Flex>
@@ -124,8 +130,11 @@ const styles = {
     paddingBottom: "1vh",
   },
   content: {
-    direction: { base: "column", md: "row" },
+    direction: "column",
     paddingY: { base: "2vh", md: "3vh" },
     height: "100%",
+  },
+  divider: {
+    marginY: "3vh",
   },
 };

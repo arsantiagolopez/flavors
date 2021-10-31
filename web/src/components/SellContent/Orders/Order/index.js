@@ -39,7 +39,6 @@ const Order = ({ order }) => {
           <Text {...styles.rating}>
             {buyer?.rating} {buyer?.ratingAmount}
           </Text>
-          <Text {...styles.details}>See details</Text>
         </Flex>
 
         <Flex {...styles.time}>
@@ -53,11 +52,11 @@ const Order = ({ order }) => {
 
       {/* Actions */}
       <Flex {...styles.actions}>
-        <Flex {...styles.button} {...styles.acceptButton}>
-          <CheckIcon {...styles.checkIcon} />
-        </Flex>
         <Flex {...styles.button} {...styles.declineButton}>
           <Icon as={IoCloseSharp} {...styles.closeIcon} />
+        </Flex>
+        <Flex {...styles.button} {...styles.acceptButton}>
+          <CheckIcon {...styles.checkIcon} />
         </Flex>
       </Flex>
 
@@ -73,28 +72,25 @@ export { Order };
 
 const styles = {
   wrapper: {
-    direction: { base: "column", md: "row" },
-    width: { base: "30vw", md: "100%" },
-    minWidth: { base: "30vw", md: "100%" },
-    height: { base: "95%", md: "8vh" },
-    minHeight: { base: "none", md: "8vh" },
-    boxShadow: "sm",
+    direction: "column",
+    width: { base: "30vw", md: "10vw" },
+    minWidth: { base: "30vw", md: "10vw" },
+    height: "100%",
+    boxShadow: { base: "sm", md: "md" },
     borderRadius: "0.5em",
-    marginBottom: { base: "0", md: "2" },
-    paddingRight: { base: "2", md: "0" },
+    marginRight: "2",
     cursor: "pointer",
     _hover: {
       background: "gray.100",
     },
   },
   card: {
-    direction: { base: "column", md: "row" },
+    direction: "column",
     justify: "space-between",
     align: "center",
     width: "100%",
     height: "100%",
-    paddingX: "3",
-    paddingY: { base: "1", md: "0" },
+    paddingY: { base: "1vh", md: "2vh" },
   },
   photos: {
     direction: "row",
@@ -112,12 +108,12 @@ const styles = {
   meta: {
     direction: "column",
     justify: "center",
-    align: { base: "center", md: "flex-start" },
+    align: "center",
     letterSpacing: "tight",
     cursor: "pointer",
-    maxWidth: { base: "100%", md: "45%" },
-    minWidth: { base: "100%", md: "30%" },
-    paddingY: "1",
+    maxWidth: "100%",
+    minWidth: "100%",
+    paddingY: { base: "1", md: "1vh" },
   },
   name: {
     fontWeight: "semibold",
@@ -128,13 +124,8 @@ const styles = {
   },
   rating: {
     color: "gray.400",
-    fontSize: "8pt",
+    fontSize: { base: "8pt", md: "10pt" },
     isTruncated: true,
-  },
-  details: {
-    display: { base: "none", md: "block" },
-    color: "gray.400",
-    fontSize: "8pt",
   },
   time: {
     direction: "column",
@@ -146,8 +137,8 @@ const styles = {
     size: { base: "1.5em", md: "1.75em" },
   },
   actions: {
-    direction: { base: "row", md: "column" },
-    width: { base: "100%", md: "15%" },
+    direction: "row",
+    width: "100%",
     height: "100%",
   },
   button: {
@@ -159,10 +150,8 @@ const styles = {
     paddingY: "1.5",
   },
   acceptButton: {
-    order: { base: 2, md: 1 },
     background: "green.400",
-    borderTopRightRadius: { base: "0", md: "0.5em" },
-    borderBottomRightRadius: { base: "0.5em", md: "0" },
+    borderBottomRightRadius: "0.5em",
     _hover: {
       background: "green.500",
     },
@@ -172,10 +161,8 @@ const styles = {
     width: "45%",
   },
   declineButton: {
-    order: { base: 1, md: 2 },
     background: "red.400",
-    borderBottomRightRadius: { base: "0", md: "0.5em" },
-    borderBottomLeftRadius: { base: "0.5em", md: "0" },
+    borderBottomLeftRadius: "0.5em",
     _hover: {
       background: "red.500",
     },

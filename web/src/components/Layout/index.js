@@ -65,6 +65,7 @@ const styles = {
   content: {
     flex: "1 1 70%",
     direction: "column",
-    width: "100%",
+    width: { base: "100%", md: "70%" },
+    maxWidth: { base: "100%", md: "70%" },
   },
 };

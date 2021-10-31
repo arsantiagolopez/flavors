@@ -1,8 +1,8 @@
+import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Flex, Icon, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { IoRemove } from "react-icons/io5";
 import { SellingStatusButton } from "../../SellingStatusButton";
 
 const SellSidebar = () => {
@@ -47,22 +47,19 @@ const SellSidebar = () => {
   return (
     <Flex {...styles.wrapper}>
       <SellingStatusButton {...styles.status} />
+
       <Text {...styles.notice}>Sell</Text>
 
       <Flex {...styles.links}>
         {categories?.map(({ name, href }, index) => (
-          <Flex
-            key={href}
-            fontWeight={listIndex === index && "bold"}
-            {...styles.link}
-          >
-            <Icon as={IoRemove} {...styles.icon} />
-            <Link href={href} shallow>
+          <Link key={href} href={href} shallow>
+            <Flex fontWeight={listIndex === index && "bold"} {...styles.link}>
+              <Icon as={ChevronRightIcon} {...styles.icon} />
               <Text onClick={scrollToTop} {...styles.name}>
                 {name}
               </Text>
-            </Link>
-          </Flex>
+            </Flex>
+          </Link>
         ))}
       </Flex>
     </Flex>
@@ -78,11 +75,11 @@ const styles = {
     direction: "column",
     width: "100%",
     paddingX: "1em",
-    // paddingY: "7vh",
+    paddingY: "7vh",
   },
   status: {
     marginLeft: "-2",
-    marginBottom: "2vh",
+    marginBottom: "5vh",
   },
   notice: {
     color: "gray.400",

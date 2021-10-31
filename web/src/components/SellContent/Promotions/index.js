@@ -1,4 +1,4 @@
-import { Flex, Heading, useDisclosure } from "@chakra-ui/react";
+import { Divider, Flex, Heading, useDisclosure } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { SearchBar } from "../SearchBar";
 import { CreatePromotionModal } from "./CreatePromotionModal";
@@ -67,6 +67,9 @@ const Promotions = () => {
 
       <Flex {...styles.content}>
         <Section heading="Active" type="active" items={activePromos} />
+
+        <Divider {...styles.divider} />
+
         <Section heading="Created" type="created" items={promotions} />
       </Flex>
     </Flex>
@@ -104,8 +107,11 @@ const styles = {
     paddingBottom: "1vh",
   },
   content: {
-    direction: { base: "column", md: "row" },
+    direction: "column",
     paddingY: { base: "2vh", md: "3vh" },
     height: "100%",
+  },
+  divider: {
+    marginY: "3vh",
   },
 };

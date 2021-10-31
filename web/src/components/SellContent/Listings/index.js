@@ -1,11 +1,119 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { SearchBar } from "../SearchBar";
+import { Listing } from "./Listing";
 
 const Listings = () => {
   const [searchValue, setSearchValue] = useState(null);
   const [isSearchLoading, setIsSearchLoading] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
+
+  const plates = [
+    {
+      id: "61788baff81b6915bb0b4aec",
+      tags: [],
+      menu: ["My plates"],
+      title: "Red steak with potatos.",
+      description: "Delicious steak with a touch of love.",
+      price: 7.99,
+      category: "Steaks & BBQ",
+      subCategory: "BBQ",
+      image:
+        "https://flavors-arsantiagolopez.s3.us-east-2.amazonaws.com/61787c1fae53dd5fbdcc7748/4fb8e37e-2f59-48cf-8842-2f9c302e81ad",
+      userId: "61787c1fae53dd5fbdcc7748",
+    },
+    {
+      id: "09434j8baff81b6915bb0b4743h",
+      tags: [],
+      menu: [],
+      title: "Red steak with potatos.",
+      description: "Delicious steak with a touch of love.",
+      price: 7.99,
+      category: "Steaks & BBQ",
+      subCategory: "BBQ",
+      image:
+        "https://flavors-arsantiagolopez.s3.us-east-2.amazonaws.com/61787c1fae53dd5fbdcc7748/4fb8e37e-2f59-48cf-8842-2f9c302e81ad",
+      userId: "61787c1fae53dd5fbdcc7748",
+    },
+    {
+      id: "803234j8baff81b6915bb0b4743h",
+      tags: [],
+      menu: [],
+      title: "Red steak with potatos.",
+      description: "Delicious steak with a touch of love.",
+      price: 7.99,
+      category: "Steaks & BBQ",
+      subCategory: "BBQ",
+      image:
+        "https://flavors-arsantiagolopez.s3.us-east-2.amazonaws.com/61787c1fae53dd5fbdcc7748/4fb8e37e-2f59-48cf-8842-2f9c302e81ad",
+      userId: "61787c1fae53dd5fbdcc7748",
+    },
+    {
+      id: "29334j8ssdff81b6915bb0b4743h",
+      tags: [],
+      menu: [],
+      title: "Red steak with potatos.",
+      description: "Delicious steak with a touch of love.",
+      price: 7.99,
+      category: "Steaks & BBQ",
+      subCategory: "BBQ",
+      image:
+        "https://flavors-arsantiagolopez.s3.us-east-2.amazonaws.com/61787c1fae53dd5fbdcc7748/4fb8e37e-2f59-48cf-8842-2f9c302e81ad",
+      userId: "61787c1fae53dd5fbdcc7748",
+    },
+    {
+      id: "aas80s8baff81b6915bb0b4743h",
+      tags: [],
+      menu: [],
+      title: "Red steak with potatos.",
+      description: "Delicious steak with a touch of love.",
+      price: 7.99,
+      category: "Steaks & BBQ",
+      subCategory: "BBQ",
+      image:
+        "https://flavors-arsantiagolopez.s3.us-east-2.amazonaws.com/61787c1fae53dd5fbdcc7748/4fb8e37e-2f59-48cf-8842-2f9c302e81ad",
+      userId: "61787c1fae53dd5fbdcc7748",
+    },
+    {
+      id: "09120k8baff81b6915bb0b4743h",
+      tags: [],
+      menu: [],
+      title: "Red steak with potatos.",
+      description: "Delicious steak with a touch of love.",
+      price: 7.99,
+      category: "Steaks & BBQ",
+      subCategory: "BBQ",
+      image:
+        "https://flavors-arsantiagolopez.s3.us-east-2.amazonaws.com/61787c1fae53dd5fbdcc7748/4fb8e37e-2f59-48cf-8842-2f9c302e81ad",
+      userId: "61787c1fae53dd5fbdcc7748",
+    },
+    {
+      id: "89sja10j8baff81b6915bb0b4743h",
+      tags: [],
+      menu: [],
+      title: "Red steak with potatos.",
+      description: "Delicious steak with a touch of love.",
+      price: 7.99,
+      category: "Steaks & BBQ",
+      subCategory: "BBQ",
+      image:
+        "https://flavors-arsantiagolopez.s3.us-east-2.amazonaws.com/61787c1fae53dd5fbdcc7748/4fb8e37e-2f59-48cf-8842-2f9c302e81ad",
+      userId: "61787c1fae53dd5fbdcc7748",
+    },
+    {
+      id: "1280j8baff81b6915bb0b4743h",
+      tags: [],
+      menu: [],
+      title: "Red steak with potatos.",
+      description: "Delicious steak with a touch of love.",
+      price: 7.99,
+      category: "Steaks & BBQ",
+      subCategory: "BBQ",
+      image:
+        "https://flavors-arsantiagolopez.s3.us-east-2.amazonaws.com/61787c1fae53dd5fbdcc7748/4fb8e37e-2f59-48cf-8842-2f9c302e81ad",
+      userId: "61787c1fae53dd5fbdcc7748",
+    },
+  ];
 
   const searchProps = {
     searchValue,
@@ -23,7 +131,14 @@ const Listings = () => {
         <SearchBar {...searchProps} />
       </Flex>
 
-      <Flex {...styles.content}></Flex>
+      <Flex {...styles.content}>
+        <Flex {...styles.items}>
+          <Listing isCreate />
+          {plates?.map((item, index) => (
+            <Listing key={item?.id} plate={item} index={index} />
+          ))}
+        </Flex>
+      </Flex>
     </Flex>
   );
 };
@@ -36,8 +151,7 @@ const styles = {
   wrapper: {
     direction: "column",
     paddingY: { base: "2em", md: "7vh" },
-    paddingX: { base: "0.5em", md: "0" },
-    // height: "100%",
+    width: "100%",
   },
   header: {
     direction: "row",
@@ -53,7 +167,16 @@ const styles = {
   },
   content: {
     direction: { base: "column", md: "row" },
-    paddingY: { base: "2vh", md: "5vh" },
     height: "100%",
+    maxWidth: "100%",
+  },
+  items: {
+    direction: "row",
+    wrap: "wrap",
+    height: "100%",
+    width: "100%",
+    marginX: "0",
+    // marginY: "5vh",
+    paddingY: { base: "2vh", md: "3vh" },
   },
 };
