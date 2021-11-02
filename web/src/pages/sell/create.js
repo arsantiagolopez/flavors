@@ -14,7 +14,7 @@ const CreateListingPage = () => {
   return (
     <>
       <Head>
-        <title>Flavors - Sell</title>
+        <title>Flavors - Create A Plate</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout {...layoutProps}>

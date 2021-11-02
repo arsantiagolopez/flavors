@@ -8,11 +8,10 @@ import {
   Menus,
   Orders,
   Promotions,
+  Schedule,
   SellerProfile,
   SellSidebar,
 } from "../../components/SellContent";
-
-// @todo: {isSeller ? <SellerProfile {...sellerProfileProps} /> : <SellerOnboard />}
 
 const SellPages = () => {
   const CLIENT_URL = process.env.NEXT_PUBLIC_CLIENT_URL;
@@ -46,6 +45,10 @@ const SellPages = () => {
     case "promotions":
       title = "Promotions";
       content = <Promotions {...contentProps} />;
+      break;
+    case "schedule":
+      title = "Schedule";
+      content = <Schedule {...contentProps} />;
       break;
     case "profile":
       title = "Seller Profile";

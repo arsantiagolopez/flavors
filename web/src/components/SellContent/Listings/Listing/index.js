@@ -94,7 +94,7 @@ const Listing = ({ plate, index, isCreate }) => {
       <Flex {...styles.meta}>
         <Text {...styles.price}>{price}</Text>
         <Text {...styles.title}>{title}</Text>
-        <Flex direction="row" justify="space-around" align="center">
+        <Flex {...styles.insights}>
           <Text {...styles.views} marginRight="auto">
             0 views
           </Text>
@@ -125,6 +125,7 @@ const styles = {
     cursor: "pointer",
     background: "rgba(240,240,240,0.3)",
     padding: "4",
+    borderRadius: "0.5em",
     _hover: {
       background: "gray.100",
     },
@@ -171,6 +172,11 @@ const styles = {
     noOfLines: 1,
     lineHeight: "1.2em",
     paddingY: { base: "0.5", md: "1" },
+  },
+  insights: {
+    direction: "row",
+    justify: "space-around",
+    align: "center",
   },
   views: {
     fontSize: "11pt",

@@ -65,7 +65,7 @@ export { SellerProfile };
 const styles = {
   wrapper: {
     direction: "column",
-    paddingY: { base: "2em", md: "7vh" },
+    paddingY: { base: "1em", md: "7vh" },
     paddingX: { base: "0.5em", md: "0" },
   },
   title: {

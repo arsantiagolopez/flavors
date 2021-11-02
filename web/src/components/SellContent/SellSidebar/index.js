@@ -8,7 +8,7 @@ import { SellingStatusButton } from "../../SellingStatusButton";
 const SellSidebar = () => {
   const [listIndex, setListIndex] = useState(null);
   const router = useRouter();
-  const { asPath, query } = router;
+  const { asPath } = router;
 
   const categories = [
     {
@@ -26,6 +26,10 @@ const SellSidebar = () => {
     {
       name: "Promotions",
       href: "/sell/promotions",
+    },
+    {
+      name: "Schedule",
+      href: "/sell/schedule",
     },
     {
       name: "Seller profile",

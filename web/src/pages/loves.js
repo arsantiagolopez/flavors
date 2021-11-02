@@ -2,7 +2,7 @@ import Head from "next/head";
 import React from "react";
 import useSWR from "swr";
 import { Layout } from "../components/Layout";
-import { Loves } from "../components/Loves";
+import { LovesContent } from "../components/LovesContent";
 
 const LovesPage = () => {
   const CLIENT_URL = process.env.NEXT_PUBLIC_CLIENT_URL;
@@ -10,6 +10,7 @@ const LovesPage = () => {
   const { user } = data || {};
 
   const layoutProps = { user };
+  const contentProps = { user };
 
   return (
     <>
@@ -18,7 +19,7 @@ const LovesPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout {...layoutProps}>
-        <Loves />
+        <LovesContent {...contentProps} />
       </Layout>
     </>
   );

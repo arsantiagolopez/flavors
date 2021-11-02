@@ -19,6 +19,7 @@ const Orders = () => {
 
   const acceptOrders = [
     {
+      id: 1,
       buyer: {
         id: 1,
         name: "Andrea Piacquiado",
@@ -35,8 +36,9 @@ const Orders = () => {
       },
     },
     {
+      id: 2,
       buyer: {
-        id: 1,
+        id: 3,
         name: "Andrea Piacquiado",
         photo:
           "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
@@ -44,15 +46,16 @@ const Orders = () => {
         ratingAmount: "1.2k",
       },
       plate: {
-        id: 2,
+        id: 4,
         name: "food",
         photo:
           "https://images.pexels.com/photos/3535383/pexels-photo-3535383.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
       },
     },
     {
+      id: 3,
       buyer: {
-        id: 1,
+        id: 5,
         name: "Andrea Piacquiado",
         photo:
           "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
@@ -60,15 +63,16 @@ const Orders = () => {
         ratingAmount: "1.2k",
       },
       plate: {
-        id: 2,
+        id: 6,
         name: "food",
         photo:
           "https://images.pexels.com/photos/3535383/pexels-photo-3535383.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
       },
     },
     {
+      id: 4,
       buyer: {
-        id: 1,
+        id: 7,
         name: "Andrea Piacquiado",
         photo:
           "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
@@ -76,7 +80,7 @@ const Orders = () => {
         ratingAmount: "1.2k",
       },
       plate: {
-        id: 2,
+        id: 8,
         name: "food",
         photo:
           "https://images.pexels.com/photos/3535383/pexels-photo-3535383.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
@@ -113,7 +117,7 @@ export { Orders };
 const styles = {
   wrapper: {
     direction: "column",
-    paddingY: { base: "2em", md: "7vh" },
+    paddingY: { base: "1em", md: "7vh" },
     paddingX: { base: "0.5em", md: "0" },
     // height: "100%",
   },

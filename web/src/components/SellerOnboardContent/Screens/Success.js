@@ -57,7 +57,7 @@ const SuccessScreen = ({ index, form, formCompleteIndex, lastIndex }) => {
     // Update userProfile model with image, name, address & geolocation
     const profileParams = { image, name, address, geolocation };
     const { status: profileStatus } = await axios.put(
-      "/api/profile",
+      "/api/user/profile",
       profileParams
     );
 

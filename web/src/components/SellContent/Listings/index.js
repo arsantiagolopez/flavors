@@ -150,7 +150,7 @@ export { Listings };
 const styles = {
   wrapper: {
     direction: "column",
-    paddingY: { base: "2em", md: "7vh" },
+    paddingY: { base: "1em", md: "7vh" },
     width: "100%",
   },
   header: {
