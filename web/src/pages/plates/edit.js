@@ -1,14 +1,8 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
 
-const CreateListingSidebar = () => {
+const EditListingPage = () => {
   return <Flex {...styles.wrapper}></Flex>;
 };
 
-export { CreateListingSidebar };
-
-// Styles
-
-const styles = {
-  wrapper: {},
-};
+export default EditListingPage;

@@ -54,6 +54,7 @@ const components = {
   Input: {
     defaultProps: {
       focusBorderColor: "gray.800",
+      errorBorderColor: "red.500",
     },
   },
   NumberInput: {

@@ -3,7 +3,7 @@ import GoogleMapReact from "google-map-react";
 import React, { useRef } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
-const Map = ({ coordinates }) => {
+const Map = ({ coordinates, hideNames }) => {
   const ref = useRef(null);
 
   const mapStyles = [
@@ -50,7 +50,7 @@ const Map = ({ coordinates }) => {
         center={coordinates}
         defaultZoom={15}
         options={{
-          styles: mapStyles,
+          styles: hideNames && mapStyles,
           gestureHandling: "none",
           keyboardShortcuts: false,
           fullscreenControl: false,

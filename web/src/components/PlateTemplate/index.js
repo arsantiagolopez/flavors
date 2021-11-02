@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { Breadcrumb } from "../Breadcrumb";
 import { HeadingWithSkeleton } from "../HeadingWithSkeleton";
-// import { Location } from "./Location";
+// import { LocationMap } from "./LocationMap";
 import { Summary } from "./Summary";
 
 const PlateTemplate = ({ user, plate, seller }) => {
@@ -62,7 +62,7 @@ const PlateTemplate = ({ user, plate, seller }) => {
 
       <Flex {...styles.section}>
         <Heading {...styles.heading}>Location</Heading>
-        {/* <Location /> */}
+        {/* <LocationMap /> */}
       </Flex>
 
       <Flex {...styles.section}>

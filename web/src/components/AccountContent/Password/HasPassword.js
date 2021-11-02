@@ -161,7 +161,7 @@ const styles = {
     paddingY: "1.5em",
   },
   error: {
-    color: "red.600",
+    color: "red.500",
     paddingTop: "1vh",
   },
   button: {

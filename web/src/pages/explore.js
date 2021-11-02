@@ -5,7 +5,7 @@ import useSWR from "swr";
 import { ExploreContent, FilterSidebar } from "../components/ExploreContent";
 import { Layout } from "../components/Layout";
 
-const Explore = () => {
+const ExplorePage = () => {
   const CLIENT_URL = process.env.NEXT_PUBLIC_CLIENT_URL;
   const { data } = useSWR(`${CLIENT_URL}/api/auth/session`);
   const { user } = data || {};
@@ -38,4 +38,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default ExplorePage;

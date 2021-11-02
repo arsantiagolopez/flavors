@@ -195,7 +195,7 @@ const styles = {
     marginRight: "2",
   },
   error: {
-    color: "red.600",
+    color: "red.500",
   },
   names: {
     direction: "row",

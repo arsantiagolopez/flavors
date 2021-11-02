@@ -123,7 +123,7 @@ const styles = {
   field: {
     justify: "center",
     align: "center",
-    paddingY: "1.75em",
+    paddingY: "1.5em",
   },
   error: {
     color: "red.500",

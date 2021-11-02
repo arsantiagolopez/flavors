@@ -15,7 +15,7 @@ import {
  * Ref: https://www.apple.com/
  */
 
-const IconNavigation = ({ user, isPortrait }) => (
+const IconNavigation = ({ user }) => (
   <Flex {...styles.wrapper}>
     <Link href="/explore">
       <IconButton
@@ -45,7 +45,8 @@ const IconNavigation = ({ user, isPortrait }) => (
         {...styles.icon}
       />
     </Link>
-    {!isPortrait && (
+
+    <Flex {...styles.desktopOnly}>
       <Link href="/account">
         <IconButton
           aria-label="Account"
@@ -53,7 +54,7 @@ const IconNavigation = ({ user, isPortrait }) => (
           {...styles.icon}
         />
       </Link>
-    )}
+    </Flex>
   </Flex>
 );
 
@@ -79,5 +80,9 @@ const styles = {
     _hover: {
       color: "gray.800",
     },
+  },
+  desktopOnly: {
+    display: { base: "none", md: "flex" },
+    width: "100%",
   },
 };

@@ -165,7 +165,7 @@ const styles = {
     width: "100%",
   },
   input: {
-    paddingY: "1.75em",
+    paddingY: "1.5em",
     errorBorderColor: "red.500",
   },
   inputRight: {

@@ -76,6 +76,7 @@ const NoPassword = ({ user, mutate }) => {
             type="password"
             placeholder="New password"
             {...passwordRegister}
+            {...styles.input}
           />
           {errors.password && (
             <Text {...styles.error}>{errors.password.message}</Text>
@@ -86,6 +87,7 @@ const NoPassword = ({ user, mutate }) => {
             type="password"
             placeholder="Confirm your password"
             {...confirmPasswordRegister}
+            {...styles.input}
           />
           {errors.confirmPassword && (
             <Text {...styles.error}>{errors.confirmPassword.message}</Text>
@@ -120,6 +122,9 @@ const styles = {
   field: {
     direction: "column",
     marginY: "2vh",
+  },
+  input: {
+    paddingY: "1.5em",
   },
   heading: {
     size: "lg",

@@ -2,8 +2,10 @@ import { Flex } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Map } from "../Map";
 
-const Location = () => {
+const LocationMap = () => {
   const [coordinates, setCoordinates] = useState(null);
+
+  const hideNames = true;
 
   const geolocation = {
     type: "point",
@@ -17,7 +19,7 @@ const Location = () => {
     }
   }, []);
 
-  const mapProps = { coordinates };
+  const mapProps = { coordinates, hideNames };
 
   return (
     <Flex {...styles.wrapper}>
@@ -26,7 +28,7 @@ const Location = () => {
   );
 };
 
-export { Location };
+export { LocationMap };
 
 // Styles
 

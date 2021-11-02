@@ -5,7 +5,7 @@ import {
   InputRightElement,
   Spinner,
 } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useController } from "react-hook-form";
 import axios from "../../axios";
 import { validateFields } from "../../utils/validateFields";
@@ -15,22 +15,23 @@ const UsernameCheck = ({
   control,
   defaultValue,
   placeholder,
+  rules,
+  errors,
   styleProps,
 }) => {
-  const [value, setValue] = useState(defaultValue ? defaultValue : "");
+  const [value, setValue] = useState(null);
   const [isUsernameFocus, setIsUsernameFocus] = useState(false);
   const [isAvailable, setIsAvailable] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
 
   const {
-    field: { ref, onChange, ...controllerProps },
+    field: { ref, onChange, onBlur, ...controllerProps },
   } = useController({
     name,
     control,
-    defaultValue,
+    rules,
+    defaultValue: defaultValue ? defaultValue : "",
   });
-
-  const controllerRef = useRef(null);
 
   const handleChange = (event) => {
     const { target } = event || {};
@@ -42,7 +43,7 @@ const UsernameCheck = ({
 
   // Check username avilability after change and blur
   const handleBlur = async () => {
-    if (value === "") return;
+    if (value === "") return setIsAvailable(false);
 
     setIsUsernameFocus(false);
     setIsFetching(true);
@@ -59,20 +60,29 @@ const UsernameCheck = ({
     return success;
   };
 
+  useEffect(() => {
+    if (defaultValue) setValue(defaultValue);
+  }, [defaultValue]);
+
   return (
     <InputGroup {...styleProps}>
       <Input
-        ref={controllerRef}
-        name={name}
+        ref={ref}
         value={value}
         placeholder={placeholder}
         onChange={handleChange}
         onBlur={handleBlur}
         onFocus={handleFocus}
+        isInvalid={rules && errors?.username}
+        _focus={{
+          borderColor: errors?.username ? "red.500" : "gray.800",
+          borderWidth: errors?.username ? "1.5px" : "2px",
+        }}
         {...controllerProps}
+        {...styles.input}
       />
       <InputRightElement
-        pointerEvents="none"
+        {...styles.right}
         children={
           // Don't show icons if focused or field empty
           isUsernameFocus ? null : value === defaultValue ||
@@ -95,6 +105,14 @@ const UsernameCheck = ({
 // Styles
 
 const styles = {
+  input: {
+    spellCheck: "false",
+    paddingY: "1.5em",
+  },
+  right: {
+    pointerEvents: "none",
+    height: "100%",
+  },
   spinner: {
     color: "red.500",
     size: "sm",

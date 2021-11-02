@@ -128,7 +128,7 @@ const styles = {
     fontWeight: "normal",
     width: "100%",
     justify: "flex-end",
-    paddingY: "1.75em",
+    paddingY: "1.5em",
     _hover: {
       background: "none",
       border: "1px solid",

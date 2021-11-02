@@ -6,6 +6,7 @@ import { useController } from "react-hook-form";
 
 const ListingDropzone = ({
   children,
+  defaultValue,
   setPhotoPreview,
   setError,
   clearErrors,
@@ -20,8 +21,8 @@ const ListingDropzone = ({
   } = useController({
     name,
     control,
-    rules: { required: "You need to add a photo for your plate." },
-    defaultValue: "",
+    rules: { required: "You need to add a photo." },
+    defaultValue: defaultValue ? defaultValue : null,
   });
 
   // Further image limitations
@@ -30,7 +31,7 @@ const ListingDropzone = ({
       accept: "image/*",
       multiple: false,
       minSize: 1024,
-      maxSize: 5000000,
+      maxSize: 3000000,
     });
 
   // Handle successfully updated files
@@ -99,5 +100,6 @@ const styles = {
     direction: "column",
     justify: "center",
     align: "center",
+    width: "auto",
   },
 };

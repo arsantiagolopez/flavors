@@ -1,26 +1,26 @@
-import { AspectRatio, Button, Flex, Icon, Text } from "@chakra-ui/react";
+import { CheckIcon } from "@chakra-ui/icons";
+import {
+  AspectRatio,
+  Button,
+  Flex,
+  Icon,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { GiForkKnifeSpoon } from "react-icons/gi";
 import { IoEyeSharp } from "react-icons/io5";
+import { DetailsModal } from "./DetailsModal";
 
 const Listing = ({ plate, index, isCreate }) => {
   const [hovered, setHovered] = useState(null);
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const wrapperRef = useRef();
 
-  const {
-    id,
-    tags,
-    menu,
-    title,
-    description,
-    price,
-    category,
-    subCategory,
-    image,
-    userId,
-  } = plate || {};
+  const { id, title, price, image } = plate || {};
 
   // Set item to hovered
   const handleItemHover = (id) => setHovered(id);
@@ -32,27 +32,35 @@ const Listing = ({ plate, index, isCreate }) => {
     if (!hoveredNodeInsideRef) setHovered(null);
   };
 
-  // console.log("id", id, "hovered", hovered);
+  const detailsModalProps = { plate, isOpen, onOpen, onClose };
 
   if (isCreate) {
     return (
-      <Flex
-        ref={wrapperRef}
-        onMouseEnter={() => handleItemHover("create")}
-        onMouseOut={clearHovered}
-        {...styles.newCard}
-        {...styles.wrapper}
-      >
-        <AspectRatio
+      <Link href="/sell/create">
+        <Flex
+          ref={wrapperRef}
           onMouseEnter={() => handleItemHover("create")}
-          {...styles.aspect}
+          onMouseOut={clearHovered}
+          {...styles.newCard}
+          {...styles.wrapper}
         >
-          <Flex {...styles.add}>
-            <Icon as={GiForkKnifeSpoon} {...styles.createIcon} />
-          </Flex>
-        </AspectRatio>
-        <Button {...styles.new}>Create listing</Button>
-      </Flex>
+          <AspectRatio
+            onMouseEnter={() => handleItemHover("create")}
+            {...styles.aspect}
+          >
+            <Flex {...styles.add}>
+              <Icon
+                as={GiForkKnifeSpoon}
+                color={hovered === "create" ? "gray.800" : "gray.200"}
+                {...styles.createIcon}
+              />
+            </Flex>
+          </AspectRatio>
+          <Button background={hovered ? "black" : "gray.800"} {...styles.new}>
+            Create listing
+          </Button>
+        </Flex>
+      </Link>
     );
   }
 
@@ -61,6 +69,7 @@ const Listing = ({ plate, index, isCreate }) => {
       ref={wrapperRef}
       onMouseEnter={() => handleItemHover(id)}
       onMouseOut={clearHovered}
+      onClick={onOpen}
       marginRight={{ base: index % 2 && "3%", md: (index + 2) % 3 && "3%" }}
       {...styles.wrapper}
     >
@@ -85,15 +94,18 @@ const Listing = ({ plate, index, isCreate }) => {
       <Flex {...styles.meta}>
         <Text {...styles.price}>{price}</Text>
         <Text {...styles.title}>{title}</Text>
-        <Flex direction="row" justify="space-around">
+        <Flex direction="row" justify="space-around" align="center">
           <Text {...styles.views} marginRight="auto">
             0 views
           </Text>
           <Text {...styles.sales} marginRight="auto">
             0 sales
           </Text>
+          <Icon as={CheckIcon} marginLeft="auto" />
         </Flex>
       </Flex>
+
+      <DetailsModal {...detailsModalProps} />
     </Flex>
   );
 };
@@ -128,8 +140,8 @@ const styles = {
     bg: "gray.100",
   },
   createIcon: {
-    color: "gray.200",
     fontSize: "3em",
+    transition: "color 0.2s ease-in",
   },
   aspect: {
     ratio: 1,

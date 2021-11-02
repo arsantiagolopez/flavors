@@ -65,14 +65,16 @@ const Profile = ({ user, mutate }) => {
     };
 
     // Update user model (username)
-    const userResponse = await axios.put("/api/user", { username });
+    if (username) {
+      const userResponse = await axios.put("/api/user", { username });
 
-    // Handle errors
-    if (hasErrors(userResponse)) {
-      return setIsLoading(false);
+      // Handle errors
+      if (hasErrors(userResponse)) {
+        return setIsLoading(false);
+      }
+
+      mutate({ ...user, username });
     }
-
-    mutate({ ...user, username });
 
     // Update profile model (all other fields)
     const profileResponse = await axios.put("/api/user/profile", fields);
@@ -203,7 +205,6 @@ const Profile = ({ user, mutate }) => {
                     : "What do you want your customers to know about you?"
                 }
                 {...bioRegister}
-                {...styles.input}
               />
               {errors?.bio && (
                 <Text {...styles.error}>{errors?.bio?.message}</Text>
@@ -290,6 +291,7 @@ const styles = {
     width: "100%",
   },
   input: {
+    paddingY: "1.5em",
     spellCheck: "false",
     _invalid: {
       borderBottom: `2px solid red`,

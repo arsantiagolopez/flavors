@@ -1,6 +1,5 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
-import { useDimensions } from "../../utils/useDimensions";
 import { Footer } from "../Footer";
 import { Navigation } from "../Navigation";
 
@@ -11,10 +10,7 @@ const Layout = ({
   isFullScreen,
   SidebarComponent,
 }) => {
-  const { height, width } = useDimensions();
-  const isPortrait = height > width;
-
-  const navigationProps = { user, isPortrait };
+  const navigationProps = { user };
 
   return (
     <Flex {...styles.wrapper}>
@@ -23,20 +19,30 @@ const Layout = ({
         children
       ) : (
         <Flex {...styles.userContent}>
-          {SidebarComponent && !SidebarComponent?.props?.hidden && (
-            <Flex
-              top={isFullScreen ? "6vh" : "10vh"}
-              flex={isFullScreen ? "1 1 20%" : "1 1 30%"}
-              height={isFullScreen ? "94vh" : "90vh"}
-              maxWidth={isFullScreen ? "18vw" : "30%"}
-              marginLeft={isFullScreen ? "-18vw" : "auto"}
-              paddingRight={isFullScreen ? "1vw" : "none"}
-              {...styles.sidebar}
-            >
-              {SidebarComponent}
-            </Flex>
+          {SidebarComponent && !SidebarComponent?.props?.hidden ? (
+            <>
+              <Flex
+                top={isFullScreen ? "6vh" : "10vh"}
+                flex={isFullScreen ? "1 1 20%" : "1 1 30%"}
+                height={isFullScreen ? "94vh" : "90vh"}
+                maxWidth={isFullScreen ? "18vw" : "30%"}
+                marginLeft={isFullScreen ? "-18vw" : "auto"}
+                paddingRight={isFullScreen ? "1vw" : "none"}
+                {...styles.sidebar}
+              >
+                {SidebarComponent}
+              </Flex>
+              <Flex
+                {...styles.content}
+                width={{ base: "100%", md: isFullScreen ? "100%" : "70%" }}
+                maxWidth={{ base: "100%", md: isFullScreen ? "100%" : "70%" }}
+              >
+                {children}
+              </Flex>
+            </>
+          ) : (
+            <Flex {...styles.content}>{children}</Flex>
           )}
-          <Flex {...styles.content}>{children}</Flex>
         </Flex>
       )}
       <Footer />
@@ -65,7 +71,7 @@ const styles = {
   content: {
     flex: "1 1 70%",
     direction: "column",
-    width: { base: "100%", md: "70%" },
-    maxWidth: { base: "100%", md: "70%" },
+    width: "100%",
+    maxWidth: "100%",
   },
 };

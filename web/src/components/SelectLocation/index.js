@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import Geosuggest from "react-geosuggest";
 import { useController } from "react-hook-form";
 import { validateFields } from "../../utils/validateFields";
@@ -10,11 +10,8 @@ const SelectLocation = ({ name, control, defaultValue, placeholder }) => {
   } = useController({
     name,
     control,
-    rules: { required: true },
     defaultValue,
   });
-
-  const controllerRef = useRef(null);
 
   // Update form value on suggest select
   const onSuggestSelect = (value) => {
@@ -45,8 +42,7 @@ const SelectLocation = ({ name, control, defaultValue, placeholder }) => {
 
   return (
     <Geosuggest
-      ref={controllerRef}
-      name={name}
+      ref={ref}
       onChange={onChange}
       {...controllerProps}
       initialValue={

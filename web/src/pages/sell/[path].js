@@ -25,7 +25,6 @@ const SellPages = () => {
   let title,
     content = null;
 
-  // const isFullScreen = true;
   const SidebarComponent = <SellSidebar />;
 
   const layoutProps = { user, SidebarComponent };
@@ -51,6 +50,10 @@ const SellPages = () => {
     case "profile":
       title = "Seller Profile";
       content = <SellerProfile {...contentProps} />;
+      break;
+    default:
+      title = "Orders";
+      content = <Orders {...contentProps} />;
       break;
   }
 

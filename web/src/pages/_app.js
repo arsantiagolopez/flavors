@@ -27,7 +27,15 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => (
             <Component {...pageProps} />
           </ProtectedRoute>
         ) : (
-          <Component {...pageProps} />
+          <>
+            {/* Testing */}
+            <Head>
+              <script
+                src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}&libraries=places`}
+              ></script>
+            </Head>
+            <Component {...pageProps} />
+          </>
         )}
       </ChakraProvider>
     </SWRConfig>
