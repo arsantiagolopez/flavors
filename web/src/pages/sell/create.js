@@ -24,4 +24,6 @@ const CreateListingPage = () => {
   );
 };
 
+CreateListingPage.isProtected = true;
+
 export default CreateListingPage;

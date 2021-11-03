@@ -83,7 +83,7 @@ const styles = {
   },
   status: {
     marginLeft: "-2",
-    marginBottom: "5vh",
+    marginBottom: "3vh",
   },
   notice: {
     color: "gray.400",

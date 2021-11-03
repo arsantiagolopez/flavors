@@ -4,6 +4,7 @@ import express from "express";
 import { InitiateMongoServer } from "./config/db";
 import { getUserId } from "./middleware";
 import { plateRoutes, s3Routes, userRoutes } from "./routes";
+import { sellRoutes } from "./routes/sell";
 
 require("dotenv").config();
 
@@ -28,6 +29,7 @@ app.use(getUserId);
 app.use("/api/user", userRoutes);
 app.use("/api/s3", s3Routes);
 app.use("/api/plates", plateRoutes);
+app.use("/api/sell", sellRoutes);
 
 // Start Server
 app.listen(process.env.PORT, () => {

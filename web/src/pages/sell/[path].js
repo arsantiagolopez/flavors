@@ -71,6 +71,6 @@ const SellPages = () => {
   );
 };
 
-// SellPages.isProtected = true;
+SellPages.isProtected = true;
 
 export default SellPages;

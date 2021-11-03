@@ -58,3 +58,11 @@ a {
     opacity: 1;
   }
 }
+
+/* Chakra style overrides */
+
+/* Select component padding */
+.chakra-select {
+  padding-inline-end: 0 !important;
+  padding-inline-start: 0.8rem !important;
+}
