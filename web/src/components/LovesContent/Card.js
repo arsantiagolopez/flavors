@@ -1,26 +1,13 @@
 import { CheckIcon } from "@chakra-ui/icons";
-import {
-  AspectRatio,
-  Button,
-  Flex,
-  Icon,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { AspectRatio, Flex, Icon, Text } from "@chakra-ui/react";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useRef, useState } from "react";
-import { GiForkKnifeSpoon } from "react-icons/gi";
 import { IoEyeSharp } from "react-icons/io5";
-import { DetailsModal } from "./DetailsModal";
 
-const Listing = ({ plate, index, isCreate }) => {
+const Card = ({ card, index }) => {
   const [hovered, setHovered] = useState(null);
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const wrapperRef = useRef();
-
-  const { id, title, price, image } = plate || {};
+  const { id, title, price, image } = card || {};
 
   // Set item to hovered
   const handleItemHover = (id) => setHovered(id);
@@ -32,57 +19,26 @@ const Listing = ({ plate, index, isCreate }) => {
     if (!hoveredNodeInsideRef) setHovered(null);
   };
 
-  const detailsModalProps = { plate, isOpen, onOpen, onClose };
-
-  if (isCreate) {
-    return (
-      <Link href="/sell/create">
-        <Flex
-          ref={wrapperRef}
-          onMouseEnter={() => handleItemHover("create")}
-          onMouseOut={clearHovered}
-          {...styles.newCard}
-          {...styles.wrapper}
-        >
-          <AspectRatio
-            onMouseEnter={() => handleItemHover("create")}
-            {...styles.aspect}
-          >
-            <Flex {...styles.add}>
-              <Icon
-                as={GiForkKnifeSpoon}
-                color={hovered === "create" ? "gray.800" : "gray.200"}
-                {...styles.createIcon}
-              />
-            </Flex>
-          </AspectRatio>
-          <Button background={hovered ? "black" : "gray.800"} {...styles.new}>
-            Create listing
-          </Button>
-        </Flex>
-      </Link>
-    );
-  }
-
   return (
     <Flex
       ref={wrapperRef}
       onMouseEnter={() => handleItemHover(id)}
       onMouseOut={clearHovered}
-      onClick={onOpen}
-      marginRight={{ base: index % 2 && "1%", md: (index + 2) % 3 && "1%" }}
+      marginRight={{ base: index % 2 && "1%", md: "0" }}
       {...styles.wrapper}
     >
       <AspectRatio {...styles.aspect}>
         <Flex direction="column">
-          <Image
-            src={image}
-            alt={title}
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-            priority="true"
-          />
+          {image && (
+            <Image
+              src={image}
+              alt={title}
+              layout="fill"
+              objectFit="cover"
+              quality={100}
+              priority="true"
+            />
+          )}
 
           <Icon
             opacity={hovered === id ? "1" : "0"}
@@ -104,13 +60,11 @@ const Listing = ({ plate, index, isCreate }) => {
           <Icon as={CheckIcon} marginLeft="auto" />
         </Flex>
       </Flex>
-
-      <DetailsModal {...detailsModalProps} />
     </Flex>
   );
 };
 
-export { Listing };
+export { Card };
 
 // Styles
 
@@ -118,26 +72,12 @@ const styles = {
   wrapper: {
     position: "relative",
     direction: "column",
-    flex: { base: "1 1 49%", md: "1 1 32.5%" },
-    minWidth: { base: "49%", md: "32.5%" },
-    maxWidth: { base: "49%", md: "32.5%" },
+    flex: { base: "1 1 40%", md: "1 1 20%" },
+    minWidth: { base: "40%", md: "20%" },
+    maxWidth: { base: "40%", md: "20%" },
     marginBottom: { base: "1%", md: "1%" },
     cursor: "pointer",
-    padding: { base: "2", md: "3" },
-  },
-  newCard: {
-    marginRight: { base: "1%", md: "1%" },
-  },
-  new: {
-    paddingY: "1.3em",
-    marginTop: { base: "1.5em", md: "3vh" },
-  },
-  add: {
-    background: "gray.100",
-  },
-  createIcon: {
-    fontSize: "3em",
-    transition: "color 0.2s ease-in",
+    padding: { base: "2", md: "1vw" },
   },
   aspect: {
     ratio: 1,
@@ -152,7 +92,7 @@ const styles = {
     right: "2vh",
     boxSize: "3vh",
     transition: "all 0.2s ease-in",
-    color: "black",
+    color: "white",
   },
   meta: {
     direction: "column",

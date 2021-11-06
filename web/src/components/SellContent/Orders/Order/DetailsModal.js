@@ -101,9 +101,9 @@ const styles = {
   },
   button: {},
   declineButton: {
-    background: "red.400",
+    background: "red.500",
     _hover: {
-      background: "red.500",
+      background: "red.600",
     },
   },
   acceptButton: {

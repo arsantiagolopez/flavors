@@ -43,7 +43,7 @@ const styles = {
     ratio: 1,
     width: "100%",
     boxShadow: "lg",
-    borderRadius: "1em",
+    borderRadius: "0.5em",
     overflow: "hidden",
   },
   price: {

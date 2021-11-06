@@ -161,10 +161,10 @@ const styles = {
     width: "45%",
   },
   declineButton: {
-    background: "red.400",
+    background: "red.500",
     borderBottomLeftRadius: "0.5em",
     _hover: {
-      background: "red.500",
+      background: "red.600",
     },
   },
   closeIcon: {

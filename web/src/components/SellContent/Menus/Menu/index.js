@@ -1,4 +1,3 @@
-import { CheckIcon } from "@chakra-ui/icons";
 import {
   AspectRatio,
   Button,
@@ -7,20 +6,18 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import Image from "next/image";
-import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { GiForkKnifeSpoon } from "react-icons/gi";
 import { IoEyeSharp } from "react-icons/io5";
-import { DetailsModal } from "./DetailsModal";
+import { CreateMenuModal } from "./CreateMenuModal";
 
-const Listing = ({ plate, index, isCreate }) => {
+const Menu = ({ data, index, isCreate }) => {
   const [hovered, setHovered] = useState(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const wrapperRef = useRef();
 
-  const { id, title, price, image } = plate || {};
+  const { id, name, plates } = data || {};
 
   // Set item to hovered
   const handleItemHover = (id) => setHovered(id);
@@ -32,35 +29,34 @@ const Listing = ({ plate, index, isCreate }) => {
     if (!hoveredNodeInsideRef) setHovered(null);
   };
 
-  const detailsModalProps = { plate, isOpen, onOpen, onClose };
-
   if (isCreate) {
     return (
-      <Link href="/sell/create">
-        <Flex
-          ref={wrapperRef}
+      <Flex
+        ref={wrapperRef}
+        onMouseEnter={() => handleItemHover("create")}
+        onMouseOut={clearHovered}
+        onClick={onOpen}
+        {...styles.newCard}
+        {...styles.wrapper}
+      >
+        <AspectRatio
           onMouseEnter={() => handleItemHover("create")}
-          onMouseOut={clearHovered}
-          {...styles.newCard}
-          {...styles.wrapper}
+          {...styles.aspect}
         >
-          <AspectRatio
-            onMouseEnter={() => handleItemHover("create")}
-            {...styles.aspect}
-          >
-            <Flex {...styles.add}>
-              <Icon
-                as={GiForkKnifeSpoon}
-                color={hovered === "create" ? "gray.800" : "gray.200"}
-                {...styles.createIcon}
-              />
-            </Flex>
-          </AspectRatio>
-          <Button background={hovered ? "black" : "gray.800"} {...styles.new}>
-            Create listing
-          </Button>
-        </Flex>
-      </Link>
+          <Flex {...styles.add}>
+            <Icon
+              as={GiForkKnifeSpoon}
+              color={hovered === "create" ? "gray.800" : "gray.200"}
+              {...styles.createIcon}
+            />
+          </Flex>
+        </AspectRatio>
+        <Button background={hovered ? "black" : "gray.800"} {...styles.new}>
+          Create listing
+        </Button>
+
+        <CreateMenuModal />
+      </Flex>
     );
   }
 
@@ -69,20 +65,19 @@ const Listing = ({ plate, index, isCreate }) => {
       ref={wrapperRef}
       onMouseEnter={() => handleItemHover(id)}
       onMouseOut={clearHovered}
-      onClick={onOpen}
       marginRight={{ base: index % 2 && "1%", md: (index + 2) % 3 && "1%" }}
       {...styles.wrapper}
     >
       <AspectRatio {...styles.aspect}>
         <Flex direction="column">
-          <Image
+          {/* <Image
             src={image}
             alt={title}
             layout="fill"
             objectFit="cover"
             quality={100}
             priority="true"
-          />
+          /> */}
 
           <Icon
             opacity={hovered === id ? "1" : "0"}
@@ -92,25 +87,14 @@ const Listing = ({ plate, index, isCreate }) => {
         </Flex>
       </AspectRatio>
       <Flex {...styles.meta}>
-        <Text {...styles.price}>{price}</Text>
-        <Text {...styles.title}>{title}</Text>
-        <Flex {...styles.insights}>
-          <Text {...styles.views} marginRight="auto">
-            0 views
-          </Text>
-          <Text {...styles.sales} marginRight="auto">
-            0 sales
-          </Text>
-          <Icon as={CheckIcon} marginLeft="auto" />
-        </Flex>
+        <Text {...styles.name}>{name}</Text>
+        <Text {...styles.by}>By Alexander Santiago</Text>
       </Flex>
-
-      <DetailsModal {...detailsModalProps} />
     </Flex>
   );
 };
 
-export { Listing };
+export { Menu };
 
 // Styles
 
@@ -152,35 +136,21 @@ const styles = {
     right: "2vh",
     boxSize: "3vh",
     transition: "all 0.2s ease-in",
-    color: "black",
+    color: "white",
   },
   meta: {
     direction: "column",
     paddingTop: "2",
   },
-  price: {
+  name: {
     fontSize: "12pt",
     fontWeight: "bold",
+    noOfLines: 1,
   },
-  title: {
+  by: {
     fontSize: "12pt",
     noOfLines: 1,
     lineHeight: "1.2em",
     paddingY: { base: "0.5", md: "1" },
-  },
-  insights: {
-    direction: "row",
-    justify: "space-around",
-    align: "center",
-  },
-  views: {
-    fontSize: "11pt",
-    color: "gray.400",
-    noOfLines: 1,
-  },
-  sales: {
-    fontSize: "11pt",
-    color: "gray.400",
-    noOfLines: 1,
   },
 };

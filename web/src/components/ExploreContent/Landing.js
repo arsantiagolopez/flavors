@@ -41,7 +41,7 @@ const styles = {
     direction: "column",
     height: "40vh",
     width: "100%",
-    borderRadius: "1.5em",
+    borderRadius: "0.5em",
     boxShadow: "lg",
     marginY: "2vh",
   },
@@ -67,7 +67,7 @@ const styles = {
     top: 0,
     width: "100%",
     height: "100%",
-    borderRadius: "1.5em",
+    borderRadius: "0.5em",
     overflow: "hidden",
   },
 };
