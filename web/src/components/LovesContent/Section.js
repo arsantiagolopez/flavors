@@ -6,6 +6,7 @@ const Section = ({ heading, items }) => {
   return (
     <Flex {...styles.wrapper}>
       <Heading {...styles.heading}>{heading}</Heading>
+
       <Flex {...styles.items}>
         {items?.map((item) => (
           <Card key={item?.id} card={item} />
@@ -42,7 +43,6 @@ const styles = {
   shadows: {
     height: "100%",
     width: "10vw",
-    // bg: "red",
     pointerEvents: "none",
     position: "absolute",
     right: "0",
@@ -50,19 +50,4 @@ const styles = {
     marginRight: { base: "-1em", md: "-20vw" },
     boxShadow: "inset -15vw 0 5vw -10vw white",
   },
-
-  // .shadows {
-  //   bottom:0;
-  //   left:0;
-  //   pointer-events:none;
-  //   position:absolute;
-  //   right:0;
-  //   top:0;
-  //   transition:all .2s ease-out;
-  // }
-  // &.off-bottom {
-  //   .shadows {
-  //     box-shadow:0 -3em 3em -1em white inset;
-  //   }
-  // }
 };
