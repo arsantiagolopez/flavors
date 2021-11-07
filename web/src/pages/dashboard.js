@@ -1,10 +1,10 @@
 import Head from "next/head";
 import React from "react";
 import useSWR from "swr";
+import { DashboardContent } from "../components/DashboardContent";
 import { Layout } from "../components/Layout";
-import { LovesContent } from "../components/LovesContent";
 
-const LovesPage = () => {
+const DashboardPage = () => {
   const CLIENT_URL = process.env.NEXT_PUBLIC_CLIENT_URL;
   const { data } = useSWR(`${CLIENT_URL}/api/auth/session`);
   const { user } = data || {};
@@ -15,14 +15,14 @@ const LovesPage = () => {
   return (
     <>
       <Head>
-        <title>Flavors - Loves</title>
+        <title>Flavors - Dashboard</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout {...layoutProps}>
-        <LovesContent {...contentProps} />
+        <DashboardContent {...contentProps} />
       </Layout>
     </>
   );
 };
 
-export default LovesPage;
+export default DashboardPage;

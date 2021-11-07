@@ -3,7 +3,7 @@ import React from "react";
 import { Reactions } from "./Reactions";
 import { Section } from "./Section";
 
-const LovesContent = ({ user }) => {
+const DashboardContent = ({ user }) => {
   const featured = [
     {
       id: "09434j8baff81b6915bb0b4743h",
@@ -298,7 +298,7 @@ const LovesContent = ({ user }) => {
           userId: "61787c1fae53dd5fbdcc7748",
         },
       ],
-    },
+    }
   ];
 
   return (
@@ -316,7 +316,7 @@ const LovesContent = ({ user }) => {
   );
 };
 
-export { LovesContent };
+export { DashboardContent };
 
 // Styles
 

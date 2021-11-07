@@ -84,7 +84,6 @@ const styles = {
   },
   logo: {
     paddingY: "3",
-    filter: "brightness(0) opacity(0.2)",
   },
   disclaimer: {
     fontSize: "10pt",

@@ -17,9 +17,9 @@ import {
 
 const IconNavigation = ({ user }) => (
   <Flex {...styles.wrapper}>
-    <Link href="/loves">
+    <Link href="/dashboard">
       <IconButton
-        aria-label="Loves"
+        aria-label="Dashboard"
         icon={<IoHeartOutline />}
         {...styles.icon}
       />

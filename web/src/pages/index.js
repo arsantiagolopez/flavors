@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import useSWR from "swr";
-import { DashboardContent } from "../components/Dashboard";
+import { DashboardContent } from "../components/DashboardContent";
 import { Layout } from "../components/Layout";
 
 const Index = () => {

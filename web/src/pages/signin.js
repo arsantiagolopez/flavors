@@ -11,9 +11,9 @@ const SigninPage = ({ providers }) => {
 
   const router = useRouter();
 
-  // Redirect to / if logged in
+  // Redirect to /dashboard if logged in
   useEffect(() => {
-    if (session) router.push("/");
+    if (session) router.push("/dashboard");
   }, [session]);
 
   const signinProps = { providers };
