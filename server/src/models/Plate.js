@@ -37,6 +37,11 @@ const PlateSchema = new Schema(
         type: String,
       },
     ],
+    // Insights
+    views: {
+      type: Number,
+      default: 0
+    }
   },
   { timestamps: true }
 );

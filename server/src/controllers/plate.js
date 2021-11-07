@@ -1,6 +1,28 @@
 import { Plate } from "../models/Plate";
 
 /**
+ * Get all my created plates & insights.
+ * @method - GET.
+ * @param {req} req - Http request, including the userId.
+ * @param {res} res - Http response.
+ * @returns an object of your current schedule.
+ */
+const getMyPlates = async ({ userId }, res) => {
+  try {
+    const plates = await Plate.find({ userId });
+    return res.status(200).json({ success: true, plates });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: {
+        field: "server",
+        message: "Something went wrong. Please try again later.",
+      },
+    });
+  }
+};
+
+/**
  * Get a plate by ID.
  * @method - GET.
  * @param {req} req - Http request, including params.
@@ -11,6 +33,9 @@ const getPlateById = async ({ params }, res) => {
   const { id } = params;
   try {
     const plate = await Plate.findById(id);
+    
+    // @todo: Don't return insights
+
     return res.status(200).json({ success: true, plate });
   } catch (err) {
     return res.status(500).json({
@@ -87,4 +112,4 @@ const deletePlate = async (req, res) => {
   }
 };
 
-export { createPlate, deletePlate, getPlateById, updatePlate };
+export { getMyPlates, getPlateById, createPlate, updatePlate, deletePlate };

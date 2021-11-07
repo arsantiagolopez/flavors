@@ -41,13 +41,13 @@ const styles = {
     marginY: { base: "2vh", md: "3vh" },
   },
   shadows: {
-    height: "100%",
-    width: "10vw",
+    height: "85%",
+    width: "100vw",
     pointerEvents: "none",
     position: "absolute",
     right: "0",
-    top: "0",
+    bottom: "0",
     marginRight: { base: "-1em", md: "-20vw" },
-    boxShadow: "inset -15vw 0 5vw -10vw white",
+    boxShadow: "inset 15vw 0 5vw -10vw white, inset -15vw 0 10vw -10vw white",
   },
 };

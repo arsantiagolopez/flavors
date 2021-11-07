@@ -1,5 +1,6 @@
 import { Schedule } from "../models/Schedule";
 
+
 /**
  * Get my schedule.
  * @method - GET.

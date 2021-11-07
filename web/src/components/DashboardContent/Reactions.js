@@ -68,7 +68,6 @@ const styles = {
     overflow: "scroll",
   },
   tab: {
-    // padding: "0",
     fontSize: { base: "3xl", md: "5xl" },
     filter: "grayscale(1)",
     paddingX: { base: "2", md: "1vw" },
@@ -91,7 +90,7 @@ const styles = {
     overflow: "scroll",
   },
   shadows: {
-    height: "90%",
+    height: "85%",
     width: "100vw",
     pointerEvents: "none",
     position: "absolute",

@@ -80,7 +80,7 @@ const Form = ({ providers, setIsEmailSent, setEmail }) => {
                 {...styles.social}
                 onClick={() =>
                   signIn(id, {
-                    callbackUrl: `${process.env.NEXT_PUBLIC_CLIENT_URL}`,
+                    callbackUrl: `${process.env.NEXT_PUBLIC_CLIENT_URL}/dashboard`,
                   })
                 }
                 marginBottom={
