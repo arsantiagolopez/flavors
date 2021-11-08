@@ -25,18 +25,34 @@ const getMyPlates = async ({ userId }, res) => {
 /**
  * Get a plate by ID.
  * @method - GET.
- * @param {req} req - Http request, including params.
+ * @param {req} req - Http request, including params and userId.
  * @param {res} res - Http response.
  * @returns an object of the plate.
  */
-const getPlateById = async ({ params }, res) => {
+const getPlateById = async ({ params, userId }, res) => {
   const { id } = params;
   try {
     const plate = await Plate.findById(id);
-    
-    // @todo: Don't return insights
 
-    return res.status(200).json({ success: true, plate });
+    if (!plate) {
+      return res.status(200).json({
+        success: false,
+        error: {
+          field: "server",
+          message: "Plate no longer exists.",
+        },
+      });
+    }
+
+    const { insights, ...publicProps } = plate;
+
+    const isSeller = userId === plate?.userId;
+
+    // @todo: Update view count if viewer isn't the creator
+
+    return res
+      .status(200)
+      .json({ success: true, plate: isSeller ? plate : publicProps });
   } catch (err) {
     return res.status(500).json({
       success: false,

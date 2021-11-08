@@ -37,10 +37,11 @@ const PlateSchema = new Schema(
         type: String,
       },
     ],
-    // Insights
-    views: {
+    insights: {
+          views: {
       type: Number,
       default: 0
+    }
     }
   },
   { timestamps: true }

@@ -77,7 +77,7 @@ export default async function auth(req, res) {
     pages: {
       signIn: "/signin",
       error: "/error",
-      newUser: "/new-user", // New users will be directed here on first sign in
+      // newUser: "/new-user", // New users will be directed here on first sign in
     },
     callbacks: {
       // Return userId on session
@@ -87,7 +87,7 @@ export default async function auth(req, res) {
     },
     // Cookies only accessible from HTTPS URLS
     useSecureCookies: process.env.NODE_ENV !== "development",
-    // debug: true,
+    debug: true,
     // Apply cookie modifications only on production
     cookies: process.env.NODE_ENV !== "development" && {
       sessionToken: {
