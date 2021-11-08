@@ -45,7 +45,7 @@ export default async function auth(req, res) {
         profile(profile) {
           const { id, name, picture, email } = profile || {};
           let [firstName, ...lastName] = name?.split(" ");
-          lastName = last.join(" ");
+          lastName = lastName.join(" ");
           return {
             id,
             name,
@@ -76,7 +76,7 @@ export default async function auth(req, res) {
     theme: "dark",
     pages: {
       signIn: "/signin",
-      error: "/error",
+      error: "/signin",
       // newUser: "/new-user", // New users will be directed here on first sign in
     },
     callbacks: {

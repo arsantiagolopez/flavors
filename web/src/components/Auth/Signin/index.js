@@ -3,26 +3,19 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useDimensions } from "../../../utils/useDimensions";
 import { Logo } from "../../Logo";
+import { ErrorModal } from "../ErrorModal";
 import { EmailSent } from "./EmailSent";
 import { Form } from "./Form";
 
 const Signin = ({ providers }) => {
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [email, setEmail] = useState(null);
-  const [screenHeight, setScreenHeight] = useState();
+  const [screenHeight, setScreenHeight] = useState(null);
 
   const { height } = useDimensions();
 
-  const formProps = {
-    providers,
-    setIsEmailSent,
-    setEmail,
-  };
-
-  const emailSentProps = {
-    setIsEmailSent,
-    email,
-  };
+  const formProps = { providers, setIsEmailSent, setEmail };
+  const emailSentProps = { setIsEmailSent, email };
 
   // Update height post SSR fetch to allow
   // height CSS to work on mount
@@ -57,6 +50,9 @@ const Signin = ({ providers }) => {
           />
         </Box>
       </Flex>
+
+      {/* Error modal */}
+      <ErrorModal />
     </Flex>
   );
 };
