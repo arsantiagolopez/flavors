@@ -172,7 +172,7 @@ const AccountContent = ({ user }) => {
         ))}
         <Button onClick={() => signOut()} {...styles.logoutEnd}>
           Log out
-          <Icon as={IoExitOutline} marginLeft="3" />{" "}
+          <Icon as={IoExitOutline} marginLeft="3" />
         </Button>
       </Flex>
     </Flex>

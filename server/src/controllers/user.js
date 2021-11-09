@@ -29,6 +29,29 @@ const getUsernameAvailability = async ({ params }, res) => {
 };
 
 /**
+ * Get client-safe accounts & provider information associated with user.
+ * @method - GET.
+ * @param {object} req - Http request, including the userId.
+ * @param {object} res - Http response.
+ * @returns an array of providers with information.
+ */
+const getMyAccounts = async ({ userId }, res) => {
+  try {
+    const data = await Account.find({ userId });
+    const accounts = data.map(({ provider }) => provider);
+    return res.status(200).json({ success: true, accounts });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: {
+        field: "server",
+        message: "Something went wrong. Please try again later.",
+      },
+    });
+  }
+};
+
+/**
  * Send code to email for confirmation purposes.
  * @method - POST.
  * @param {object} req - Http request, including the body.
@@ -404,6 +427,7 @@ const deleteUser = async ({ userId }, res) => {
 
 export {
   getUsernameAvailability,
+  getMyAccounts,
   sendSignupCode,
   resendCode,
   signup,

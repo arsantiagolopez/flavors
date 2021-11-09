@@ -2,6 +2,7 @@ import Router from "express";
 import {
   changePassword,
   deleteUser,
+  getMyAccounts,
   getUsernameAvailability,
   sendSignupCode,
   signup,
@@ -14,6 +15,9 @@ const router = Router();
 
 // Check if username is available
 router.get("/username/:username", getUsernameAvailability);
+
+// Get all accounts and providers associated to user
+router.get("/accounts", getMyAccounts);
 
 // Send a code for email sign up
 router.post("/send-code", sendSignupCode);

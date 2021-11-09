@@ -27,7 +27,7 @@ const OAuthAccountNotLinked = () => {
             A {process.env.NEXT_PUBLIC_APP_NAME} account hasn't been associated
             to that social media provider. Try a different sign in button. To
             allow signin from other social media accounts, go to{" "}
-            <b>Account, Privacy, Social Media Accounts, </b> and add your
+            <b>Account, Security, Social Media Accounts, </b> and add your
             accounts to allow login.
           </Text>
         </ModalBody>
