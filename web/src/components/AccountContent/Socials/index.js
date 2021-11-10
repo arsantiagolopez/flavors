@@ -1,5 +1,6 @@
 import { Button, Flex, Icon, Text } from "@chakra-ui/react";
 import { getProviders } from "next-auth/react";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import useSWR from "swr";
@@ -7,6 +8,11 @@ import useSWR from "swr";
 const Socials = () => {
   const [accounts, setAccounts] = useState(null);
   const { data } = useSWR("/api/user/accounts");
+
+  const router = useRouter();
+
+  // Get user to authenticate & connect account
+  const authenticateAccount = async (id) => {};
 
   // Fetch providers
   useEffect(async () => {
@@ -29,7 +35,7 @@ const Socials = () => {
 
   return (
     <Flex {...styles.wrapper}>
-      <Text>
+      <Text {...styles.subHeader}>
         Connected social media accounts allow you to one-click sign in from
         them.
       </Text>
@@ -37,7 +43,13 @@ const Socials = () => {
       <Flex {...styles.socials}>
         {accounts &&
           Object.values(accounts).map(({ id, name, isConnected }) => (
-            <Button key={id} {...styles.social}>
+            <Button
+              key={id}
+              onClick={() =>
+                router.push("https://localhost:2000/api/auth/facebook/callback")
+              }
+              {...styles.social}
+            >
               <Flex
                 color={isConnected ? "gray.800" : "gray.300"}
                 {...styles.left}
@@ -77,6 +89,8 @@ const styles = {
   wrapper: {
     direction: "column",
     paddingY: { base: "2em", md: "5vh" },
+  },
+  subHeader: {
     paddingX: { base: "0.5em", md: "0" },
   },
   socials: {
@@ -95,7 +109,7 @@ const styles = {
     fontWeight: "normal",
     borderBottom: "0.5px solid rgba(150,150,150,0.1)",
     paddingY: { base: "2.5em", md: "5vh" },
-    paddingX: "2vw",
+    paddingX: { base: "1em", md: "2vw" },
     _hover: {
       background: "gray.100",
     },
