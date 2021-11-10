@@ -43,13 +43,7 @@ const Socials = () => {
       <Flex {...styles.socials}>
         {accounts &&
           Object.values(accounts).map(({ id, name, isConnected }) => (
-            <Button
-              key={id}
-              onClick={() =>
-                router.push("https://localhost:2000/api/auth/facebook/callback")
-              }
-              {...styles.social}
-            >
+            <Button key={id} {...styles.social}>
               <Flex
                 color={isConnected ? "gray.800" : "gray.300"}
                 {...styles.left}
