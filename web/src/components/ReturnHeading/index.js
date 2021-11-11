@@ -44,5 +44,6 @@ const styles = {
   heading: {
     marginLeft: "0",
     fontSize: { base: "2xl", md: "5xl" },
+    isTruncated: true,
   },
 };

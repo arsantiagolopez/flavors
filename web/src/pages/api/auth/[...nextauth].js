@@ -84,6 +84,11 @@ export default async function auth(req, res) {
       async session({ session, user }) {
         return Promise.resolve({ ...session, user });
       },
+      // Handle account linking if user already signed in
+      async signIn({ user, account, profile }) {
+        // @todo: create & link accounts once Twitter API approved
+        return true;
+      },
     },
     // Cookies only accessible from HTTPS URLS
     useSecureCookies: process.env.NODE_ENV !== "development",

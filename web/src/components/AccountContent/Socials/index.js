@@ -1,9 +1,10 @@
 import { Button, Flex, Icon, Text } from "@chakra-ui/react";
-import { getProviders } from "next-auth/react";
+import { getProviders, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import useSWR from "swr";
+// import axios from "../../../axios";
 
 const Socials = () => {
   const [accounts, setAccounts] = useState(null);
@@ -12,7 +13,15 @@ const Socials = () => {
   const router = useRouter();
 
   // Get user to authenticate & connect account
-  const authenticateAccount = async (id) => {};
+  const handleAuthentication = async (id) => {
+    signIn(id, {
+      callbackUrl: `${process.env.NEXT_PUBLIC_CLIENT_URL}/account/socials`,
+    });
+
+    // const { data } = await axios.post(`/api/auth/authenticate/${id}`);
+
+    console.log(data);
+  };
 
   // Fetch providers
   useEffect(async () => {
@@ -43,7 +52,12 @@ const Socials = () => {
       <Flex {...styles.socials}>
         {accounts &&
           Object.values(accounts).map(({ id, name, isConnected }) => (
-            <Button key={id} {...styles.social}>
+            <Button
+              key={id}
+              // onClick={!isConnected ? () => handleAuthentication(id) : null}
+              onClick={() => handleAuthentication(id)}
+              {...styles.social}
+            >
               <Flex
                 color={isConnected ? "gray.800" : "gray.300"}
                 {...styles.left}
@@ -66,7 +80,11 @@ const Socials = () => {
                 color={isConnected ? "gray.800" : "gray.300"}
                 {...styles.actions}
               >
-                {isConnected ? "Connected" : "Connect"}
+                {isConnected ? (
+                  <Text {...styles.connected}>Connected</Text>
+                ) : (
+                  <Text {...styles.connect}>Connect</Text>
+                )}
               </Flex>
             </Button>
           ))}
@@ -121,4 +139,9 @@ const styles = {
     direction: "row",
     align: "center",
   },
+  connected: {
+    letterSpacing: "tight",
+    fontWeight: "semibold",
+  },
+  connect: {},
 };

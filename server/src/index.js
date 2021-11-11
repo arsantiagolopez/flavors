@@ -3,8 +3,7 @@ import "dotenv-safe/config";
 import express from "express";
 import { InitiateMongoServer } from "./config/db";
 import { getUserId } from "./middleware";
-import { authRoutes, plateRoutes, s3Routes, userRoutes } from "./routes";
-import { sellRoutes } from "./routes/sell";
+import { plateRoutes, s3Routes, sellRoutes, userRoutes } from "./routes";
 
 require("dotenv").config();
 
@@ -26,7 +25,6 @@ app.use(express.json());
 app.use(getUserId);
 
 // Routes
-app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/s3", s3Routes);
 app.use("/api/plates", plateRoutes);
