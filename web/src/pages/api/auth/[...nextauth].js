@@ -125,6 +125,6 @@ export default async function auth(req, res) {
       },
     },
     // Debugging
-    debug: true,
+    debug: false,
   });
 }
