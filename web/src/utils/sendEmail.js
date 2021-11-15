@@ -135,6 +135,8 @@ const sendMagicLink = async ({
   const { host } = new URL(url);
   const site = "Flavors";
   const transport = createTransport(server);
+
+  console.log("url", url);
   await transport.sendMail({
     to: email,
     from,

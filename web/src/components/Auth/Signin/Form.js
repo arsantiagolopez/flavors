@@ -19,10 +19,9 @@ const Form = ({ providers, setIsEmailSent, setEmail }) => {
     formState: { errors },
   } = useForm();
 
+  // Send email
   const onSubmit = async ({ email }) => {
-    // Send email
     signIn("email", { email, redirect: false });
-
     setIsEmailSent(true);
     setEmail(email);
   };

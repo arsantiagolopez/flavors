@@ -133,9 +133,10 @@ const CustomMongoDbAdapter = (options) => {
       });
       return from(session);
     },
-    async updateUser(data) {
+    async updateUser(id_emailVerified) {
+      const { id, ...data } = id_emailVerified;
       const { value: user } = await User.updateOne(
-        { _id: _id(data.id) },
+        { _id: _id(id) },
         { $set: data }
       );
       return from(user);
