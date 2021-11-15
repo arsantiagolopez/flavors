@@ -27,18 +27,26 @@ const Socials = () => {
   useEffect(async () => {
     if (data) {
       // Providers offered by Flavors
-      let providers = await getProviders();
+      const providers = await getProviders();
+
+      // Reduce items into new object of only oauth providers
+      const socialProviders = Object.keys(providers).reduce((newObj, key) => {
+        if (providers[key].type === "oauth") {
+          return { ...newObj, [key]: providers[key] };
+        }
+      }, {});
+
       // Accounts user has connected
       const { accounts } = data;
 
       // Update providers with connected accounts
-      Object.keys(providers).map((key) =>
+      Object.keys(socialProviders).map((key) =>
         accounts.includes(key)
           ? (providers[key].isConnected = true)
           : (providers[key].isConnected = false)
       );
 
-      setAccounts(providers);
+      setAccounts(socialProviders);
     }
   }, [data]);
 
@@ -54,8 +62,8 @@ const Socials = () => {
           Object.values(accounts).map(({ id, name, isConnected }) => (
             <Button
               key={id}
-              // onClick={!isConnected ? () => handleAuthentication(id) : null}
-              onClick={() => handleAuthentication(id)}
+              onClick={!isConnected ? () => handleAuthentication(id) : null}
+              // onClick={() => handleAuthentication(id)}
               {...styles.social}
             >
               <Flex
