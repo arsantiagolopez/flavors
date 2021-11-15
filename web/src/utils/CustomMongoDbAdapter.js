@@ -94,7 +94,6 @@ const CustomMongoDbAdapter = (options) => {
       return account;
     },
     async createSession(data) {
-      console.log("data", data);
       const session = to(data);
       await Session.insertOne(session);
       return from(session);
@@ -121,22 +120,21 @@ const CustomMongoDbAdapter = (options) => {
       };
     },
     async updateSession(data) {
-      const { value: session } = await Session.updateOne(
+      const { value: session } = await Session.findOneAndUpdate(
         { sessionToken: data.sessionToken },
         { $set: data }
       );
       return from(session);
     },
     async deleteSession(sessionToken) {
-      const { value: session } = await Session.deleteOne({
+      const { value: session } = await Session.findOneAndDelete({
         sessionToken,
       });
       return from(session);
     },
-    async updateUser(id_emailVerified) {
-      const { id, ...data } = id_emailVerified;
-      const { value: user } = await User.updateOne(
-        { _id: _id(id) },
+    async updateUser(data) {
+      const { value: user } = await User.findOneAndUpdate(
+        { _id: _id(data.id) },
         { $set: data }
       );
       return from(user);
@@ -152,7 +150,7 @@ const CustomMongoDbAdapter = (options) => {
       ]);
     },
     async unlinkAccount(provider_providerAccountId) {
-      const { value: account } = await Account.deleteOne(
+      const { value: account } = await Account.findOneAndDelete(
         provider_providerAccountId
       );
       return from(account);
