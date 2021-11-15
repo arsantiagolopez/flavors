@@ -38,7 +38,7 @@ const Signin = ({ providers }) => {
       </Flex>
 
       {/* Desktop banner */}
-      <Flex {...styles.banner} display={{ base: "none", md: "flex" }}>
+      <Flex {...styles.banner}>
         <Box {...styles.imageWrapper}>
           <Image
             src="/images/logo.png"
@@ -95,6 +95,7 @@ const styles = {
   // Only on desktop
   banner: {
     flex: 2,
+    display: { base: "none", md: "flex" },
     justify: "center",
     align: "center",
     background: "brand",

@@ -1,30 +1,50 @@
 import NextAuth from "next-auth";
+import EmailProvider from "next-auth/providers/email";
 import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
 import { CustomMongoDbAdapter } from "../../../utils/CustomMongoDbAdapter";
 import clientPromise from "../../../utils/mongodb";
+import {
+  generateSignupCode,
+  sendMagicLink,
+  sendSignupCode,
+} from "../../../utils/sendEmail";
+
+// Server & from fields for the email providers
+const { server, from } = {
+  server:
+    process.env.NODE_ENV === "development"
+      ? process.env.TEST_SERVER_STRING
+      : process.env.SENGRID_SERVER_STRING,
+  from:
+    process.env.NODE_ENV === "development"
+      ? process.env.TEST_EMAIL_FROM
+      : {
+          email: process.env.SENDGRID_EMAIL_FROM,
+          name: "Flavors",
+        },
+};
 
 export default async function auth(req, res) {
   return await NextAuth(req, res, {
     // Configure one or more authentication providers
     providers: [
-      /**
-       * @todo Uncomment when new Sendgrid credentials
-       **/
-      // EmailProvider({
-      //   server: {
-      //     host: process.env.EMAIL_SERVER_HOST,
-      //     port: process.env.EMAIL_SERVER_PORT,
-      //     auth: {
-      //       user: process.env.EMAIL_SERVER_USER,
-      //       pass: process.env.EMAIL_SERVER_PASSWORD,
-      //     },
-      //   },
-      //   from: process.env.EMAIL_FROM,
-      //   // How long email links are valid for (default 24h)
-      //   maxAge: 24 * 60 * 60,
-      // }),
-      // Google provider (Ready)
+      // Default email provider to log users in with a magic link
+      EmailProvider({
+        server,
+        from,
+        sendVerificationRequest: sendMagicLink,
+      }),
+      // Custom email provider to send registration code to email
+      EmailProvider({
+        id: "emailCode",
+        name: "emailCode",
+        type: "email",
+        server,
+        from,
+        generateVerificationToken: generateSignupCode,
+        sendVerificationRequest: sendSignupCode,
+      }),
       GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -68,10 +88,10 @@ export default async function auth(req, res) {
       // Note: `jwt` is automatically set to `true` if no database is specified.
       jwt: false,
       // Seconds - How long until an idle session expires and is no longer valid.
-      maxAge: 24 * 60 * 60, // 24 hours
+      maxAge: 60 * 60 * 24 * 30, // 1 month
       // Seconds - Throttle how frequently to write to database to extend a session.
       // Use it to limit write operations. Set to 0 to always update the database.
-      updateAge: 24 * 60 * 60, // 24 hours
+      updateAge: 60 * 60 * 24 * 30, // 1 month
     },
     theme: "dark",
     pages: {
@@ -79,20 +99,8 @@ export default async function auth(req, res) {
       error: "/signin",
       // newUser: "/new-user", // New users will be directed here on first sign in
     },
-    callbacks: {
-      // Return userId on session
-      async session({ session, user }) {
-        return Promise.resolve({ ...session, user });
-      },
-      // Handle account linking if user already signed in
-      async signIn({ user, account, profile }) {
-        // @todo: create & link accounts once Twitter API approved
-        return true;
-      },
-    },
     // Cookies only accessible from HTTPS URLS
     useSecureCookies: process.env.NODE_ENV !== "development",
-    debug: true,
     // Apply cookie modifications only on production
     cookies: process.env.NODE_ENV !== "development" && {
       sessionToken: {
@@ -106,5 +114,13 @@ export default async function auth(req, res) {
         },
       },
     },
+    callbacks: {
+      // Return userId on session
+      async session({ session, user }) {
+        return Promise.resolve({ ...session, user });
+      },
+    },
+    // Debugging
+    debug: false,
   });
 }

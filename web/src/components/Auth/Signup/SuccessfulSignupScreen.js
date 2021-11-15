@@ -1,26 +1,30 @@
-import { Button, Flex, Heading, Icon, Text } from "@chakra-ui/react";
-import Link from "next/link";
-import React from "react";
+import { Flex, Heading, Icon, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 import FadeIn from "react-fade-in";
 import { IoIosCheckmarkCircle } from "react-icons/io";
+import { useDelay } from "../../../utils/useDelay";
 
-const SuccessfulSignupScreen = () => (
-  <Flex {...styles.wrapper}>
-    <FadeIn delay={500}>
-      <Icon as={IoIosCheckmarkCircle} {...styles.icon} />
+const SuccessfulSignupScreen = ({ isSignupSuccesful }) => {
+  const router = useRouter();
+  useEffect(async () => {
+    if (isSignupSuccesful) {
+      await useDelay(5000);
+      router.push("/dashboard");
+    }
+  }, [isSignupSuccesful]);
+  return (
+    <Flex {...styles.wrapper}>
+      <FadeIn delay={500}>
+        <Icon as={IoIosCheckmarkCircle} {...styles.icon} />
 
-      <Heading {...styles.title}>Congrats! You're in.</Heading>
+        <Heading {...styles.title}>Congrats! You're in.</Heading>
 
-      <Flex {...styles.meta}>
-        <Text>Now let's get you started with your application.</Text>
-      </Flex>
-
-      <Link href="/">
-        <Button {...styles.button}>Next</Button>
-      </Link>
-    </FadeIn>
-  </Flex>
-);
+        <Text {...styles.meta}>Welcome to the food marketplace 🍴</Text>
+      </FadeIn>
+    </Flex>
+  );
+};
 
 export { SuccessfulSignupScreen };
 
@@ -43,11 +47,6 @@ const styles = {
   },
   title: {},
   meta: {
-    direction: "column",
-    paddingY: "1vh",
-  },
-  button: {
-    variant: "solid",
-    marginY: "1em",
+    paddingY: "2vh",
   },
 };

@@ -16,7 +16,6 @@ const Reactions = ({ items }) => {
       <Tabs {...styles.tabs}>
         <Flex {...styles.header}>
           <Heading {...styles.heading}>Reactions</Heading>
-
           <TabList {...styles.tabList}>
             {items?.map(({ emoji }) => (
               <Tab key={emoji} {...styles.tab}>
@@ -28,10 +27,10 @@ const Reactions = ({ items }) => {
         </Flex>
 
         <TabPanels>
-          {items?.map(({ emoji, items }) => (
-            <TabPanel key={emoji} {...styles.panel}>
-              {items?.map((item) => (
-                <Card key={item?.emoji} card={item} />
+          {items?.map(({ emoji, items }, index) => (
+            <TabPanel key={index} {...styles.panel}>
+              {items?.map((item, index) => (
+                <Card key={index} card={item} />
               ))}
             </TabPanel>
           ))}

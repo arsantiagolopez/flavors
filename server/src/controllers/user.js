@@ -4,7 +4,7 @@ import { validateFields } from "../utils/validateFields";
 
 /**
  * Check if username is available.
- * @method - GET.
+ * @method GET.
  * @param {object} req - Http request, including the params.
  * @param {object} res - Http response.
  * @returns true if username available, false if not.
@@ -29,8 +29,35 @@ const getUsernameAvailability = async ({ params }, res) => {
 };
 
 /**
+ * Check if email is available.
+ * @method GET.
+ * @param {object} req - Http request, including the query.
+ * @param {object} res - Http response.
+ * @returns true if email available, false if not.
+ */
+const getEmailAvailability = async ({ query }, res) => {
+  let { email } = query;
+  email = email.toLowerCase();
+  try {
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(200).json({ success: true, available: false });
+    }
+    return res.status(200).json({ success: true, available: true });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: {
+        field: "server",
+        message: "Something went wrong. Please try again later.",
+      },
+    });
+  }
+};
+
+/**
  * Get client-safe accounts & provider information associated with user.
- * @method - GET.
+ * @method GET.
  * @param {object} req - Http request, including the userId.
  * @param {object} res - Http response.
  * @returns an array of providers with information.
@@ -52,94 +79,57 @@ const getMyAccounts = async ({ userId }, res) => {
 };
 
 /**
- * Send code to email for confirmation purposes.
- * @method - POST.
+ * Track amount of codes requested to prevent unathorized API abuse.
+ * @method POST.
  * @param {object} req - Http request, including the body.
  * @param {object} res - Http response.
- * @returns an object with a success response.
+ * @returns a success response.
  */
-const sendSignupCode = async ({ body }, res) => {
+const trackRequestCodeCount = async ({ body }, res) => {
   const DAY_EMAIL_LIMIT = 5;
-  const { email } = body;
-  const lowercaseEmail = email.toLowerCase();
+  let { email, code } = body;
+  email = email.toLowerCase();
 
   try {
-    const emailExists = await User.findOne({ email: lowercaseEmail });
+    // Check 1: TempUser exists, code was sent, but full user not created
+    // Don't recreate tempUser, update request count
+    const tempUser = await TempUser.findOne({ email });
 
-    // Check 1: User with email already exists
-    if (emailExists) {
-      return res.status(200).json({
-        success: false,
-        error: {
-          field: "email",
-          message: "User with that email already exists.",
-        },
-      });
-    }
+    if (tempUser) {
+      // Check 2: Email exceeded the max amount of emails per day. Time out
+      let { requestCount, updatedAt } = tempUser;
 
-    // Check 2: TempUser exists, code was sent, but full user not created
-    // Don't recreate tempUser, update code & resend instead
-
-    const tempUserExists = await TempUser.findOne({ email: lowercaseEmail });
-
-    // Generate random 6-digit code
-    const code = Math.floor(100000 + Math.random() * 900000);
-
-    if (tempUserExists) {
-      // Check 3: Email exceeded the max amount of emails per day. Time out
-      let { emailCount, updatedAt } = tempUserExists;
-
-      // const day = 60 * 60 * 24 * 1000;
-      const day = 60 * 1000; // Testing: 1 minute
+      const day = 1000 * 60 * 60 * 24;
+      // const day = 60 * 1000; // Testing: 1 minute
       const lastEmailSentAt = new Date() - updatedAt;
       const dayPassedAfterLastEmailSent = day < lastEmailSentAt;
       const dailyEmailExceeded =
-        emailCount > DAY_EMAIL_LIMIT - 1 && !dayPassedAfterLastEmailSent;
+        requestCount > DAY_EMAIL_LIMIT - 1 && !dayPassedAfterLastEmailSent;
 
       if (dailyEmailExceeded) {
         // Tell user to try again in 24 hours
-        return res
-          .status(200)
-          .json("You've sent too many emails. Please try again tomorrow.");
+        return res.status(200).json({
+          success: false,
+          error: {
+            field: "code",
+            message: "You've sent too many emails. Please try again tomorrow.",
+          },
+        });
       } else if (dayPassedAfterLastEmailSent) {
         // Reset counter and proceed
-        emailCount = 0;
+        requestCount = 0;
       }
 
-      // Update tempUser with new code & emailCount
-      tempUserExists.code = code;
-      tempUserExists.emailCount = emailCount + 1;
-      tempUserExists.save();
-
-      // TODO: RESEND EMAIL
-
-      // TODO: Delete after sendEmail implemented TESTING
-
-      console.log("Code: ", code);
-      // Return successful response
-      return res
-        .status(200)
-        .json({ success: true, message: "Code succesfully sent." });
+      // Update code & request count
+      tempUser.code = code;
+      tempUser.requestCount = requestCount + 1;
+      await tempUser.save();
+      return res.status(200).json({ success: true });
     }
 
-    // Check 4: No user or tempUser exists. Send code for the first time
-    const tempUser = await new TempUser({
-      email: lowercaseEmail,
-      code,
-    });
-
-    // Save tempUser to db
-    tempUser.save();
-
-    // TODO: RESEND EMAIL
-
-    // TODO: Delete after sendEmail implemented TESTING
-    console.log("Code: ", code);
-
-    // Return successful response
-    return res
-      .status(200)
-      .json({ success: true, message: "Code succesfully sent." });
+    const newTempUser = new TempUser({ email, code });
+    await newTempUser.save();
+    return res.status(200).json({ success: true });
   } catch (err) {
     return res.status(500).json({
       success: false,
@@ -156,69 +146,59 @@ const resendCode = (req, res) => {};
 
 /**
  * Create a local user account.
- * @method - POST.
+ * @method POST.
  * @param {object} req - Http request, including the body.
  * @param {object} res - Http response.
  * @returns an object with a success response.
  */
 const signup = async ({ body }, res) => {
-  try {
-    const { email, code, firstName, lastName, password } = body;
-    const lowercaseEmail = email.toLowerCase();
-    const emailExists = await User.findOne({ email: lowercaseEmail });
+  let { email, firstName, lastName, password, code } = body;
+  email = email.toLowerCase();
 
-    // Check 1: User with email already exists
-    if (emailExists) {
-      return res.status(500).json({
+  try {
+    // Make sure input code matches tempUser's code
+    const tempUser = await TempUser.findOne({ email });
+    const codesMatch = tempUser?.code == code;
+
+    if (!codesMatch) {
+      return res.status(200).json({
         success: false,
         error: {
-          field: "email",
-          message: "User with that email already exists.",
+          field: "code",
+          message: "Your code doesn't match our records. Please try again.",
         },
       });
     }
 
-    // Check 2: Make sure input code matches tempUser's code
-    const tempUser = await TempUser.findOne({ email: lowercaseEmail });
+    // User should already be created with NextAuth
+    const user = await User.findOne({ email });
 
-    const codesMatch = tempUser.code === code;
-
-    if (!codesMatch) {
-      return res
-        .status(500)
-        .json(
-          "Your code doesn't match our records. Please try resending the code, or use a different email."
-        );
+    if (!user) {
+      return res.status(200).json({
+        success: false,
+        error: {
+          field: "code",
+          message: "Request a signup code first.",
+        },
+      });
     }
 
     // Hash password with argon2
     const hashedPassword = await argon2.hash(password);
 
-    // Create user
-    const user = new User({
-      email: lowercaseEmail,
-      password: hashedPassword,
-    });
-
-    // Save user to db
+    // Update user instance & set email to verified
+    user.password = hashedPassword;
+    user.emailVerified = new Date();
     await user.save();
 
-    // Create their user profile
-    const profile = new UserProfile({
-      firstName,
-      lastName,
-      userId: user.id,
-    });
+    // Update their user profile
+    await UserProfile.updateOne(
+      { userId: user.id },
+      { firstName, lastName, name: `${firstName} ${lastName}` }
+    );
 
-    // Save profile to db
-    await profile.save();
-
-    // Delete tempUser
-    await TempUser.deleteOne({ email: lowercaseEmail });
-
-    // TODO: Why is session not being set on req ?
-    // Update user session & log them in
-    // req.session.userId = user.id;
+    // Delete related tempUser
+    await TempUser.deleteOne({ email });
 
     // Return successfully created user
     return res.status(200).json({ success: true, user });
@@ -234,8 +214,77 @@ const signup = async ({ body }, res) => {
 };
 
 /**
+ * Authorize user by email & password credentials.
+ * @method POST.
+ * @param {object} req - Http request, including the body.
+ * @param {object} res - Http response.
+ * @returns a success boolean response.
+ */
+
+// @TODO: What to do with this?
+const authorizeCredentials = async ({ body }, res) => {
+  // @todo: Adapt to take in any loginId, e.g. username, phone, etc...
+  let { password, email } = body;
+
+  try {
+    let user = await User.findOne({ email });
+    const userId = user.id;
+
+    // No email found, show client safe error message
+    if (!user) {
+      return res.status(200).json({
+        success: false,
+        error: {
+          field: "credentials",
+          message: "Wrong credentials, please try again.",
+        },
+      });
+    }
+
+    // Authenticate password
+    const isValid = await argon2.verify(user.password, password);
+
+    if (!isValid) {
+      return res.status(200).json({
+        success: false,
+        error: {
+          field: "credentials",
+          message: "Wrong credentials, please try again.",
+        },
+      });
+    }
+
+    // Get profile fields & merge with user
+    const { name, firstName, lastName } = await UserProfile.findOne({ userId });
+    user = { email, name, firstName, lastName };
+
+    // Create & link account to user, if not exists
+    const account = await Account.findOne({ userId });
+
+    if (!account) {
+      const newAccount = new Account({
+        userId,
+        provider: "credentials",
+        type: "credentials",
+      });
+      await newAccount.save();
+    }
+
+    return res.status(200).json({ success: true, user });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: {
+        field: "server",
+        message: "Something went wrong. Please try again later.",
+      },
+    });
+  }
+};
+
+/**
  * Update a local user account.
- * @method - PUT.
+ * @method PUT.
  * @param {object} req - Http request, including the body and userId.
  * @param {object} res - Http response.
  * @returns a success boolean response.
@@ -291,7 +340,7 @@ const updateUser = async ({ body, userId }, res) => {
 
 /**
  * Update user profile.
- * @method - PUT.
+ * @method PUT.
  * @param {object} req - Http request, including the body and userId
  * @param {object} res - Http response.
  * @returns a profile object with only the recently updated fields.
@@ -344,7 +393,7 @@ const updateProfile = async ({ body, userId }, res) => {
 
 /**
  * Update a user's password.
- * @method - PUT.
+ * @method PUT.
  * @param {object} req - Http request, including the body and userId
  * @param {object} res - Http response.
  * @returns a success boolean response.
@@ -427,10 +476,12 @@ const deleteUser = async ({ userId }, res) => {
 
 export {
   getUsernameAvailability,
+  getEmailAvailability,
   getMyAccounts,
-  sendSignupCode,
+  trackRequestCodeCount,
   resendCode,
   signup,
+  authorizeCredentials,
   updateUser,
   updateProfile,
   changePassword,

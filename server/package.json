@@ -13,6 +13,7 @@
   "author": "arsantiagolopez",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.6.0",
     "argon2": "^0.28.2",
     "aws-sdk": "^2.988.0",
     "axios": "^0.21.1",
@@ -32,6 +33,7 @@
     "@babel/node": "^7.15.4",
     "@babel/preset-env": "^7.15.6",
     "@babel/preset-react": "^7.14.5",
+    "jest": "^27.3.1",
     "nodemon": "^2.0.7"
   }
 }

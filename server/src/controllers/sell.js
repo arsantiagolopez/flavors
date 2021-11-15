@@ -2,7 +2,7 @@ import { Schedule } from "../models/Schedule";
 
 /**
  * Get my schedule.
- * @method - GET.
+ * @method GET.
  * @param {req} req - Http request, including the userId.
  * @param {res} res - Http response.
  * @returns an object of your current schedule.
@@ -24,7 +24,7 @@ const getMySchedule = async ({ userId }, res) => {
 
 /**
  * Update my schedule.
- * @method - PUT.
+ * @method PUT.
  * @param {req} req - Http request, including the userId & body.
  * @param {res} res - Http response.
  * @returns an object of the recently updated schedule.

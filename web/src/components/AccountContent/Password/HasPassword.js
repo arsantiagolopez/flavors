@@ -163,6 +163,7 @@ const styles = {
   error: {
     color: "red.500",
     paddingTop: "1vh",
+    lineHeight: { base: "1.25em", md: "1.5em" },
   },
   button: {
     loadingText: "Saving...",

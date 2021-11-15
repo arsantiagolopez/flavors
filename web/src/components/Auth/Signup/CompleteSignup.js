@@ -9,17 +9,18 @@ import {
   InputRightElement,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoMdRefresh } from "react-icons/io";
 import axios from "../../../axios";
-import { useDelay } from "../../../utils/useDelay";
 
 const CompleteSignup = ({
   isEmailSent,
   setIsEmailSent,
   setIsSignupSuccessful,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     handleSubmit,
     register,
@@ -30,25 +31,38 @@ const CompleteSignup = ({
   const email = isEmailSent;
 
   const onSubmit = async ({ terms, ...otherValues }) => {
-    const { error } = await axios.post("/api/user/signup", {
+    setIsLoading(true);
+    const { code } = otherValues;
+
+    // Check verification code
+    await axios.get(
+      `${
+        process.env.NEXT_PUBLIC_CLIENT_URL
+      }/api/auth/callback/email?email=${encodeURIComponent(
+        email
+      )}&token=${code}`
+    );
+
+    const { data } = await axios.post("/api/user/signup", {
       email,
       ...otherValues,
     });
 
-    if (error) {
-      // Set custom backend errors
-      const { field, message } = error;
+    // Set custom backend errors
+    if (data?.error) {
+      const { field, message } = data?.error;
       setError(field, { type: "manual", message });
     } else {
       // Successful registration
-      await useDelay(300);
       setIsSignupSuccessful(true);
     }
+
+    setIsLoading(false);
   };
 
   // Form field registration
   const codeRegister = register("code", {
-    required: "Can't find it? Check your spam folder",
+    required: "Can't find it? Check your spam folder.",
   });
 
   const firstNameRegister = register("firstName", {
@@ -154,7 +168,13 @@ const CompleteSignup = ({
           </Checkbox>
         </Flex>
 
-        <Button type="submit" {...styles.button}>
+        <Button
+          type="submit"
+          isLoading={isLoading}
+          loadingText="Creating..."
+          spinnerPlacement="end"
+          {...styles.button}
+        >
           Create account
         </Button>
       </form>
@@ -196,6 +216,8 @@ const styles = {
   },
   error: {
     color: "red.500",
+    paddingTop: "1vh",
+    lineHeight: { base: "1.25em", md: "1.5em" },
   },
   names: {
     direction: "row",

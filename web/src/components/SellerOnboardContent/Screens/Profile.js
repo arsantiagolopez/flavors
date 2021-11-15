@@ -243,7 +243,8 @@ const styles = {
   },
   error: {
     color: "red.500",
-    marginY: "2",
+    paddingTop: "1vh",
+    lineHeight: { base: "1.25em", md: "1.5em" },
     textAlign: "left",
   },
   input: {

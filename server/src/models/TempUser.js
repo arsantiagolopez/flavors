@@ -20,7 +20,7 @@ const TempUserSchema = new Schema(
       type: String,
       required: true,
     },
-    emailCount: {
+    requestCount: {
       type: Number,
       required: true,
       default: 1,

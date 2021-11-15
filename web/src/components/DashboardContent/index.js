@@ -298,7 +298,7 @@ const DashboardContent = ({ user }) => {
           userId: "61787c1fae53dd5fbdcc7748",
         },
       ],
-    }
+    },
   ];
 
   return (

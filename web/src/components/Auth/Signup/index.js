@@ -10,15 +10,14 @@ const Signup = ({ providers }) => {
   const [screenHeight, setScreenHeight] = useState(null);
   const [isSignupSuccesful, setIsSignupSuccessful] = useState(null);
 
-  const { height, width } = useDimensions();
-
-  const isPortrait = height > width;
+  const { height } = useDimensions();
 
   // Update height post SSR fetch to allow
   // height CSS to work on mount
   useEffect(() => setScreenHeight(height), [height]);
 
   const formProps = { providers, setIsSignupSuccessful };
+  const successScreenProps = { isSignupSuccesful }
 
   return (
     <Flex {...styles.wrapper} height={screenHeight}>
@@ -26,7 +25,7 @@ const Signup = ({ providers }) => {
         {!isSignupSuccesful ? (
           <Form {...formProps} />
         ) : (
-          <SuccessfulSignupScreen />
+          <SuccessfulSignupScreen {...successScreenProps} />
         )}
 
         {/* Footer */}
@@ -37,7 +36,7 @@ const Signup = ({ providers }) => {
       </Flex>
 
       {/* Desktop banner */}
-      <Flex {...styles.banner} display={{ base: "none", md: "flex" }}>
+      <Flex {...styles.banner}>
         <Box {...styles.imageWrapper}>
           <Image
             src="/images/logo.png"
@@ -90,6 +89,7 @@ const styles = {
   },
   // Only on desktop
   banner: {
+    display: { base: "none", md: "flex" },
     flex: 2,
     justify: "center",
     align: "center",

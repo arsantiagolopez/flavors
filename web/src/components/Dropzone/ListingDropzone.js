@@ -22,7 +22,7 @@ const ListingDropzone = ({
     name,
     control,
     rules: { required: "You need to add a photo." },
-    defaultValue: defaultValue ? defaultValue : null,
+    defaultValue: defaultValue ?? null,
   });
 
   // Further image limitations

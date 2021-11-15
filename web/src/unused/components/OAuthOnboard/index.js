@@ -241,8 +241,9 @@ const styles = {
     paddingY: "1.5em",
   },
   error: {
-    color: "red.600",
+    color: "red.500",
     paddingTop: "1vh",
+    lineHeight: { base: "1.25em", md: "1.5em" },
   },
   text: {
     spacing: "1rem",

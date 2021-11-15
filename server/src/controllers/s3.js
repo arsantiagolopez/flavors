@@ -16,6 +16,7 @@ const s3 = new aws.S3();
 
 /**
  * Generates upload URL from AWS. URL expires in 5 seconds.
+ * @method GET.
  * @param {object} req - http request, including the userId.
  * @param {object} res - http response.
  * @returns a string of a working upload URL.
@@ -46,6 +47,7 @@ const generateUploadURL = async ({ userId }, res) => {
 
 /**
  * Deletes image object from s3 bucket.
+ * @method POST.
  * @param {object} req - http request, including body and userId.
  * @param {object} res - http response.
  * @returns a string of a success message if image deleted.

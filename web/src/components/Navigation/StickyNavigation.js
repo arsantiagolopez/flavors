@@ -10,23 +10,21 @@ const StickyNavigation = ({ user }) => {
 
   let body;
 
-  const fetchingUser = typeof user === "undefined";
-
-  if (!user && !fetchingUser) {
+  if (!user) {
     body = (
       <Flex>
         <Link href="/signin">
           <Button {...styles.signin}>Log in</Button>
         </Link>
         <Link href="/joinus">
-          <Button {...styles.joinus}>Sign up</Button>
+          <Button {...styles.joinus}>Join us</Button>
         </Link>
       </Flex>
     );
   }
   // User logged in
   else {
-    body = user && <ProfileAvatar user={user} />;
+    body = <ProfileAvatar user={user} />;
   }
 
   const searchProps = { isSearchFocused, setSearchFocused };
@@ -88,6 +86,7 @@ const styles = {
     borderRadius: "2em",
     fontWeight: "normal",
     size: "sm",
+    paddingY: "1",
   },
   left: {
     align: "center",

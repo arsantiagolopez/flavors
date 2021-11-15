@@ -30,7 +30,7 @@ const AccountSchema = new Schema(
     token_type: {
       type: String,
     },
-    i: {
+    id_token: {
       type: String,
     },
   },

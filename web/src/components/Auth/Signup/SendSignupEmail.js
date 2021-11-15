@@ -14,7 +14,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import axios from "../../../axios";
-import { useDelay } from "../../../utils/useDelay";
 
 const SendSignupEmail = ({ providers, setIsEmailSent }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,25 +25,48 @@ const SendSignupEmail = ({ providers, setIsEmailSent }) => {
     formState: { errors },
   } = useForm();
 
+  // Set form error
+  const handleError = ({ field, message }) =>
+    setError(field, { type: "manual", message });
+
   // Send code mutation
   const onSubmit = async ({ email }) => {
     // Loading animation
     setIsLoading(true);
 
-    const { error } = await axios.post("/api/user/send-code", {
-      email,
-    });
+    const { error } = await signIn("emailCode", { email, redirect: false });
 
     if (error) {
-      // Set custom backend errors
-      const { field, message } = error;
-      setError(field, { type: "manual", message });
-      setIsLoading(false);
+      // NextAuth doesn't allow sending back custom errors.
+      // Handle here: 2 possible errors.
+      // Error 1: Email already in use.
+      // Error 2: Reached the daily limit of emails.
+
+      // Check if email available
+      const { data } = await axios.get("/api/user/email", {
+        params: { email },
+      });
+
+      // Is error 1
+      if (!data?.success || !data?.available) {
+        handleError({
+          field: email,
+          message: "Email is already in use. Try a different one.",
+        });
+      }
+
+      // Is error 2
+      else {
+        handleError({
+          field: "code",
+          message: "You've sent too many emails. Please try again tomorrow.",
+        });
+      }
     } else {
-      // Preregistration passed
-      await useDelay(300);
+      // Pre-registration passed
       setIsEmailSent(email);
     }
+    setIsLoading(false);
   };
 
   // Form field registration
@@ -59,7 +81,7 @@ const SendSignupEmail = ({ providers, setIsEmailSent }) => {
 
   const socialProviders =
     providers &&
-    Object.values(providers).filter(({ type }) => type !== "email");
+    Object.values(providers).filter(({ type }) => type === "oauth");
 
   return (
     <Flex {...styles.wrapper}>
@@ -76,8 +98,7 @@ const SendSignupEmail = ({ providers, setIsEmailSent }) => {
             <InputRightElement
               children={<Spinner {...styles.spinner} />}
               display={isLoading ? "flex" : "none"}
-              top="1"
-              right="2"
+              {...styles.rightElement}
             />
           </InputGroup>
 
@@ -86,7 +107,13 @@ const SendSignupEmail = ({ providers, setIsEmailSent }) => {
           )}
         </Flex>
 
-        <Button type="submit" {...styles.button}>
+        <Button
+          type="submit"
+          isLoading={isLoading}
+          loadingText="Sending..."
+          spinnerPlacement="end"
+          {...styles.button}
+        >
           Next
         </Button>
       </form>
@@ -153,12 +180,17 @@ const styles = {
   input: {
     paddingY: "1.5em",
   },
+  rightElement: {
+    top: "1",
+    right: "2",
+  },
   spinner: {
     color: "gray.800",
     marginY: "auto",
   },
   error: {
-    color: "red.600",
+    color: "red.500",
+    paddingTop: "1vh",
     lineHeight: { base: "1.25em", md: "1.5em" },
   },
   button: {

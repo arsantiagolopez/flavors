@@ -19,10 +19,9 @@ const Form = ({ providers, setIsEmailSent, setEmail }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (values) => {
-    const { email } = values;
-
-    // Send email await signIn(email, {...})
+  const onSubmit = async ({ email }) => {
+    // Send email
+    signIn("email", { email, redirect: false });
 
     setIsEmailSent(true);
     setEmail(email);
@@ -40,7 +39,7 @@ const Form = ({ providers, setIsEmailSent, setEmail }) => {
 
   const socialProviders =
     providers &&
-    Object.values(providers).filter(({ type }) => type !== "email");
+    Object.values(providers).filter(({ type }) => type === "oauth");
 
   return (
     <Flex {...styles.wrapper}>
@@ -135,6 +134,8 @@ const styles = {
   },
   error: {
     color: "red.500",
+    paddingTop: "1vh",
+    lineHeight: { base: "1.25em", md: "1.5em" },
   },
   button: {
     variant: "solid",

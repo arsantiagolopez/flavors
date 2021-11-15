@@ -1,11 +1,13 @@
 import Router from "express";
 import {
+  authorizeCredentials,
   changePassword,
   deleteUser,
+  getEmailAvailability,
   getMyAccounts,
   getUsernameAvailability,
-  sendSignupCode,
   signup,
+  trackRequestCodeCount,
   updateProfile,
   updateUser,
 } from "../controllers/user";
@@ -16,14 +18,19 @@ const router = Router();
 // Check if username is available
 router.get("/username/:username", getUsernameAvailability);
 
+router.get("/email", getEmailAvailability);
+
 // Get all accounts and providers associated to user
 router.get("/accounts", getMyAccounts);
 
-// Send a code for email sign up
-router.post("/send-code", sendSignupCode);
+// Track code requests & email limitations
+router.post("/code", trackRequestCodeCount);
 
 // Create user account and sign up
 router.post("/signup", signup);
+
+// Authorize user credentials
+router.post("/authorize", authorizeCredentials);
 
 // Update user account
 router.put("/", isAuthenticated, updateUser);

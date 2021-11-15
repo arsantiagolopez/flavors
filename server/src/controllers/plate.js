@@ -2,7 +2,7 @@ import { Plate } from "../models/Plate";
 
 /**
  * Get all my created plates & insights.
- * @method - GET.
+ * @method GET.
  * @param {req} req - Http request, including the userId.
  * @param {res} res - Http response.
  * @returns an object of your current schedule.
@@ -24,7 +24,7 @@ const getMyPlates = async ({ userId }, res) => {
 
 /**
  * Get a plate by ID.
- * @method - GET.
+ * @method GET.
  * @param {req} req - Http request, including params and userId.
  * @param {res} res - Http response.
  * @returns an object of the plate.
@@ -66,7 +66,7 @@ const getPlateById = async ({ params, userId }, res) => {
 
 /**
  * Create a plate plate to sell.
- * @method - POST.
+ * @method POST.
  * @param {req} req - Http request, including the body and userId.
  * @param {res} res - Http response.
  * @returns an object of the recently created plate.
@@ -90,7 +90,7 @@ const createPlate = async ({ body, userId }, res) => {
 
 /**
  * Update a plate document.
- * @method - PUT.
+ * @method PUT.
  * @param {req} req - Http request.
  * @param {res} res - Http response.
  * @returns an object of the recently updated plate.
@@ -110,7 +110,7 @@ const updatePlate = async (req, res) => {
 
 /**
  * Delete a plate instance.
- * @method - DELETE.
+ * @method DELETE.
  * @param {req} req - Http request.
  * @param {res} res - Http response.
  * @returns a success boolean.

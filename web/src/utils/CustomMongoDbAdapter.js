@@ -80,6 +80,7 @@ const CustomMongoDbAdapter = (options) => {
       if (!user) return null;
       return from(user);
     },
+    // Required method to be added
     async getUserByAccount(provider_providerAccountId) {
       const account = await Account.findOne(provider_providerAccountId);
       if (!account) return null;
@@ -87,32 +88,16 @@ const CustomMongoDbAdapter = (options) => {
       if (!user) return null;
       return from(user);
     },
-    async updateUser(data) {
-      const { value: user } = await User.updateOne(
-        { _id: _id(data.id) },
-        { $set: data }
-      );
-      return from(user);
-    },
-    async deleteUser(id) {
-      const userId = _id(id);
-      await Promise.all([
-        m.collection(collections.Account).deleteMany({ userId }),
-        m.collection(collections.Session).deleteMany({ userId }),
-        m.collection(collections.UserProfile).deleteOne({ userId }),
-        m.collection(collections.User).deleteOne({ _id: userId }),
-      ]);
-    },
-    linkAccount: async (data) => {
+    async linkAccount(data) {
       const account = to(data);
       await Account.insertOne(account);
       return account;
     },
-    async unlinkAccount(provider_providerAccountId) {
-      const { value: account } = await Account.deleteOne(
-        provider_providerAccountId
-      );
-      return from(account);
+    async createSession(data) {
+      console.log("data", data);
+      const session = to(data);
+      await Session.insertOne(session);
+      return from(session);
     },
     async getSessionAndUser(sessionToken) {
       const session = await Session.findOne({ sessionToken });
@@ -135,11 +120,6 @@ const CustomMongoDbAdapter = (options) => {
         session: from(session),
       };
     },
-    async createSession(data) {
-      const session = to(data);
-      await Session.insertOne(session);
-      return from(session);
-    },
     async updateSession(data) {
       const { value: session } = await Session.updateOne(
         { sessionToken: data.sessionToken },
@@ -153,14 +133,39 @@ const CustomMongoDbAdapter = (options) => {
       });
       return from(session);
     },
+    async updateUser(data) {
+      const { value: user } = await User.updateOne(
+        { _id: _id(data.id) },
+        { $set: data }
+      );
+      return from(user);
+    },
+    // Optional methods
+    async deleteUser(id) {
+      const userId = _id(id);
+      await Promise.all([
+        m.collection(collections.Account).deleteMany({ userId }),
+        m.collection(collections.Session).deleteMany({ userId }),
+        m.collection(collections.UserProfile).deleteOne({ userId }),
+        m.collection(collections.User).deleteOne({ _id: userId }),
+      ]);
+    },
+    async unlinkAccount(provider_providerAccountId) {
+      const { value: account } = await Account.deleteOne(
+        provider_providerAccountId
+      );
+      return from(account);
+    },
+    // Required for email provider
     async createVerificationToken(data) {
+      // Create tempUser & store code
       await VerificationToken.insertOne(to(data));
       return data;
     },
     async useVerificationToken(identifier_token) {
-      const { value: verificationToken } = await VerificationToken.deleteOne(
-        identifier_token
-      );
+      // Delete verification entry so it cannot be used again
+      const { value: verificationToken } =
+        await VerificationToken.findOneAndDelete(identifier_token);
       if (!verificationToken) return null;
       // @ts-expect-error
       delete verificationToken._id;
