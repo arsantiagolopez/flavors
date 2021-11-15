@@ -4,10 +4,8 @@ import axios from "../axios";
 /**
  * Generate random 6-digit code
  */
-const generateSignupCode = async () => {
-  const token = Math.floor(100000 + Math.random() * 900000);
-  return token;
-};
+const generateSignupCode = async () =>
+  Math.floor(100000 + Math.random() * 900000);
 
 /**
  * Send test email with nodemailer.
@@ -144,6 +142,20 @@ const sendMagicLink = async ({
     text: magicText({ url, host }),
     html: magicHtml({ url, host, email, token }),
   });
+
+  // // Configure email
+  // const msg = {
+  //   to,
+  //   from: {
+  //     email: process.env.SENDGRID_EMAIL_FROM,
+  //     name: "Flavors",
+  //   },
+  //   subject,
+  //   html,
+  // };
+
+  // // Send email
+  // await sgMail.send(msg);
 };
 
 /**
