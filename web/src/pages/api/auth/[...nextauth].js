@@ -15,14 +15,18 @@ const { server, from } = {
   server:
     process.env.NODE_ENV === "development"
       ? process.env.TEST_SERVER_STRING
-      : process.env.SENGRID_SERVER_STRING,
+      : // @todo: delete line below when app's finished
+        // : process.env.SENGRID_SERVER_STRING,
+        process.env.TEST_SERVER_STRING,
   from:
     process.env.NODE_ENV === "development"
       ? process.env.TEST_EMAIL_FROM
-      : {
-          email: process.env.SENDGRID_EMAIL_FROM,
-          name: "Flavors",
-        },
+      : // @todo: delete line below when app's finished
+        // : {
+        //     email: process.env.SENDGRID_EMAIL_FROM,
+        //     name: "Flavors",
+        //   },
+        process.env.TEST_EMAIL_FROM,
 };
 
 export default async function auth(req, res) {
