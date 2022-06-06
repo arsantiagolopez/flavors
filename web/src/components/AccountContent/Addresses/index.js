@@ -8,16 +8,6 @@ const Addresses = () => {
 
   const addresses = [
     {
-<<<<<<< HEAD
-=======
-      id: 1,
-      street: "19 Archer Oak Pl",
-      lineTwo: null,
-      lineThree: "The woodlands, TX, 77382",
-      isPrimary: true,
-    },
-    {
->>>>>>> 17bc58afd709c8c3dfa4d01afbeb7bff5e483368
       id: 2,
       street: "39 bessdale ct",
       lineTwo: null,
