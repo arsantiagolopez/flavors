@@ -14,6 +14,7 @@ const PlatePage = () => {
   const { id } = router?.query || {};
 
   const { data: platesData } = useSWR(id ? `/api/plates/${id}` : null);
+<<<<<<< HEAD
   // const { plate } = platesData || {};
 
   // console.log("plate", test);
@@ -33,6 +34,27 @@ const PlatePage = () => {
     category: "howdypanita",
     subCategory: "honeyboo",
   };
+=======
+  const { plate } = platesData || {};
+
+  // console.log("plate", test);
+
+  // // Test data
+  // const plate = {
+  //   id: 1,
+  //   image:
+  //     "https://images.pexels.com/photos/5419336/pexels-photo-5419336.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  //   price: "5",
+  //   markdown: "15",
+  //   title:
+  //     "Delicious pasta carbonara and everything else, what if this was extra long tho",
+  //   description:
+  //     "Brand new unopened tripod. Great for cameras! You can adjust the tripod any which way to get the right angle needed. I have 2 of these. $30/ea or $55 for both. They go for $45 retail. Compatible with Camcorder, DSLR, Mirrorless",
+  //   meta: "5 miles away. Delivers.",
+  //   category: "howdypanita",
+  //   subCategory: "honeyboo",
+  // };
+>>>>>>> 17bc58afd709c8c3dfa4d01afbeb7bff5e483368
 
   // Test data
   const seller = {

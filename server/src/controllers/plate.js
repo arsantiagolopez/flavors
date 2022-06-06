@@ -74,7 +74,11 @@ const getPlateById = async ({ params, userId }, res) => {
 const createPlate = async ({ body, userId }, res) => {
   try {
     const plate = new Plate({ ...body, userId });
+<<<<<<< HEAD
     // Save plate to db
+=======
+    // Save user to db
+>>>>>>> 17bc58afd709c8c3dfa4d01afbeb7bff5e483368
     await plate.save();
     return res.status(200).json({ success: true, plate });
   } catch (err) {
