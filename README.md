@@ -22,6 +22,7 @@
   <a href="#features">Features</a> •
   <a href="#tech">Tech Stack</a> •
   <a href="#inspiration">Inspiration</a> •
+  <a href="#objectives">Learning</a> •
   <a href="#license">License</a> •
   <a href="#contact">Contact</a>
 </div>
@@ -43,9 +44,16 @@
 - Create & sell your favorite plates.
 - Find plates from other sellers around you.
 - Magic link & Social authentication (Google, Facebook)
-- Register as a seller to create your seller account.
-- Activate & deactivate your store's open status.
-- Sort & filter plates by multiple filters like
+- Register as a seller to create your seller account and start selling food.
+- Activate & deactivate your store's open status, and accept/decline incoming orders.
+- Sort & filter plates by multiple filters like sellers, popularity, price, dietary preferences, nationality and more...
+- Securely share your address with your customers/sellers by approximating your location.
+- Update your profile info including your display picture, name, username and address.
+- Create and update your password.
+- Link/unlink your social media accounts to your profile.
+- Create menus to categorize your plates.
+- Create coupons & apply them to your plates to activate discounts for a limited time.
+- Every user has a buyer and a seller rating. The marketplace attempts to reward the highest rated users.
 
 <h2 id="tech">‎‍💻 Tech Stack</h2>
 
@@ -173,6 +181,22 @@
 </table>
 
 <h2 id="inspiration">💡 Inspiration</h2>
+
+Small applications were okay, but I wasn't drawn to software development to build multiple test applications. Flavors was the first real world project I brainstormed and fell inlove with.
+
+After a few small projects, many documentation sites, and lots of stressful nights, I felt I could literally build anything. So I wanted to build my own multi-million dollar startup from the ground up. As an entrepreneur does, I looked to provide value and find something that could change lives. A marketplace where users could sell food would bring lots of opportunities for people to make an extra income. Think what Airbnb did to vacation stays, what Uber did to transportation, but for food. Exchanging food for money is the most primal thing there is. A surplus in sellers would create competition in the market, quality and prices would decrease, ultimately being a plus for both sellers and buyers.
+
+I fell inlove with the idea and tried to build an entire company on my own, but unfortunately I didn't have the time nor did I know TypeScript, so I spent ungodly amount of hours debugging and never got to see the finish line. I've had to put the project on pause, but I look to pick it up sometime in the near future.
+
+<h2 id="objectives">🚀 Learning Objectives</h2>
+
+- Learn the basics of Stripe.
+- Design a scalable database structure to resemble a marketplace.
+- Learn the basics of geolocation.
+- Build beautiful modern components alike the ones seen on the major companies.
+- Build a scalable real world application.
+- Run an application in production.
+- Start a multi-million dollar empire.
 
 <h2 id="license">📜 License</h2>
 
