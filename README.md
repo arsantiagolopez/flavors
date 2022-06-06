@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div align="center">
     <img src="https://i.ibb.co/jhHFDTJ/logo.png" />
     <a href="https://tryflavors.com" style="color: #303030;"><h1>Flavors</h1></a>
@@ -180,6 +179,3 @@
 	<a href="https://twitter.com/arsantiagolopez"><img src="https://cdn2.iconfinder.com/data/icons/black-white-social-media/32/twitter_online_social_media-512.png" width="40" /></a>
 	<a href="mailto:arsantiagolopez@gmail.com"><img src="https://cdn4.iconfinder.com/data/icons/black-white-social-media/32/mail_email_envelope_send_message-1024.png" width="40" /></a>
 </div>
-=======
-![alt text](./web/public/images/logo_color.png?raw=true "Flavors")
->>>>>>> 17bc58afd709c8c3dfa4d01afbeb7bff5e483368

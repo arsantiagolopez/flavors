@@ -3,11 +3,7 @@
   "version": "0.1.0",
   "description": "Flavors frontend",
   "scripts": {
-<<<<<<< HEAD
     "dev": "next dev -p 9000",
-=======
-    "dev": "next dev -p 5000",
->>>>>>> 17bc58afd709c8c3dfa4d01afbeb7bff5e483368
     "build": "next build",
     "start": "next start",
     "clean": "rm -rf node_modules .next yarn.lock && yarn",
@@ -18,11 +14,6 @@
     "@chakra-ui/react": "^1.6.3",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
-<<<<<<< HEAD
-=======
-    "@nivo/core": "^0.73.0",
-    "@nivo/line": "^0.70.1",
->>>>>>> 17bc58afd709c8c3dfa4d01afbeb7bff5e483368
     "axios": "^0.21.1",
     "compressorjs": "^1.0.7",
     "focus-visible": "^5.2.0",
