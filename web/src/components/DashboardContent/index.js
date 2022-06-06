@@ -5,7 +5,7 @@ import { Reactions } from "./Reactions";
 import { Section } from "./Section";
 
 const DashboardContent = ({ user }) => {
-  const { data } = useSWR("/api/plates/");
+  const { data } = useSWR("/plates/");
   const { plates } = data || {};
 
   // @todo
