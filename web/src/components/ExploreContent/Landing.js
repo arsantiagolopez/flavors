@@ -8,7 +8,7 @@ const Landing = () => {
       <Flex {...styles.suggestions}>
         <Flex {...styles.header}>
           <Heading {...styles.heading}>You might like</Heading>
-          <Heading {...styles.title}>A banana with some coffee</Heading>
+          <Heading {...styles.subheader}>A banana with some coffee</Heading>
         </Flex>
         <Box {...styles.imageWrapper}>
           <Image
@@ -23,7 +23,7 @@ const Landing = () => {
         </Box>
       </Flex>
 
-      <Heading>All categories</Heading>
+      <Heading {...styles.title}>All categories</Heading>
     </Flex>
   );
 };
@@ -55,7 +55,7 @@ const styles = {
     fontSize: { base: "md", md: "lg" },
     letterSpacing: "wide",
   },
-  title: {
+  subheader: {
     color: "white",
     fontSize: { base: "3xl", md: "4xl" },
     paddingY: { base: "1", md: "1vh" },
@@ -69,5 +69,8 @@ const styles = {
     height: "100%",
     borderRadius: "0.5em",
     overflow: "hidden",
+  },
+  title: {
+    paddingY: "5vh",
   },
 };
