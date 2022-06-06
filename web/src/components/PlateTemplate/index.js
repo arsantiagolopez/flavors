@@ -1,13 +1,18 @@
 import { AspectRatio, Flex, Heading, Skeleton, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
+import useSWR from "swr";
 import { Breadcrumb } from "../Breadcrumb";
+import { Section } from "../DashboardContent/Section";
 import { HeadingWithSkeleton } from "../HeadingWithSkeleton";
-// import { LocationMap } from "./LocationMap";
+import { LocationMap } from "./LocationMap";
 import { Summary } from "./Summary";
 
 const PlateTemplate = ({ user, plate, seller }) => {
   const { _id, image, category, subCategory, title, description } = plate || {};
+
+  const { data } = useSWR("/api/plates/");
+  const { plates } = data || {};
 
   const breadcrumbLinks = [
     { name: "Home", href: "/" },
@@ -17,6 +22,11 @@ const PlateTemplate = ({ user, plate, seller }) => {
     },
     { name: subCategory, href: `/${subCategory?.toLowerCase()}` },
   ];
+
+  // @todo Replace with actual algorithmic suggestions
+  const suggestions = plates
+    ? plates.filter((plate) => plate?._id !== _id)
+    : [];
 
   const breadcrumbProps = { links: breadcrumbLinks };
   const summaryProps = { plate, seller };
@@ -58,11 +68,13 @@ const PlateTemplate = ({ user, plate, seller }) => {
         <Heading {...styles.heading}>
           Customers who viewed this item also viewed
         </Heading>
+
+        <Section items={suggestions} />
       </Flex>
 
       <Flex {...styles.section}>
         <Heading {...styles.heading}>Location</Heading>
-        {/* <LocationMap /> */}
+        <LocationMap />
       </Flex>
 
       <Flex {...styles.section}>

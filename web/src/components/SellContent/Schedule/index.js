@@ -66,6 +66,7 @@ const Schedule = () => {
       if (day !== id) return dayObj;
       return { ...otherProps, day, isOpen: checked, openTime, closeTime };
     });
+
     setSchedule(updatedDays);
   };
 
@@ -141,6 +142,8 @@ const Schedule = () => {
     }
   }, [schedule]);
 
+  console.log(schedule);
+
   return (
     <Flex {...styles.wrapper}>
       <Flex {...styles.header}>
@@ -153,6 +156,7 @@ const Schedule = () => {
           Set your standard hours of operation. You can override these by
           clicking the button at the sidebar.
         </Text>
+
         {schedule?.map(({ day, isOpen, openTime, closeTime }) => (
           <Flex
             key={day}

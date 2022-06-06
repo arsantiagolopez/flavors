@@ -49,7 +49,7 @@ const categoriesData = [
     label: "Breads, Rolls & Bakery",
     sub: [
       {
-        name: "test",
+        name: "breakfast",
         label: "This a super DUPER long subb-category. How will this perform?",
       },
     ],

@@ -17,7 +17,7 @@ const Menu = ({ data, index, isCreate }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const wrapperRef = useRef();
 
-  const { id, name, plates } = data || {};
+  const { id, name } = data || {};
 
   // Set item to hovered
   const handleItemHover = (id) => setHovered(id);
@@ -52,7 +52,7 @@ const Menu = ({ data, index, isCreate }) => {
           </Flex>
         </AspectRatio>
         <Button background={hovered ? "black" : "gray.800"} {...styles.new}>
-          Create listing
+          Create menu
         </Button>
 
         <CreateMenuModal />
@@ -152,5 +152,6 @@ const styles = {
     noOfLines: 1,
     lineHeight: "1.2em",
     paddingY: { base: "0.5", md: "1" },
+    color: "gray.400",
   },
 };

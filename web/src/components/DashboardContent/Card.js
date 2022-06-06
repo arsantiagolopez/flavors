@@ -1,13 +1,14 @@
 import { CheckIcon } from "@chakra-ui/icons";
 import { AspectRatio, Flex, Icon, Text } from "@chakra-ui/react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { IoEyeSharp } from "react-icons/io5";
 
 const Card = ({ card, index }) => {
   const [hovered, setHovered] = useState(null);
   const wrapperRef = useRef();
-  const { id, title, price, image } = card || {};
+  const { _id, title, price, image } = card || {};
 
   // Set item to hovered
   const handleItemHover = (id) => setHovered(id);
@@ -22,44 +23,48 @@ const Card = ({ card, index }) => {
   return (
     <Flex
       ref={wrapperRef}
-      onMouseEnter={() => handleItemHover(id)}
+      onMouseEnter={() => handleItemHover(_id)}
       onMouseOut={clearHovered}
       marginRight={{ base: index % 2 && "1%", md: "0" }}
       {...styles.wrapper}
     >
-      <AspectRatio {...styles.aspect}>
-        <Flex direction="column">
-          {image && (
-            <Image
-              src={image}
-              alt={title}
-              layout="fill"
-              objectFit="cover"
-              quality={100}
-              priority="true"
-            />
-          )}
+      <Link href={`${process.env.NEXT_PUBLIC_CLIENT_URL}/plates/${_id}`}>
+        <a>
+          <AspectRatio {...styles.aspect}>
+            <Flex direction="column">
+              {image && (
+                <Image
+                  src={image}
+                  alt={title}
+                  layout="fill"
+                  objectFit="cover"
+                  quality={100}
+                  priority="true"
+                />
+              )}
 
-          <Icon
-            opacity={hovered === id ? "1" : "0"}
-            as={IoEyeSharp}
-            {...styles.eye}
-          />
-        </Flex>
-      </AspectRatio>
-      <Flex {...styles.meta}>
-        <Text {...styles.price}>{price}</Text>
-        <Text {...styles.title}>{title}</Text>
-        <Flex {...styles.insights}>
-          <Text {...styles.views} marginRight="auto">
-            0 views
-          </Text>
-          <Text {...styles.sales} marginRight="auto">
-            0 sales
-          </Text>
-          <Icon as={CheckIcon} marginLeft="auto" />
-        </Flex>
-      </Flex>
+              <Icon
+                opacity={hovered === _id ? "1" : "0"}
+                as={IoEyeSharp}
+                {...styles.eye}
+              />
+            </Flex>
+          </AspectRatio>
+          <Flex {...styles.meta}>
+            <Text {...styles.price}>{price}</Text>
+            <Text {...styles.title}>{title}</Text>
+            <Flex {...styles.insights}>
+              <Text {...styles.views} marginRight="auto">
+                0 views
+              </Text>
+              <Text {...styles.sales} marginRight="auto">
+                0 sales
+              </Text>
+              <Icon as={CheckIcon} marginLeft="auto" />
+            </Flex>
+          </Flex>
+        </a>
+      </Link>
     </Flex>
   );
 };

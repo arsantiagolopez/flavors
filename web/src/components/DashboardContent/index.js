@@ -1,316 +1,52 @@
 import { Divider, Flex } from "@chakra-ui/react";
 import React from "react";
+import useSWR from "swr";
 import { Reactions } from "./Reactions";
 import { Section } from "./Section";
 
 const DashboardContent = ({ user }) => {
-  const featured = [
-    {
-      id: "09434j8baff81b6915bb0b4743h",
-      tags: [],
-      menu: [],
-      title: "Red steak with potatos.",
-      description: "Delicious steak with a touch of love.",
-      price: 7.99,
-      category: "Steaks & BBQ",
-      subCategory: "BBQ",
-      image:
-        "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-      userId: "61787c1fae53dd5fbdcc7748",
-    },
-    {
-      id: "803234j8baff81b6915bb0b4743h",
-      tags: [],
-      menu: [],
-      title: "Red steak with potatos.",
-      description: "Delicious steak with a touch of love.",
-      price: 7.99,
-      category: "Steaks & BBQ",
-      subCategory: "BBQ",
-      image:
-        "https://images.pexels.com/photos/8305406/pexels-photo-8305406.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-      userId: "61787c1fae53dd5fbdcc7748",
-    },
-    {
-      id: "29334j8ssdff81b6915bb0b4743h",
-      tags: [],
-      menu: [],
-      title: "Red steak with potatos.",
-      description: "Delicious steak with a touch of love.",
-      price: 7.99,
-      category: "Steaks & BBQ",
-      subCategory: "BBQ",
-      image:
-        "https://images.pexels.com/photos/416471/pexels-photo-416471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      userId: "61787c1fae53dd5fbdcc7748",
-    },
-    {
-      id: "0219434j8baff81b6915bb0b4743h",
-      tags: [],
-      menu: [],
-      title: "Red steak with potatos.",
-      description: "Delicious steak with a touch of love.",
-      price: 7.99,
-      category: "Steaks & BBQ",
-      subCategory: "BBQ",
-      image:
-        "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-      userId: "61787c1fae53dd5fbdcc7748",
-    },
-    {
-      id: "33280333234j8baff81b6915bb0b4743h",
-      tags: [],
-      menu: [],
-      title: "Red steak with potatos.",
-      description: "Delicious steak with a touch of love.",
-      price: 7.99,
-      category: "Steaks & BBQ",
-      subCategory: "BBQ",
-      image:
-        "https://images.pexels.com/photos/8305406/pexels-photo-8305406.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-      userId: "61787c1fae53dd5fbdcc7748",
-    },
-    {
-      id: "1232933534j8ssdff81b6915bb0b4743h",
-      tags: [],
-      menu: [],
-      title: "Red steak with potatos.",
-      description: "Delicious steak with a touch of love.",
-      price: 7.99,
-      category: "Steaks & BBQ",
-      subCategory: "BBQ",
-      image:
-        "https://images.pexels.com/photos/416471/pexels-photo-416471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      userId: "61787c1fae53dd5fbdcc7748",
-    },
-    {
-      id: "09434j32aff81b6915bb0b4743h",
-      tags: [],
-      menu: [],
-      title: "Red steak with potatos.",
-      description: "Delicious steak with a touch of love.",
-      price: 7.99,
-      category: "Steaks & BBQ",
-      subCategory: "BBQ",
-      image:
-        "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-      userId: "61787c1fae53dd5fbdcc7748",
-    },
-    {
-      id: "80134j8baff81b6915bb0b4743h",
-      tags: [],
-      menu: [],
-      title: "Red steak with potatos.",
-      description: "Delicious steak with a touch of love.",
-      price: 7.99,
-      category: "Steaks & BBQ",
-      subCategory: "BBQ",
-      image:
-        "https://images.pexels.com/photos/8305406/pexels-photo-8305406.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-      userId: "61787c1fae53dd5fbdcc7748",
-    },
-    {
-      id: "29334j32138ssdff81b6915bb0b4743h",
-      tags: [],
-      menu: [],
-      title: "Red steak with potatos.",
-      description: "Delicious steak with a touch of love.",
-      price: 7.99,
-      category: "Steaks & BBQ",
-      subCategory: "BBQ",
-      image:
-        "https://images.pexels.com/photos/416471/pexels-photo-416471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      userId: "61787c1fae53dd5fbdcc7748",
-    },
-  ];
+  const { data } = useSWR("/api/plates/");
+  const { plates } = data || {};
 
-  const available = [
-    {
-      id: "29334j8ssdff81b6915bb0b4743h",
-      tags: [],
-      menu: [],
-      title: "Red steak with potatos.",
-      description: "Delicious steak with a touch of love.",
-      price: 7.99,
-      category: "Steaks & BBQ",
-      subCategory: "BBQ",
-      image:
-        "https://images.pexels.com/photos/416471/pexels-photo-416471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      userId: "61787c1fae53dd5fbdcc7748",
-    },
-  ];
+  // @todo
+
+  const available = plates ? [plates[2]] : [];
+
+  const featured = plates ?? [];
 
   const reactions = [
     {
       emoji: "🎉",
-      items: [
-        {
-          id: "09434j8baff81b6915bb0b4743h",
-          tags: [],
-          menu: [],
-          title: "Red steak with potatos.",
-          description: "Delicious steak with a touch of love.",
-          price: 7.99,
-          category: "Steaks & BBQ",
-          subCategory: "BBQ",
-          image:
-            "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          userId: "61787c1fae53dd5fbdcc7748",
-        },
-        {
-          id: "803234j8baff81b6915bb0b4743h",
-          tags: [],
-          menu: [],
-          title: "Red steak with potatos.",
-          description: "Delicious steak with a touch of love.",
-          price: 7.99,
-          category: "Steaks & BBQ",
-          subCategory: "BBQ",
-          image:
-            "https://images.pexels.com/photos/8305406/pexels-photo-8305406.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          userId: "61787c1fae53dd5fbdcc7748",
-        },
-        {
-          id: "29334j8ssdff81b6915bb0b4743h",
-          tags: [],
-          menu: [],
-          title: "Red steak with potatos.",
-          description: "Delicious steak with a touch of love.",
-          price: 7.99,
-          category: "Steaks & BBQ",
-          subCategory: "BBQ",
-          image:
-            "https://images.pexels.com/photos/416471/pexels-photo-416471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-          userId: "61787c1fae53dd5fbdcc7748",
-        },
-        {
-          id: "0219434j8baff81b6915bb0b4743h",
-          tags: [],
-          menu: [],
-          title: "Red steak with potatos.",
-          description: "Delicious steak with a touch of love.",
-          price: 7.99,
-          category: "Steaks & BBQ",
-          subCategory: "BBQ",
-          image:
-            "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          userId: "61787c1fae53dd5fbdcc7748",
-        },
-        {
-          id: "33280333234j8baff81b6915bb0b4743h",
-          tags: [],
-          menu: [],
-          title: "Red steak with potatos.",
-          description: "Delicious steak with a touch of love.",
-          price: 7.99,
-          category: "Steaks & BBQ",
-          subCategory: "BBQ",
-          image:
-            "https://images.pexels.com/photos/8305406/pexels-photo-8305406.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          userId: "61787c1fae53dd5fbdcc7748",
-        },
-        {
-          id: "1232933534j8ssdff81b6915bb0b4743h",
-          tags: [],
-          menu: [],
-          title: "Red steak with potatos.",
-          description: "Delicious steak with a touch of love.",
-          price: 7.99,
-          category: "Steaks & BBQ",
-          subCategory: "BBQ",
-          image:
-            "https://images.pexels.com/photos/416471/pexels-photo-416471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-          userId: "61787c1fae53dd5fbdcc7748",
-        },
-        {
-          id: "09434j32aff81b6915bb0b4743h",
-          tags: [],
-          menu: [],
-          title: "Red steak with potatos.",
-          description: "Delicious steak with a touch of love.",
-          price: 7.99,
-          category: "Steaks & BBQ",
-          subCategory: "BBQ",
-          image:
-            "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          userId: "61787c1fae53dd5fbdcc7748",
-        },
-        {
-          id: "80134j8baff81b6915bb0b4743h",
-          tags: [],
-          menu: [],
-          title: "Red steak with potatos.",
-          description: "Delicious steak with a touch of love.",
-          price: 7.99,
-          category: "Steaks & BBQ",
-          subCategory: "BBQ",
-          image:
-            "https://images.pexels.com/photos/8305406/pexels-photo-8305406.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          userId: "61787c1fae53dd5fbdcc7748",
-        },
-        {
-          id: "29334j32138ssdff81b6915bb0b4743h",
-          tags: [],
-          menu: [],
-          title: "Red steak with potatos.",
-          description: "Delicious steak with a touch of love.",
-          price: 7.99,
-          category: "Steaks & BBQ",
-          subCategory: "BBQ",
-          image:
-            "https://images.pexels.com/photos/416471/pexels-photo-416471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-          userId: "61787c1fae53dd5fbdcc7748",
-        },
-      ],
+      items: plates ? plates.slice(5, 8) : [],
     },
     {
       emoji: "🥳",
-      items: [
-        {
-          id: "09434j8baff81b6915bb0b4743h",
-          tags: [],
-          menu: [],
-          title: "Red steak with potatos.",
-          description: "Delicious steak with a touch of love.",
-          price: 7.99,
-          category: "Steaks & BBQ",
-          subCategory: "BBQ",
-          image:
-            "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          userId: "61787c1fae53dd5fbdcc7748",
-        },
-      ],
+      items: plates ? plates.slice(1, 6) : [],
     },
     {
       emoji: "🙁",
-      items: [
-        {
-          id: "09434j8baff81b6915bb0b4743h",
-          tags: [],
-          menu: [],
-          title: "Red steak with potatos.",
-          description: "Delicious steak with a touch of love.",
-          price: 7.99,
-          category: "Steaks & BBQ",
-          subCategory: "BBQ",
-          image:
-            "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-          userId: "61787c1fae53dd5fbdcc7748",
-        },
-      ],
+      items: plates ? plates.slice(2, 5) : [],
     },
   ];
+
+  const bestSellers = plates ? plates.slice(2, 8) : [];
 
   return (
     <Flex {...styles.wrapper}>
       <Flex {...styles.content}>
         <Section heading="Available now 🍴" items={available} />
+
         <Divider {...styles.divider} />
+
         <Section heading="Order again" items={featured} />
+
         <Divider {...styles.divider} />
+
         <Reactions items={reactions} />
+
         <Divider {...styles.divider} />
-        <Section heading="Today's best sellers" items={featured} />
+
+        <Section heading="Today's best sellers" items={bestSellers} />
       </Flex>
     </Flex>
   );

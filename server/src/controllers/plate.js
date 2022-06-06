@@ -9,7 +9,7 @@ import { Plate } from "../models/Plate";
  */
 const getMyPlates = async ({ userId }, res) => {
   try {
-    const plates = await Plate.find({ userId });
+    const plates = await Plate.find({ userId }).lean().exec();
     return res.status(200).json({ success: true, plates });
   } catch (err) {
     return res.status(500).json({
@@ -32,7 +32,7 @@ const getMyPlates = async ({ userId }, res) => {
 const getPlateById = async ({ params, userId }, res) => {
   const { id } = params;
   try {
-    const plate = await Plate.findById(id);
+    const plate = await Plate.findById(id).lean().exec();
 
     if (!plate) {
       return res.status(200).json({

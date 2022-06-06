@@ -13,32 +13,32 @@ const PlatePage = () => {
   const router = useRouter();
   const { id } = router?.query || {};
 
-  const { data: platesData } = useSWR(id ? `/api/plates/${id}` : null);
-  // const { plate } = platesData || {};
+  const { data: plateData } = useSWR(id ? `/api/plates/${id}` : null);
+  const { plate } = plateData || {};
 
-  // console.log("plate", test);
+  console.log("plate", plate);
 
   // Test data
-  const plate = {
-    id: 1,
-    image:
-      "https://images.pexels.com/photos/5419336/pexels-photo-5419336.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-    price: "5",
-    markdown: "15",
-    title:
-      "Delicious pasta carbonara and everything else, what if this was extra long tho",
-    description:
-      "Brand new unopened tripod. Great for cameras! You can adjust the tripod any which way to get the right angle needed. I have 2 of these. $30/ea or $55 for both. They go for $45 retail. Compatible with Camcorder, DSLR, Mirrorless",
-    meta: "5 miles away. Delivers.",
-    category: "howdypanita",
-    subCategory: "honeyboo",
-  };
+  // const plate = {
+  //   id: 1,
+  //   image:
+  //     "https://images.pexels.com/photos/5419336/pexels-photo-5419336.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  //   price: "5",
+  //   markdown: "15",
+  //   title:
+  //     "Delicious pasta carbonara and everything else, what if this was extra long tho",
+  //   description:
+  //     "Brand new unopened tripod. Great for cameras! You can adjust the tripod any which way to get the right angle needed. I have 2 of these. $30/ea or $55 for both. They go for $45 retail. Compatible with Camcorder, DSLR, Mirrorless",
+  //   meta: "5 miles away. Delivers.",
+  //   category: "howdypanita",
+  //   subCategory: "honeyboo",
+  // };
 
   // Test data
   const seller = {
-    name: "Margarita Sanchez",
+    name: "Alex Santiago",
     avatar:
-      "https://images.pexels.com/photos/4348798/pexels-photo-4348798.jpeg?cs=srgb&dl=pexels-maksim-goncharenok-4348798.jpg&fm=jpg",
+      "https://lh3.googleusercontent.com/a-/AOh14GgWEIQmspU1JVS-Gy74uoOlJKlhW4LzxQdVNZ3hMg=s96-c",
     rating: "⭐⭐⭐⭐",
   };
 

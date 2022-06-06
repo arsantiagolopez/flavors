@@ -1,26 +1,31 @@
 import { AspectRatio, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-const ResultCard = ({ id, image, price, title, meta, isSearchLoading }) => {
+const ResultCard = ({ _id, image, price, title, meta, isSearchLoading }) => {
   return (
     <Flex opacity={isSearchLoading && "0.1"} {...styles.wrapper}>
-      <AspectRatio
-        // onClick={() => setActive(id)}
-        {...styles.aspect}
-      >
-        <Image
-          src={image}
-          alt="Flavors"
-          layout="fill"
-          objectFit="cover"
-          quality={100}
-          priority="true"
-        />
-      </AspectRatio>
-      <Text {...styles.price}>{price}</Text>
-      <Text {...styles.title}>{title}</Text>
-      <Text {...styles.meta}>{meta}</Text>
+      <Link href={`${process.env.NEXT_PUBLIC_CLIENT_URL}/plates/${_id}`}>
+        <a>
+          <AspectRatio
+            // onClick={() => setActive(_id)}
+            {...styles.aspect}
+          >
+            <Image
+              src={image}
+              alt="Flavors"
+              layout="fill"
+              objectFit="cover"
+              quality={100}
+              priority="true"
+            />
+          </AspectRatio>
+          <Text {...styles.price}>{price}</Text>
+          <Text {...styles.title}>{title}</Text>
+          <Text {...styles.meta}>{meta}</Text>
+        </a>
+      </Link>
     </Flex>
   );
 };

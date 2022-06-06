@@ -35,6 +35,6 @@ export { LocationMap };
 const styles = {
   wrapper: {
     height: "50vh",
-    marginTop: "5vh",
+    marginTop: { base: "1em", md: "5vh" },
   },
 };

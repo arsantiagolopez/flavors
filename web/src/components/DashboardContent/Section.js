@@ -9,7 +9,7 @@ const Section = ({ heading, items }) => {
 
       <Flex {...styles.items}>
         {items?.map((item) => (
-          <Card key={item?.id} card={item} />
+          <Card key={item?._id} card={item} />
         ))}
       </Flex>
       <Flex {...styles.shadows} />
@@ -47,6 +47,7 @@ const styles = {
     position: "absolute",
     right: "0",
     bottom: "0",
+    top: "0",
     marginRight: { base: "-1em", md: "-20vw" },
     boxShadow: "inset 15vw 0 5vw -10vw white, inset -15vw 0 10vw -10vw white",
   },

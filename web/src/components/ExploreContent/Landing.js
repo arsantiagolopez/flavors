@@ -8,7 +8,7 @@ const Landing = () => {
       <Flex {...styles.suggestions}>
         <Flex {...styles.header}>
           <Heading {...styles.heading}>You might like</Heading>
-          <Heading {...styles.title}>Venezuelan pastelitos & Tequeños</Heading>
+          <Heading {...styles.title}>A banana with some coffee</Heading>
         </Flex>
         <Box {...styles.imageWrapper}>
           <Image
