@@ -40,7 +40,12 @@
 
 <h2 id="features">🎯 Features</h2>
 
-- Magic link link
+- Create & sell your favorite plates.
+- Find plates from other sellers around you.
+- Magic link & Social authentication (Google, Facebook)
+- Register as a seller to create your seller account.
+- Activate & deactivate your store's open status.
+- Sort & filter plates by multiple filters like
 
 <h2 id="tech">‎‍💻 Tech Stack</h2>
 

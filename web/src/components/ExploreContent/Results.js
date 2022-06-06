@@ -34,7 +34,7 @@ const Results = ({ isSearchLoading }) => {
       {isSearchLoading && <LoadingScreen />}
       <Flex {...styles.results}>
         {results?.map((result) => (
-          <ResultCard key={result?.id} {...result} />
+          <ResultCard key={result?._id} {...result} />
         ))}
       </Flex>
     </Flex>

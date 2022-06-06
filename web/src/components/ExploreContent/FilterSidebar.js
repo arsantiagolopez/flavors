@@ -16,7 +16,7 @@ import { DeliveryOrPickup } from "./Filters/DeliveryOrPickup";
 import { Dietary } from "./Filters/Dietary";
 import { Nationality } from "./Filters/Nationality";
 import { PriceRange } from "./Filters/PriceRange";
-import { SortBy } from "./Filters/SortBy";
+import { SortBy } from "./Filters/Sortby";
 
 const FilterSidebar = ({ user }) => {
   const router = useRouter();
