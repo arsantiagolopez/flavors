@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://i.ibb.co/jhHFDTJ/logo.png" />
+    <img src="https://i.ibb.co/kGQpPxK/flavours-logo-05.png" />
     <a href="https://tryflavors.com" style="color: #303030;"><h1>Flavors</h1></a>
     <h4>Buy and sell your favorite local foods. Tired of your local fast food restaurants? Find your new favorite plate in Flavors.</h4>
 </div>
@@ -30,10 +30,12 @@
 
 <details open>
     <summary>Mobile</summary>
+    <img src="https://github.com/arsantiagolopez/gifs/blob/main/flavors/mobile.gif" />
 </details>
 
 <details>
     <summary>Desktop</summary>
+    <img src="https://github.com/arsantiagolopez/gifs/blob/main/flavors/desktop.gif" />
 </details>
 
 <h2 id="features">🎯 Features</h2>
