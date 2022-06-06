@@ -46,6 +46,7 @@
 - Magic link & Social authentication (Google, Facebook)
 - Register as a seller to create your seller account and start selling food.
 - Activate & deactivate your store's open status, and accept/decline incoming orders.
+- Set a weekly schedule with your store's open and close hours.
 - Sort & filter plates by multiple filters like sellers, popularity, price, dietary preferences, nationality and more...
 - Securely share your address with your customers/sellers by approximating your location.
 - Update your profile info including your display picture, name, username and address.
@@ -53,7 +54,11 @@
 - Link/unlink your social media accounts to your profile.
 - Create menus to categorize your plates.
 - Create coupons & apply them to your plates to activate discounts for a limited time.
-- Every user has a buyer and a seller rating. The marketplace attempts to reward the highest rated users.
+- Maintain individual buyer and seller ratings.
+- React to plates by other sellers with emojis, saving them to your feed.
+- Find your previously bought plates under the "Buy Again" section on your dashboard.
+- Get suggestions from the top selling plates of the day.
+- Save your favorite sellers & plates for quick access.
 
 <h2 id="tech">‎‍💻 Tech Stack</h2>
 
