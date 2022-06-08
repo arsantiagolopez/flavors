@@ -20,7 +20,10 @@ const Overview = ({ starRatings, totalRatings }) => {
   ).toFixed(2);
 
   return (
-    <Flex {...styles.wrapper} direction={totalRatings < 1 && "column"}>
+    <Flex
+      {...styles.wrapper}
+      direction={{ base: "column", md: totalRatings < 1 && "column" }}
+    >
       {/* Rating out of 5 and stars */}
       <Flex {...styles.rating}>
         <Heading>

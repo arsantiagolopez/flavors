@@ -16,8 +16,6 @@ const PlatePage = () => {
   const { data: plateData } = useSWR(id ? `/api/plates/${id}` : null);
   const { plate } = plateData || {};
 
-  console.log("plate", plate);
-
   // Test data
   // const plate = {
   //   id: 1,

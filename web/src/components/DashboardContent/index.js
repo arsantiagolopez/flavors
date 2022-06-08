@@ -10,7 +10,7 @@ const DashboardContent = ({ user }) => {
 
   // @todo
 
-  const available = plates ? [plates[2]] : [];
+  const available = plates ? [plates[plates.length - 1]] : [];
 
   const featured = plates ?? [];
 

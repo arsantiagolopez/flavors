@@ -128,9 +128,7 @@ const Profile = ({ user, mutate }) => {
   );
 
   const usernameRegister = { name: "username", control };
-
   const bioRegister = register("bio");
-
   const addressRegister = { name: "address", control };
 
   const avatarDropzoneProps = { user, mutate, setPicture };

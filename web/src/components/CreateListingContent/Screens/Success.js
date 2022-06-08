@@ -74,13 +74,12 @@ const SuccessScreen = ({ index, lastIndex, formCompleteIndex, listing }) => {
 
       const plate = await createPlate();
 
-      if (!plate) return console.log("something went wrong");
+      if (!plate) return console.log("Something went wrong.");
 
       // Redirect on complete
-      await useDelay(2000);
+      await useDelay(500);
 
-      const { _id } = plate;
-      router.push(`/plates/${_id}`);
+      router.push(`/plates/${plate?._id}`);
     }
   }, [isCurrentScreen, isFormCompleted]);
 

@@ -22,7 +22,7 @@ const Meta = ({ plate }) => {
 
       <Flex {...styles.prop}>
         <Icon as={available ? IoBagCheck : IoRestaurant} {...styles.icon} />
-        <Text> Available now!</Text>
+        <Text>Available now!</Text>
       </Flex>
 
       <Flex {...styles.prop}>
