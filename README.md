@@ -1,7 +1,7 @@
 <div align="center">
     <img src="https://i.ibb.co/Rb7L7yc/flavours-color.png" />
     <a href="https://tryflavors.com" style="color: #303030;"><h1>Flavors</h1></a>
-    <h4>Buy and sell your favorite local foods. Tired of your local fast food restaurants? Find your new favorite plate in Flavors.</h4>
+    <h4>New dishes and authentic flavors are now at your fingertips. Discover, buy and sell your favorite foods with Flavors, a new app connecting people with local restaurants through their shared love for gastronomy.</h4>
 </div>
 
 <div align="center">
@@ -42,22 +42,22 @@
 <h2 id="features">🎯 Features</h2>
 
 - Create & sell your favorite plates.
-- Find plates from other sellers around you.
+- Discover plates from other verified sellers around you.
 - Magic link & Social authentication (Google, Facebook)
 - Register as a seller to create your seller account and start selling food.
-- Activate & deactivate your store's open status, and accept/decline incoming orders.
-- Set a weekly schedule with your store's open and close hours.
-- Sort & filter plates by multiple filters like sellers, popularity, price, dietary preferences, nationality and more...
+- Activate & deactivate your store's open status, and accept or decline incoming orders.
+- Set a weekly schedule with your store's open and closed hours.
+- Sort & filter plates by multiple categories like sellers, popularity, price, dietary preferences, nationality and more.
 - Securely share your address with your customers/sellers by approximating your location.
-- Update your profile info including your display picture, name, username and address.
+- Update your profile information including your display picture, name, username and address.
 - Create and update your password.
 - Link/unlink your social media accounts to your profile.
 - Create menus to categorize your plates.
 - Create coupons & apply them to your plates to activate discounts for a limited time.
 - Maintain individual buyer and seller ratings.
-- React to plates by other sellers with emojis, saving them to your feed.
-- Find your previously bought plates under the "Buy Again" section on your dashboard.
-- Get suggestions from the top selling plates of the day.
+- React to other sellers' plates with emojis and save them to your feed.
+- Find previously purchased plates under the "Buy Again" section on your dashboard.
+- Get suggestions for the top selling plates of the day.
 - Save your favorite sellers & plates for quick access.
 
 <h2 id="tech">‎‍💻 Tech Stack</h2>
@@ -71,11 +71,11 @@
   </tr>
   <tr>
       <td><a href="https://reactjs.org/">React</a></td>
-      <td>To build a component based user interface.</td>
+      <td>Build a component-based user interface.</td>
   </tr>
   <tr>
       <td><a href="https://nextjs.org/">Next.js</a></td>
-      <td>Server side rendering (SSR) of React components.</td>
+      <td>Server-side rendering (SSR) of React components.</td>
   </tr>
     <tr>
       <td><a href="https://react-hook-form.com/">React Hook Form</a></td>
@@ -103,7 +103,7 @@
   </tr>
   <tr>
       <td><a href="https://axios-http.com/docs/intro" >Axios</a></td>
-      <td>HTTP promise based data fetching requests.</td>
+      <td>HTTP promise-based data fetching requests.</td>
   </tr>
     <tr>
         <td><a href="https://fengyuanchen.github.io/compressorjs/">CompressorJS</a></td>
@@ -136,7 +136,7 @@
     </tr>
         <tr>
         <td><a href="https://www.mongodb.com/">MongoDB</a></td>
-        <td>NoSQL document based database.</td>
+        <td>NoSQL document-based database.</td>
     </tr>
     <tr>
         <td><a href="https://www.mongoose.com/">Mongoose</a></td>
@@ -187,19 +187,19 @@
 
 <h2 id="inspiration">💡 Inspiration</h2>
 
-Small applications were okay, but I wasn't drawn to software development to build multiple test applications. Flavors was the first real world project I brainstormed and fell inlove with.
+Small applications were great practice, but I wasn't drawn to software development to build multiple test applications. Flavors was the first real-world project I brainstormed and fell in love with.
 
-After a few small projects, many documentation sites, and lots of stressful nights, I felt I could literally build anything. So I wanted to build my own multi-million dollar startup from the ground up. As an entrepreneur does, I looked to provide value and find something that could change lives. A marketplace where users could sell food would bring lots of opportunities for people to make an extra income. Think what Airbnb did to vacation stays, what Uber did to transportation, but for food. Exchanging food for money is the most primal thing there is. A surplus in sellers would create competition in the market, quality and prices would decrease, ultimately being a plus for both sellers and buyers.
+With an entrepreneurial mindset, I sought to create something that could provide value and change lives — similar to what Airbnb did to vacation stays or what Uber did to transportation, but for food. Exchanging food for money is one of the most primal acts there is, and a marketplace to facilitate this would bring users opportunity for additional income. A surplus in sellers would create competition in the market and decreased prices, ultimately being a plus for both sellers and buyers.
 
-I fell inlove with the idea and tried to build an entire company on my own, but unfortunately I didn't have the time nor did I know TypeScript, so I spent ungodly amount of hours debugging and never got to see the finish line. I've had to put the project on pause, but I look to pick it up sometime in the near future.
+This is a scalable passion project I hope to continue tinkering with and perfecting.
 
 <h2 id="objectives">🚀 Learning Objectives</h2>
 
 - Learn the basics of Stripe.
 - Design a scalable database structure to resemble a marketplace.
 - Learn the basics of geolocation.
-- Build beautiful modern components alike the ones seen on the major companies.
-- Build a scalable real world application.
+- Build beautiful, modern components similar to ones used by major companies.
+- Build a scalable, real-world application.
 - Run an application in production.
 - Start a multi-million dollar empire.
 
